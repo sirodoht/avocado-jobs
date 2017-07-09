@@ -1,16 +1,28 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+from django.views import generic
 
 from .models import Listing
 
 
-def index(request):
-    listings_list = Listing.objects.order_by('-pub_date')
-    context = {'listings_list': listings_list}
-    return render(request, 'main/index.html', context)
+class IndexView(generic.ListView):
+    template_name = 'main/index.html'
+    context_object_name = 'listings_list'
 
-def detail(request, listing_id):
-    return HttpResponse("You're looking at listing %s." % listing_id)
+    def get_queryset(self):
+        """Return all listings."""
+        return Listing.objects.order_by('-pub_date')
+
+
+class DetailView(generic.DetailView):
+    model = Listing
+    template_name = 'main/detail.html'
+
 
 def report(request, listing_id):
     return HttpResponse("You're looking at the report of listing %s." % listing_id)
+
+
+def submit(request):
+    return HttpResponse("You're looking at the listing submission.")
