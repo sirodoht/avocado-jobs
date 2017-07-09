@@ -1,7 +1,96 @@
-{% if listing %}
-    {{ listing.role_title }}
-    <br>
-    at {{ listing.company_name }}
-{% else %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quality job listings for software people</title>
+
+    <link rel="stylesheet" href="https://gitcdn.xyz/repo/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="{% static '/main/style.css' %}"> </head>
+
+<body>
+    {% if listing %}
+
+    <div class="jumbotron">
+        <div class="container">
+            <div class="back">
+                <a href="{% url 'main:index' %}">&larr; Back to Avocado Jobs</a>
+            </div>
+            <div class="header">
+                <h1>{{ listing.role_title }} <small>at <a href="{{ listing.company_link }}">{{ listing.company_name }}</a></small></h1>
+                <div>{{ listing.role_subtitle }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="body">
+            <h3>About the company</h3>
+            <div class="company">
+                <figure class="company-figure">
+                    <img src="https://www.upgrow.com/uploads/listings/tools/logos/9bb161070807bc925a17c73f2897fe3e.png" class="company-logo"
+                        alt="company logo">
+                    <figcaption>Based in {{ listing.company_base }}</figcaption>
+                </figure>
+            </div>
+            <p>
+                Hubstaff is a fast-growing startup in the time tracking and project management space that fully embraces remote work.
+            </p>
+            <div class="details">
+                <div class="details-single-wrapper">
+                    <div class="details-single">
+                        <span>Company size:</span> {{ listing.company_size }} persons
+                    </div>
+                </div>
+                <div class="details-single-wrapper">
+                    <div class="details-single">
+                        <span>Funding:</span> {{ listing.company_funding }}
+                    </div>
+                </div>
+                <div class="details-single-wrapper">
+                    <div class="details-single">
+                        <span>Company technologies:</span> {{ listing.company_tech }}
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <h3>About the role</h3>
+            {{ listing.role_desc }}
+            <div class="details">
+                <div class="details-single-wrapper">
+                    <div class="details-single">
+                        <span>Position:</span> {{ listing.role_position }}
+                    </div>
+                </div>
+                <div class="details-single-wrapper">
+                    <div class="details-single">
+                        <span>Technologies for this role:</span> {{ listing.role_tech }}
+                    </div>
+                </div>
+                <div class="details-single-wrapper">
+                    <div class="details-single">
+                        <span>Compensation:</span> {{ listing.role_compensation }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="apply">
+            Apply at <a href="{{ listing.apply_link }}">{{ listing.apply_link }}</a>
+        </div>
+
+        <footer>
+            <p>Anything wrong or sketchy with this listing? <a href="{% url 'main:report' listing.id %}">Let us know</a>.</p>
+        </footer>
+    </div>
+    {% else %}
     <p>Listing does not exist.</p>
-{% endif %}
+    {% endif %}
+</body>
+
+</html>
