@@ -18,3 +18,6 @@ class Listing(models.Model):
     role_tech = models.CharField(max_length=100)
     role_compensation = models.CharField(max_length=100)
     apply_link = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.role_title + " at " + self.company_name
