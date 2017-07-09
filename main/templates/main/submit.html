@@ -1,0 +1,10 @@
+<h1>{{ listing.role_title }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'main:submit' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="role-title" id="role-title" value="{{ role_title }}">
+    <label for="role-title">Role title</label><br>
+    <input type="submit" value="Submit">
+</form>
