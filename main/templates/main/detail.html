@@ -1,0 +1,7 @@
+{% if listing %}
+    {{ listing.role_title }}
+    <br>
+    at {{ listing.company_name }}
+{% else %}
+    <p>Listing does not exist.</p>
+{% endif %}
