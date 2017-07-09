@@ -7,6 +7,8 @@ class Listing(models.Model):
     role_subtitle = models.CharField(max_length=100)
     company_name = models.CharField(max_length=50)
     company_link = models.CharField(max_length=300)
+    company_image = models.CharField(max_length=300, null=True, blank=True)
+    company_base = models.CharField(max_length=100, null=True)
     company_desc = models.TextField()
     company_size = models.IntegerField(default=0)
     company_funding = models.CharField(max_length=50)
