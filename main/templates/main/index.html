@@ -1,0 +1,9 @@
+{% if listings_list %}
+    <ul>
+    {% for listing in listings_list %}
+        <li><a href="{% url 'main:detail' listing.id %}">{{ listing.role_title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No jobs exist.</p>
+{% endif %}
