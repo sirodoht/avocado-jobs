@@ -2,7 +2,8 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,265 +11,264 @@
 
     <link rel="stylesheet" href="https://gitcdn.xyz/repo/necolas/normalize.css/master/normalize.css">
     <link rel="stylesheet" href="{% static '/main/style.css' %}">
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="jumbotron-background">
-      <div class="container">
-        <div class="title">
-          <!--<img src="avocado.png" alt="logo" height="200">-->
-          <h1>Avocado</h1>
-          <div class="separator"></div>
-          <div class="subtitle">Software jobs board</div>
+        <div class="container">
+            <div class="title">
+                <h1>Avocado</h1>
+                <div class="separator"></div>
+                <div class="subtitle">Software jobs board</div>
+            </div>
         </div>
-      </div>
     </div>
 
     <div class="container">
-      <div class="body">
-        <div class="categories">
-          <div class="categories-single"><a href="#frontend">Frontend</a></div>
-          <div class="categories-single"><a href="#backend">Backend</a></div>
-          <div class="categories-single"><a href="#fullstack">Fullstack</a></div>
-          <div class="categories-single"><a href="#devops">Devops</a></div>
-          <div class="categories-single"><a href="#mobile">Mobile</a></div>
-        </div>
+        <div class="body">
+            <div class="categories">
+                <div class="categories-single"><a href="#frontend">Frontend</a></div>
+                <div class="categories-single"><a href="#backend">Backend</a></div>
+                <div class="categories-single"><a href="#fullstack">Fullstack</a></div>
+                <div class="categories-single"><a href="#devops">Devops</a></div>
+                <div class="categories-single"><a href="#mobile">Mobile</a></div>
+            </div>
 
-        <hr>
+            <hr>
 
-        <div class="listings">
-          <div class="listings-section">
-            <h2 id="frontend">Frontend jobs</h2>
-            {% if listings_list %}
-                {% for listing in listings_list %}
+            <div class="listings">
+                <div class="listings-section">
+                    <h2 id="frontend">Frontend jobs</h2>
+                    {% if listings_list %} {% for listing in listings_list %}
                     <a href="{% url 'main:detail' listing.id %}" class="listings-section-link">
                         <div class="listings-section-link-item">
                             <strong>{{ listing.role_title }}</strong> <span class="muted">at</span> <span class="company-name">{{ listing.company_name }}</span>
                             <div class="tags">
-                            <div class="tags-single">javascript</div>
-                            <div class="tags-single">react</div>
+                                <div class="tags-single">javascript</div>
+                                <div class="tags-single">react</div>
                             </div>
                         </div>
                     </a>
-                {% endfor %}
-            {% else %}
-                <p>No jobs exist.</p>
-            {% endif %}
-          </div>
+                    {% endfor %} {% else %}
+                    <p>No jobs exist.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="listings">
+                <div class="listings-section">
+                    <h2 id="backend">Backend jobs</h2>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Frontend Developer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
+                            <div class="tags">
+                                <div class="tags-single">javascript</div>
+                                <div class="tags-single">react</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Backend Developer</strong> <span class="muted">at</span> <span class="company-name">GitHub</span>
+                            <div class="tags">
+                                <div class="tags-single">golang</div>
+                                <div class="tags-single">kafka</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Devops Engineer</strong> <span class="muted">at</span> <span class="company-name">Automattic</span>
+                            <div class="tags">
+                                <div class="tags-single">coreos</div>
+                                <div class="tags-single">docker</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Backend Developer</strong> <span class="muted">at</span> <span class="company-name">GitHub</span>
+                            <div class="tags">
+                                <div class="tags-single">golang</div>
+                                <div class="tags-single">kafka</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Devops Engineer</strong> <span class="muted">at</span> <span class="company-name">Automattic</span>
+                            <div class="tags">
+                                <div class="tags-single">coreos</div>
+                                <div class="tags-single">docker</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Frontend Developer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
+                            <div class="tags">
+                                <div class="tags-single">typescript</div>
+                                <div class="tags-single">angular</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="listings">
+                <div class="listings-section">
+                    <h2 id="fullstack">Fullstack jobs</h2>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Fullstack Developer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
+                            <div class="tags">
+                                <div class="tags-single">javascript</div>
+                                <div class="tags-single">react</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Backend Developer</strong> <span class="muted">at</span> <span class="company-name">GitHub</span>
+                            <div class="tags">
+                                <div class="tags-single">golang</div>
+                                <div class="tags-single">kafka</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Devops Engineer</strong> <span class="muted">at</span> <span class="company-name">Automattic</span>
+                            <div class="tags">
+                                <div class="tags-single">coreos</div>
+                                <div class="tags-single">docker</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Frontend Developer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
+                            <div class="tags">
+                                <div class="tags-single">typescript</div>
+                                <div class="tags-single">angular</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="listings">
+                <div class="listings-section">
+                    <h2 id="devops">Devops jobs</h2>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Devops Engineer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
+                            <div class="tags">
+                                <div class="tags-single">javascript</div>
+                                <div class="tags-single">react</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Backend Developer</strong> <span class="muted">at</span> <span class="company-name">GitHub</span>
+                            <div class="tags">
+                                <div class="tags-single">golang</div>
+                                <div class="tags-single">kafka</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Devops Engineer</strong> <span class="muted">at</span> <span class="company-name">Automattic</span>
+                            <div class="tags">
+                                <div class="tags-single">coreos</div>
+                                <div class="tags-single">docker</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Frontend Developer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
+                            <div class="tags">
+                                <div class="tags-single">typescript</div>
+                                <div class="tags-single">angular</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="listings">
+                <div class="listings-section">
+                    <h2 id="mobile">Mobile jobs</h2>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Android Developer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
+                            <div class="tags">
+                                <div class="tags-single">ios</div>
+                                <div class="tags-single">swift</div>
+                                <div class="tags-single">react native</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Backend Developer</strong> <span class="muted">at</span> <span class="company-name">GitHub</span>
+                            <div class="tags">
+                                <div class="tags-single">golang</div>
+                                <div class="tags-single">kafka</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Devops Engineer</strong> <span class="muted">at</span> <span class="company-name">Automattic</span>
+                            <div class="tags">
+                                <div class="tags-single">coreos</div>
+                                <div class="tags-single">docker</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Backend Developer</strong> <span class="muted">at</span> <span class="company-name">GitHub</span>
+                            <div class="tags">
+                                <div class="tags-single">golang</div>
+                                <div class="tags-single">kafka</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Devops Engineer</strong> <span class="muted">at</span> <span class="company-name">Automattic</span>
+                            <div class="tags">
+                                <div class="tags-single">coreos</div>
+                                <div class="tags-single">docker</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="listings-section-link">
+                        <div class="listings-section-link-item">
+                            <strong>Frontend Developer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
+                            <div class="tags">
+                                <div class="tags-single">typescript</div>
+                                <div class="tags-single">angular</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="post">
+                Interested in posting a job listing? <a href="#">¬ª $299 for 30 days ¬´</a>
+            </div>
         </div>
 
-        <div class="listings">
-          <div class="listings-section">
-            <h2 id="backend">Backend jobs</h2>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Frontend Developer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
-                <div class="tags">
-                  <div class="tags-single">javascript</div>
-                  <div class="tags-single">react</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Backend Developer</strong> <span class="muted">at</span> <span class="company-name">GitHub</span>
-                <div class="tags">
-                  <div class="tags-single">golang</div>
-                  <div class="tags-single">kafka</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Devops Engineer</strong> <span class="muted">at</span> <span class="company-name">Automattic</span>
-                <div class="tags">
-                  <div class="tags-single">coreos</div>
-                  <div class="tags-single">docker</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Backend Developer</strong> <span class="muted">at</span> <span class="company-name">GitHub</span>
-                <div class="tags">
-                  <div class="tags-single">golang</div>
-                  <div class="tags-single">kafka</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Devops Engineer</strong> <span class="muted">at</span> <span class="company-name">Automattic</span>
-                <div class="tags">
-                  <div class="tags-single">coreos</div>
-                  <div class="tags-single">docker</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Frontend Developer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
-                <div class="tags">
-                  <div class="tags-single">typescript</div>
-                  <div class="tags-single">angular</div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="listings">
-          <div class="listings-section">
-            <h2 id="fullstack">Fullstack jobs</h2>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Fullstack Developer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
-                <div class="tags">
-                  <div class="tags-single">javascript</div>
-                  <div class="tags-single">react</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Backend Developer</strong> <span class="muted">at</span> <span class="company-name">GitHub</span>
-                <div class="tags">
-                  <div class="tags-single">golang</div>
-                  <div class="tags-single">kafka</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Devops Engineer</strong> <span class="muted">at</span> <span class="company-name">Automattic</span>
-                <div class="tags">
-                  <div class="tags-single">coreos</div>
-                  <div class="tags-single">docker</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Frontend Developer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
-                <div class="tags">
-                  <div class="tags-single">typescript</div>
-                  <div class="tags-single">angular</div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="listings">
-          <div class="listings-section">
-            <h2 id="devops">Devops jobs</h2>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Devops Engineer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
-                <div class="tags">
-                  <div class="tags-single">javascript</div>
-                  <div class="tags-single">react</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Backend Developer</strong> <span class="muted">at</span> <span class="company-name">GitHub</span>
-                <div class="tags">
-                  <div class="tags-single">golang</div>
-                  <div class="tags-single">kafka</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Devops Engineer</strong> <span class="muted">at</span> <span class="company-name">Automattic</span>
-                <div class="tags">
-                  <div class="tags-single">coreos</div>
-                  <div class="tags-single">docker</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Frontend Developer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
-                <div class="tags">
-                  <div class="tags-single">typescript</div>
-                  <div class="tags-single">angular</div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="listings">
-          <div class="listings-section">
-            <h2 id="mobile">Mobile jobs</h2>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Android Developer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
-                <div class="tags">
-                  <div class="tags-single">ios</div>
-                  <div class="tags-single">swift</div>
-                  <div class="tags-single">react native</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Backend Developer</strong> <span class="muted">at</span> <span class="company-name">GitHub</span>
-                <div class="tags">
-                  <div class="tags-single">golang</div>
-                  <div class="tags-single">kafka</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Devops Engineer</strong> <span class="muted">at</span> <span class="company-name">Automattic</span>
-                <div class="tags">
-                  <div class="tags-single">coreos</div>
-                  <div class="tags-single">docker</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Backend Developer</strong> <span class="muted">at</span> <span class="company-name">GitHub</span>
-                <div class="tags">
-                  <div class="tags-single">golang</div>
-                  <div class="tags-single">kafka</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Devops Engineer</strong> <span class="muted">at</span> <span class="company-name">Automattic</span>
-                <div class="tags">
-                  <div class="tags-single">coreos</div>
-                  <div class="tags-single">docker</div>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="listings-section-link">
-              <div class="listings-section-link-item">
-                <strong>Frontend Developer</strong> <span class="muted">at</span> <span class="company-name">Hubstaff</span>
-                <div class="tags">
-                  <div class="tags-single">typescript</div>
-                  <div class="tags-single">angular</div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="post">
-          Interested in posting a job listing? <a href="#">¬ª $299 for 30 days ¬´</a>
-        </div>
-      </div>
-
-      <footer>
-        <p>Avocado Technologies, Inc. <a href="hi@avocadotech.com">Contact here.</a></p>
-      </footer>
+        <footer>
+            <p>Avocado Technologies, Inc. <a href="hi@avocadotech.com">Contact here.</a></p>
+        </footer>
     </div>
-  </body>
+</body>
+
 </html>
