@@ -29,8 +29,19 @@
             <h3>Details</h3>
             <form action="{% url 'main:submit' %}" method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Submit" />
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                    <div class="submit-item">
+                        {{ field.errors }}
+                        {{ field.label_tag }} {{ field }}
+                        {% if field.help_text %}
+                            <p class="submit-item-help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <div class="submit-button">
+                    <input type="submit" value="Submit">
+                </div>
             </form>
         </div>
 
