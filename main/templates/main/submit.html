@@ -1,10 +1,43 @@
-<h1>{{ listing.role_title }}</h1>
+{% load static %}
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<!DOCTYPE html>
+<html lang="en">
 
-<form action="{% url 'main:submit' %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="role-title" id="role-title" value="{{ role_title }}">
-    <label for="role-title">Role title</label><br>
-    <input type="submit" value="Submit">
-</form>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quality job listings for software people</title>
+
+    <link rel="stylesheet" href="https://gitcdn.xyz/repo/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="{% static '/main/style.css' %}"> </head>
+
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="back">
+                <a href="{% url 'main:index' %}">&larr; Back to Avocado Jobs</a>
+            </div>
+            <div class="header">
+                <h1>Post a job</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="body">
+            <h3>Details</h3>
+            <form action="{% url 'main:submit' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+
+        <footer>
+            <p>Questions with the posting? Reach us <a href="#">here</a>.
+        </footer>
+    </div>
+</body>
+
+</html>
