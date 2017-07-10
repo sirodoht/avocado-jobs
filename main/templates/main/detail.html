@@ -18,7 +18,7 @@
     <div class="jumbotron">
         <div class="container">
             <div class="back">
-                <a href="{% url 'main:index' %}">&larr; Back to Avocado Jobs</a>
+                <a href="{% url 'main:index' %}">&larr; Back to all jobs</a>
             </div>
             <div class="header">
                 <h1>{{ listing.role_title }} <small>at <a href="{{ listing.company_link }}">{{ listing.company_name }}</a></small></h1>
@@ -38,7 +38,7 @@
                 </figure>
             </div>
             <p>
-                Hubstaff is a fast-growing startup in the time tracking and project management space that fully embraces remote work.
+                {{ listing.company_desc}}
             </p>
             <div class="details">
                 <div class="details-single-wrapper">
