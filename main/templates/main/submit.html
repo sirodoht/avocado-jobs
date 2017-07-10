@@ -26,7 +26,7 @@
 
     <div class="container">
         <div class="body">
-            <h3>Details</h3>
+            <h3>Create a listing</h3>
             <form action="{% url 'main:submit' %}" method="post">
                 {% csrf_token %}
                 {{ form.non_field_errors }}
