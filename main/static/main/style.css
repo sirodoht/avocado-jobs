@@ -326,6 +326,13 @@ li {
   width: 10%;
 }
 
+.submit-item > select {
+  width: 42%;
+  outline: none;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
 .submit-item-help {
   margin-top: 4px;
   font-size: 16px;
