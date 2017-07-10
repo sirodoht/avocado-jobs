@@ -6,10 +6,10 @@ from .models import Listing
 class ListingForm(ModelForm):
     class Meta:
         model = Listing
-        fields = ['role_title', 'company_name', 'company_link', 'company_image',
-            'company_base', 'company_desc', 'company_size', 'company_funding',
-            'company_tech', 'role_desc', 'role_position', 'role_tech',
-            'role_compensation', 'apply_link']
+        fields = ['category', 'role_title', 'company_name', 'company_link',
+            'company_image', 'company_base', 'company_desc', 'company_size',
+            'company_funding', 'company_tech', 'role_desc', 'role_position',
+            'role_tech', 'role_compensation', 'apply_link']
         widgets = {
             'company_desc': Textarea(attrs={'cols': 50, 'rows': 3}),
             'role_desc': Textarea(attrs={'cols': 50, 'rows': 10}),
