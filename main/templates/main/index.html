@@ -1,19 +1,6 @@
-{% load static %}
+{% extends 'main/layout.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Quality job listings for software people</title>
-
-    <link rel="stylesheet" href="https://gitcdn.xyz/repo/necolas/normalize.css/master/normalize.css">
-    <link rel="stylesheet" href="{% static '/main/style.css' %}">
-</head>
-
-<body>
+{% block content %}
     <div class="jumbotron-frontpage">
         <div class="container">
             <div class="title">
@@ -269,6 +256,4 @@
             <p>Avocado Technologies, Inc. <a href="hi@avocadotech.com">Contact here.</a></p>
         </footer>
     </div>
-</body>
-
-</html>
+{% endblock %}
