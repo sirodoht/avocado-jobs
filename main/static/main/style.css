@@ -280,6 +280,82 @@ li {
   font-size: 24px;
 }
 
+.submit-item {
+  margin-bottom: 20px;
+}
+
+.submit-item > label {
+  display: inline-block;
+  width: 20%;
+  text-align: right;
+  font-weight: 600;
+  line-height: 1.7;
+  margin-right: 10px;
+  vertical-align: top;
+}
+
+.submit-item > input[type="text"] {
+  display: inline-block;
+  width: 40%;
+  color: #333;
+  line-height: 1.7;
+  padding-left: 9px;
+  border: 1px solid #ddd;
+}
+
+.submit-item > input[type="text"]:focus {
+  border: 1px solid #aaa;
+  outline: none;
+}
+
+.submit-item > textarea {
+  display: inline-block;
+  color: #333;
+  line-height: 1.7;
+  padding-left: 9px;
+  border: 1px solid #ddd;
+}
+
+.submit-item > textarea:focus {
+  border: 1px solid #aaa;
+  outline: none;
+}
+
+.submit-item > input[type="number"] {
+  display: inline-block;
+  width: 10%;
+}
+
+.submit-item-help {
+  margin-top: 4px;
+  font-size: 16px;
+  margin-left: 22%;
+}
+
+.submit-button {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.submit-button > input[type="submit"] {
+  cursor: pointer;
+  border: none;
+  background: #83bf33;
+  color: #fff;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 9px;
+  padding-bottom: 7px;
+  box-shadow: inset 0 -10px 20px -10px rgba(0, 0, 0, 0.1);
+  border-bottom: 3px solid #5a8323;
+  transition: 0.1s;
+}
+
+.submit-button > input[type="submit"]:hover {
+  background: #75ab2e;
+}
+
+
 footer {
   margin-top: 50px;
   border-top: 1px solid #ddd;
