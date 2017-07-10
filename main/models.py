@@ -4,7 +4,6 @@ from django.db import models
 class Listing(models.Model):
     pub_date = models.DateTimeField('date published', auto_now_add=True)
     role_title = models.CharField(max_length=50, blank=True)
-    role_subtitle = models.CharField(max_length=100, blank=True)
     company_name = models.CharField(max_length=50, blank=True)
     company_link = models.CharField(max_length=300, blank=True)
     company_image = models.CharField(max_length=300, blank=True)
