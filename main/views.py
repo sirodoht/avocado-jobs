@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.views import generic
 
 from .models import Listing
+from .forms import ListingForm
 
 
 class IndexView(generic.ListView):
@@ -25,4 +26,12 @@ def report(request, listing_id):
 
 
 def submit(request):
-    return HttpResponse("You're looking at the listing submission.")
+    if request.method == 'POST':
+        form = ListingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/submit/thanks')
+    else:
+        form = ListingForm()
+
+    return render(request, 'main/submit.html', {'form': form})
