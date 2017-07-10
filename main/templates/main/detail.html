@@ -22,7 +22,7 @@
             </div>
             <div class="header">
                 <h1>{{ listing.role_title }} <small>at <a href="{{ listing.company_link }}">{{ listing.company_name }}</a></small></h1>
-                <div>{{ listing.role_subtitle }}</div>
+                <div>{{ listing.role_position }}</div>
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@
                 </figure>
             </div>
             <p>
-                {{ listing.company_desc }}
+                {{ listing.company_desc|linebreaks }}
             </p>
             <div class="details">
                 <div class="details-single-wrapper">
@@ -59,7 +59,7 @@
             </div>
             <hr>
             <h3>About the role</h3>
-            {{ listing.role_desc }}
+            {{ listing.role_desc|linebreaks }}
             <div class="details">
                 <div class="details-single-wrapper">
                     <div class="details-single">
