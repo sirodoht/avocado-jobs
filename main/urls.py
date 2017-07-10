@@ -4,10 +4,12 @@ from . import views
 
 app_name = 'main'
 urlpatterns = [
-    # ex: /
+    # /
     url(r'^$', views.IndexView.as_view(), name='index'),
-    # ex: /jobs/submit/
+    # /jobs/submit/
     url(r'^submit/$', views.submit, name='submit'),
+    # /jobs/submit/thank-you
+    url(r'^submit/thank-you$', views.submit_confirm, name='submit'),
     # ex: /jobs/5/
     url(r'^jobs/(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     # ex: /jobs/5/report/
