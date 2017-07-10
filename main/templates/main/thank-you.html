@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quality job listings for software people</title>
+
+    <link rel="stylesheet" href="https://gitcdn.xyz/repo/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="{% static '/main/style.css' %}"> </head>
+
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="back">
+                <a href="{% url 'main:index' %}">&larr; Back to Avocado Jobs</a>
+            </div>
+            <div class="header">
+                <h1>Job posted!</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="body">
+            <h1>Thank you</h3>
+            <p>
+                Your job posting is live! You can see it <a href="#">here</a>.
+            </p>
+        </div>
+
+        <footer>
+            <p>Questions with the posting? Reach us <a href="#">here</a>.
+        </footer>
+    </div>
+</body>
+
+</html>
