@@ -26,31 +26,23 @@ a:hover {
   text-decoration: none;
 }
 
-.jumbotron-background {
-  background: url("https://i.imgur.com/J7NZLQj.png") no-repeat center;
-  box-shadow: inset 0 0 100px 500px rgba(0, 0, 0, 0.1);
-}
-
-.jumbotron-background::before {
-  content: "Photo by Brenda Godinez on Unsplash";
-  color: #fff;
-  font-weight: 300;
-  font-size: 14px;
-  border-radius: 2px;
-  padding: 3px;
-  float: right;
+.jumbotron-frontpage {
+  background: #83bf34;
+  background: linear-gradient(120deg, #dce35b, #45b649);
+  box-shadow: inset 0 0 300px 100px rgba(0, 0, 0, 0.1);
 }
 
 .title {
-  padding-top: 350px;
-  padding-bottom: 180px;
+  padding-top: 100px;
+  padding-bottom: 80px;
 }
 
 .title h1 {
   font-size: 90px;
+  font-weight: 300;
   text-align: center;
   color: #fff;
-  text-shadow: 0 0 100px rgba(0, 0, 0, 0.95);
+  text-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
   line-height: 1;
   margin-bottom: 20px;
 }
@@ -68,7 +60,7 @@ a:hover {
   color: #fff;
   font-size: 26px;
   text-align: center;
-  text-shadow: 0 0 30px rgba(0, 0, 0, 0.95);
+  text-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
 }
 
 .post {
@@ -168,6 +160,17 @@ a:hover {
   padding-right: 3px;
 }
 
+.jumbotron {
+  background: #83bf34;
+  background: linear-gradient(120deg, #dce35b, #45b649);
+  box-shadow: inset 0 0 300px 100px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  padding-top: 15px;
+  padding-bottom: 20px;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
 .jumbotron a {
   color: #fff;
 }
@@ -212,21 +215,9 @@ h3 {
   text-align: right;
 }
 
-.jumbotron {
-  background: #83bf33;
-  color: #fff;
-  padding-top: 15px;
-  padding-bottom: 20px;
-  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 40px;
-}
-
 .header {
   margin-top: 70px;
   padding-bottom: 20px;
-}
-
-.company {
 }
 
 .company-figure {
