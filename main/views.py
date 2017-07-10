@@ -30,8 +30,11 @@ def submit(request):
         form = ListingForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/submit/thanks')
+            return HttpResponseRedirect('/submit/thank-you')
     else:
         form = ListingForm()
 
     return render(request, 'main/submit.html', {'form': form})
+
+def submit_confirm(request):
+    return render(request, 'main/thank-you.html')
