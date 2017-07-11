@@ -45,6 +45,8 @@ jobs:
           command: |
             . venv/bin/activate
             python manage.py test
+          environment:
+            DATABASE_URL: "postgres://ubuntu@localhost:5432/db_name"
 
       - store_artifacts:
           path: test-reports
