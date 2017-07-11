@@ -41,3 +41,7 @@ class Listing(models.Model):
 
     def __str__(self):
         return self.role_title + " at " + self.company_name
+
+    def was_published_recently(self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
