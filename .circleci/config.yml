@@ -46,7 +46,7 @@ jobs:
             . venv/bin/activate
             python manage.py test
           environment:
-            DATABASE_URL: "postgres://ubuntu:@127.0.0.1:5432/circle_test"
+            DATABASE_URL: "postgres://postgres:@localhost:5432/postgres"
 
       - store_artifacts:
           path: test-reports
