@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
+from django.utils import timezone
 
 from .models import Listing
 from .forms import ListingForm
@@ -12,13 +13,23 @@ class IndexView(generic.ListView):
     context_object_name = 'listings_list'
 
     def get_queryset(self):
-        """Return all listings."""
-        return Listing.objects.order_by('-pub_date')
+        """
+        Return all listings, except those set to be published in the future.
+        """
+        return Listing.objects.filter(
+            pub_date__lte=timezone.now()
+        ).order_by('-pub_date')
 
 
 class DetailView(generic.DetailView):
-    model = Listing
     template_name = 'main/detail.html'
+    context_object_name = 'listing'
+
+    def get_queryset(self):
+        """
+        Excludes any listings that aren't published yet.
+        """
+        return Listing.objects.filter(pub_date__lte=timezone.now())
 
 
 def report(request, listing_id):
