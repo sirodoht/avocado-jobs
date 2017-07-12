@@ -33,3 +33,15 @@ class Listing(models.Model):
 
     def __str__(self):
         return self.role_title + " at " + self.company_name
+
+
+class Tag(models.Model):
+    tag_name = models.CharField(max_length=50)
+    listing = models.ForeignKey(
+        Listing,
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+
+    def __str__(self):
+        return self.tag_name
