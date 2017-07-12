@@ -5,6 +5,12 @@ from .models import Listing
 
 
 class ListingForm(ModelForm):
+    tags = forms.CharField(
+        label='Tags',
+        max_length=300,
+        help_text = 'Comma separated keywords (max 3) eg. frontend, react'
+    )
+
     class Meta:
         model = Listing
         fields = ['category', 'role_title', 'company_name', 'company_link',
