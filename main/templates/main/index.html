@@ -24,10 +24,24 @@
             <hr>
 
             <div class="listings">
-                <div class="listings-section">
-                    <h2 id="frontend">Frontend jobs</h2>
-                    {% for listing in listings_list %}
-                        {% if listing.category == 'FE' %}
+                {% for category in categories %}
+                    {% if category.category_name == "FE" %}
+                        <h2 id="frontend">Frontend jobs</h2>
+                    {% endif %}
+                    {% if category.category_name == "BE" %}
+                        <h2 id="backend">Backend jobs</h2>
+                    {% endif %}
+                    {% if category.category_name == "FS" %}
+                        <h2 id="fullstack">Fullstack jobs</h2>
+                    {% endif %}
+                    {% if category.category_name == "DO" %}
+                        <h2 id="devops">Devops jobs</h2>
+                    {% endif %}
+                    {% if category.category_name == "MB" %}
+                        <h2 id="mobile">Mobile jobs</h2>
+                    {% endif %}
+                     {% for listing in category.listing_set.all %}
+                        <div class="listings-section">
                             <a href="{% url 'main:detail' listing.id %}" class="listings-section-link">
                                 <div class="listings-section-link-item">
                                     <strong>{{ listing.role_title }}</strong> <span class="muted">at</span> <span class="company-name">{{ listing.company_name }}</span>
@@ -37,78 +51,13 @@
                                     </div>
                                 </div>
                             </a>
-                        {% endif %}
+                        </div>
+                    {% empty %}
+                        <div>No job listings exist for this category.</div>
                     {% endfor %}
-                </div>
-
-                <div class="listings-section">
-                    <h2 id="backend">Backend jobs</h2>
-                    {% for listing in listings_list %}
-                        {% if listing.category == 'BE' %}
-                            <a href="{% url 'main:detail' listing.id %}" class="listings-section-link">
-                                <div class="listings-section-link-item">
-                                    <strong>{{ listing.role_title }}</strong> <span class="muted">at</span> <span class="company-name">{{ listing.company_name }}</span>
-                                    <div class="tags">
-                                        <div class="tags-single">javascript</div>
-                                        <div class="tags-single">react</div>
-                                    </div>
-                                </div>
-                            </a>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-
-                <div class="listings-section">
-                    <h2 id="fullstack">Fullstack jobs</h2>
-                    {% for listing in listings_list %}
-                        {% if listing.category == 'FS' %}
-                            <a href="{% url 'main:detail' listing.id %}" class="listings-section-link">
-                                <div class="listings-section-link-item">
-                                    <strong>{{ listing.role_title }}</strong> <span class="muted">at</span> <span class="company-name">{{ listing.company_name }}</span>
-                                    <div class="tags">
-                                        <div class="tags-single">javascript</div>
-                                        <div class="tags-single">react</div>
-                                    </div>
-                                </div>
-                            </a>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-
-                <div class="listings-section">
-                    <h2 id="devops">Devops jobs</h2>
-                    {% for listing in listings_list %}
-                        {% if listing.category == 'DO' %}
-                            <a href="{% url 'main:detail' listing.id %}" class="listings-section-link">
-                                <div class="listings-section-link-item">
-                                    <strong>{{ listing.role_title }}</strong> <span class="muted">at</span> <span class="company-name">{{ listing.company_name }}</span>
-                                    <div class="tags">
-                                        <div class="tags-single">javascript</div>
-                                        <div class="tags-single">react</div>
-                                    </div>
-                                </div>
-                            </a>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-
-                <div class="listings-section">
-                    <h2 id="mobile">Mobile jobs</h2>
-                    {% for listing in listings_list %}
-                        {% if listing.category == 'MB' %}
-                            <a href="{% url 'main:detail' listing.id %}" class="listings-section-link">
-                                <div class="listings-section-link-item">
-                                    <strong>{{ listing.role_title }}</strong> <span class="muted">at</span> <span class="company-name">{{ listing.company_name }}</span>
-                                    <div class="tags">
-                                        <div class="tags-single">javascript</div>
-                                        <div class="tags-single">react</div>
-                                    </div>
-                                </div>
-                            </a>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-
+                {% empty %}
+                    <div>No job listings exist :(</div>
+                {% endfor %}
             </div>
 
             <div class="post">
