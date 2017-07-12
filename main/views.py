@@ -33,10 +33,11 @@ def submit(request):
         form = ListingForm(request.POST)
         if form.is_valid():
             saved_listing = form.save()
-            tags = form.cleaned_data['tags'].split(',')
-            for single_tag in tags[:3]:
-                stripped_tag = single_tag.strip()
-                Tag.objects.create(tag_name=stripped_tag, listing=saved_listing)
+            if form.cleaned_data['tags'].strip():
+                tags = form.cleaned_data['tags'].split(',')
+                for single_tag in tags[:3]:
+                    stripped_tag = single_tag.strip()
+                    Tag.objects.create(tag_name=stripped_tag, listing=saved_listing)
             return HttpResponseRedirect('/submit/thank-you')
     else:
         form = ListingForm()
