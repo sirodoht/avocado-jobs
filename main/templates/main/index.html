@@ -25,21 +25,7 @@
 
             <div class="listings">
                 {% for category in categories %}
-                    {% if category.category_name == "FE" %}
-                        <h2 id="frontend">Frontend jobs</h2>
-                    {% endif %}
-                    {% if category.category_name == "BE" %}
-                        <h2 id="backend">Backend jobs</h2>
-                    {% endif %}
-                    {% if category.category_name == "FS" %}
-                        <h2 id="fullstack">Fullstack jobs</h2>
-                    {% endif %}
-                    {% if category.category_name == "DO" %}
-                        <h2 id="devops">Devops jobs</h2>
-                    {% endif %}
-                    {% if category.category_name == "MB" %}
-                        <h2 id="mobile">Mobile jobs</h2>
-                    {% endif %}
+                    <h2 id="{{ category|lower }}">{{ category }} jobs</h2>
                      {% for listing in category.listing_set.all %}
                         <div class="listings-section">
                             <a href="{% url 'main:detail' listing.id %}" class="listings-section-link">
