@@ -1,26 +1,8 @@
-import datetime
-
 from django.db import models
 from django.utils import timezone
 
 
-class Listing(models.Model):
-    pub_date = models.DateTimeField('date published', default=datetime.datetime.now)
-    role_title = models.CharField(max_length=50, blank=True)
-    company_name = models.CharField(max_length=50, blank=True)
-    company_link = models.CharField(max_length=300, blank=True)
-    company_image = models.CharField(max_length=300, blank=True)
-    company_base = models.CharField(max_length=100, blank=True)
-    company_desc = models.TextField(blank=True)
-    company_size = models.IntegerField(null=True)
-    company_funding = models.CharField(max_length=50, blank=True)
-    company_tech = models.CharField(max_length=100, blank=True)
-    role_desc = models.TextField(blank=True)
-    role_position = models.CharField(max_length=50, blank=True)
-    role_tech = models.CharField(max_length=100, blank=True)
-    role_compensation = models.CharField(max_length=100, blank=True)
-    apply_link = models.CharField(max_length=300, blank=True)
-
+class Category(models.Model):
     FRONTEND = 'FE'
     BACKEND = 'BE'
     FULLSTACK = 'FS'
@@ -33,15 +15,37 @@ class Listing(models.Model):
         (DEVOPS, 'Devops'),
         (MOBILE, 'Mobile'),
     )
-    category = models.CharField(
+    category_name = models.CharField(
         max_length=2,
         choices=CATEGORY_CHOICES,
         null=True,
     )
 
     def __str__(self):
-        return self.role_title + " at " + self.company_name
+        return self.category_name
 
-    def was_published_recently(self):
-        now = timezone.now()
-        return now - datetime.timedelta(days=1) <= self.pub_date <= now
+
+class Listing(models.Model):
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    pub_date = models.DateTimeField('date published', default=timezone.now)
+    role_title = models.CharField(max_length=50, blank=True)
+    company_name = models.CharField(max_length=50, blank=True)
+    company_link = models.CharField(max_length=300, blank=True)
+    company_image = models.CharField(max_length=300, blank=True)
+    company_base = models.CharField(max_length=100, blank=True)
+    company_desc = models.TextField(blank=True)
+    company_size = models.IntegerField(null=True, blank=True)
+    company_funding = models.CharField(max_length=50, blank=True)
+    company_tech = models.CharField(max_length=100, blank=True)
+    role_desc = models.TextField(blank=True)
+    role_position = models.CharField(max_length=50, blank=True)
+    role_tech = models.CharField(max_length=100, blank=True)
+    role_compensation = models.CharField(max_length=100, blank=True)
+    apply_link = models.CharField(max_length=300, blank=True)
+
+    def __str__(self):
+        return self.role_title + " at " + self.company_name
