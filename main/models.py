@@ -3,23 +3,7 @@ from django.utils import timezone
 
 
 class Category(models.Model):
-    FRONTEND = 'FE'
-    BACKEND = 'BE'
-    FULLSTACK = 'FS'
-    DEVOPS = 'DO'
-    MOBILE = 'MB'
-    CATEGORY_CHOICES = (
-        (FRONTEND, 'Frontend'),
-        (BACKEND, 'Backend'),
-        (FULLSTACK, 'Fullstack'),
-        (DEVOPS, 'Devops'),
-        (MOBILE, 'Mobile'),
-    )
-    category_name = models.CharField(
-        max_length=2,
-        choices=CATEGORY_CHOICES,
-        null=True,
-    )
+    category_name = models.CharField(max_length=50, null=True)
 
     def __str__(self):
         return self.category_name
