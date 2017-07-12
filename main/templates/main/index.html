@@ -32,8 +32,9 @@
                                 <div class="listings-section-link-item">
                                     <strong>{{ listing.role_title }}</strong> <span class="muted">at</span> <span class="company-name">{{ listing.company_name }}</span>
                                     <div class="tags">
-                                        <div class="tags-single">javascript</div>
-                                        <div class="tags-single">react</div>
+                                        {% for tag in listing.tag_set.all %}
+                                            <div class="tags-single">{{ tag }}</div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </a>
