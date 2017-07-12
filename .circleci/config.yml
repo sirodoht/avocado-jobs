@@ -18,7 +18,7 @@ jobs:
     working_directory: ~/repo
 
     branches:
-    ignore:
+      ignore:
         - dokku
 
     steps:
