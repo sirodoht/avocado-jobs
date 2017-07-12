@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 
-from .models import Listing, Category
+from .models import Listing, Category, Tag
 from .forms import ListingForm
 
 
@@ -32,7 +32,11 @@ def submit(request):
     if request.method == 'POST':
         form = ListingForm(request.POST)
         if form.is_valid():
-            form.save()
+            saved_listing = form.save()
+            tags = form.cleaned_data['tags'].split(',')
+            for single_tag in tags[:3]:
+                stripped_tag = single_tag.strip()
+                Tag.objects.create(tag_name=stripped_tag, listing=saved_listing)
             return HttpResponseRedirect('/submit/thank-you')
     else:
         form = ListingForm()
