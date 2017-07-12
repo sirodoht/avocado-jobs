@@ -3,6 +3,7 @@ from django.forms import ModelForm, Textarea
 
 from .models import Listing
 
+
 class ListingForm(ModelForm):
     class Meta:
         model = Listing
@@ -40,8 +41,3 @@ class ListingForm(ModelForm):
             'role_compensation': 'What is the salary and/or equity for this role? eg. $70k - $110k / 0.25 - 0.5%',
             'apply_link': 'How can someone apply? eg. https://avocado-jobs.workable.com/apply/123',
         }
-        # error_messages = {
-        #     'role_title': {
-        #         'max_length': "This writer's name is too long.",
-        #     },
-        # }
