@@ -4,32 +4,24 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 
-from .models import Listing
+from .models import Listing, Category
 from .forms import ListingForm
 
 
 class IndexView(generic.ListView):
     template_name = 'main/index.html'
-    context_object_name = 'listings_list'
+    context_object_name = 'categories'
 
     def get_queryset(self):
         """
-        Return all listings, except those set to be published in the future.
+        Return all listings
         """
-        return Listing.objects.filter(
-            pub_date__lte=timezone.now()
-        ).order_by('-pub_date')
+        return Category.objects.order_by('id')
 
 
 class DetailView(generic.DetailView):
     template_name = 'main/detail.html'
-    context_object_name = 'listing'
-
-    def get_queryset(self):
-        """
-        Excludes any listings that aren't published yet.
-        """
-        return Listing.objects.filter(pub_date__lte=timezone.now())
+    model = Listing
 
 
 def report(request, listing_id):
