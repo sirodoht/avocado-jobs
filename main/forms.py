@@ -8,6 +8,7 @@ class ListingForm(ModelForm):
     tags = forms.CharField(
         label='Tags',
         max_length=300,
+        required=False,
         help_text = 'Comma separated keywords (max 3) eg. frontend, react'
     )
 
