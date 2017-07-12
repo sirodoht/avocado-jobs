@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.urls import reverse
 
 from .models import Listing, Category
+from .forms import ListingForm
 
 
 def create_category(category_name):
@@ -38,7 +39,7 @@ class ListingIndexViewTests(TestCase):
         """
         The listings index page may display a single listing.
         """
-        cat = create_category(category_name="FE")
+        cat = create_category(category_name="Frontend")
         listing = create_listing(
             role_title="Single listing",
             company_name="Red",
@@ -47,7 +48,7 @@ class ListingIndexViewTests(TestCase):
         response = self.client.get(reverse('main:index'))
         self.assertQuerysetEqual(
             response.context['categories'],
-            ['<Category: FE>']
+            ['<Category: Frontend>']
         )
         self.assertContains(response, listing.role_title)
         self.assertContains(response, listing.company_name)
@@ -56,22 +57,22 @@ class ListingIndexViewTests(TestCase):
         """
         The listings index page may display multiple listings.
         """
-        cat_1 = create_category(category_name="FE")
-        cat_2 = create_category(category_name="BE")
+        cat_1 = create_category(category_name="Frontend")
+        cat_2 = create_category(category_name="Backend")
         listing_1 = create_listing(
-            role_title="Listing FE",
+            role_title="Listing Frontend",
             company_name="Red",
             category=cat_1,
         )
         listing_2 = create_listing(
-            role_title="Listing BE",
+            role_title="Listing Backend",
             company_name="Red",
             category=cat_2,
         )
         response = self.client.get(reverse('main:index'))
         self.assertQuerysetEqual(
             response.context['categories'],
-            ['<Category: FE>', '<Category: BE>']
+            ['<Category: Frontend>', '<Category: Backend>']
         )
         self.assertContains(response, listing_1.role_title)
         self.assertContains(response, listing_1.company_name)
@@ -84,9 +85,9 @@ class ListingDetailViewTests(TestCase):
         """
         The detail view of a listing displays the listing's content.
         """
-        cat = create_category(category_name="FE")
+        cat = create_category(category_name="Frontend")
         listing = create_listing(
-            role_title="Listing FE",
+            role_title="Listing Frontend",
             company_name="Red",
             category=cat,
         )
