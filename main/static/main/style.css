@@ -324,6 +324,7 @@ li {
 .submit-item > input[type="number"] {
   display: inline-block;
   width: 10%;
+  outline: 0;
 }
 
 .submit-item > select {
@@ -362,6 +363,56 @@ li {
   background: #75ab2e;
 }
 
+label[for="id_company_desc"],
+label[for="id_role_desc"] {
+  margin-top: 30px;
+}
+
+.editor-wrapper_id_company_desc,
+.editor-wrapper_id_role_desc {
+  display: inline-block;
+  width: 530px;
+}
+
+.editor_id_company_desc,
+.editor_id_role_desc {
+  border: 1px solid #ddd;
+  display: inline-block;
+  outline: 0;
+  width: 98%;
+  overflow: auto;
+  padding-left: 9px;
+}
+
+.editor_id_company_desc:focus,
+.editor_id_role_desc:focus {
+  border-color: #aaa;
+}
+
+.editor_id_company_desc {
+  height: 100px;
+}
+
+.editor_id_role_desc {
+  height: 300px;
+}
+
+.action-bar_id_company_desc,
+.action-bar_id_role_desc {
+  margin-bottom: 4px;
+  text-align: right;
+}
+
+.editor-button {
+  cursor: pointer;
+  background: transparent;
+  outline: 0;
+  border: 1px solid #ddd;
+  padding-left: 7px;
+  padding-right: 7px;
+  font-size: 14px;
+  margin-left: 7px;
+}
 
 footer {
   margin-top: 50px;
