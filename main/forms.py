@@ -12,6 +12,11 @@ class ListingForm(ModelForm):
         help_text = 'Comma separated keywords (max 3) eg. frontend, react'
     )
 
+    field_order = ['category', 'role_title', 'company_name', 'company_link',
+            'company_image', 'company_base', 'company_desc', 'company_size',
+            'company_funding', 'company_tech', 'role_desc', 'tags', 'role_position',
+            'role_tech', 'role_compensation', 'apply_link']
+
     class Meta:
         model = Listing
         fields = ['category', 'role_title', 'company_name', 'company_link',
