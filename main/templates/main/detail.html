@@ -24,7 +24,7 @@
                 </figure>
             </div>
             <p>
-                {{ listing.company_desc|linebreaks }}
+                {{ listing.company_desc|safe }}
             </p>
             <div class="details">
                 <div class="details-single-wrapper">
@@ -45,7 +45,7 @@
             </div>
             <hr>
             <h3>About the role</h3>
-            {{ listing.role_desc|linebreaks }}
+            {{ listing.role_desc|safe }}
             <div class="details">
                 <div class="details-single-wrapper">
                     <div class="details-single">
