@@ -26,6 +26,10 @@ a:hover {
   text-decoration: none;
 }
 
+::placeholder {
+  color: #ddd;
+}
+
 .jumbotron-frontpage {
   background: #83bf34;
   background: linear-gradient(120deg, #dce35b, #45b649);
@@ -308,6 +312,20 @@ li {
   outline: none;
 }
 
+.submit-item > input[type="url"] {
+  display: inline-block;
+  width: 40%;
+  color: #333;
+  line-height: 1.7;
+  padding-left: 9px;
+  border: 1px solid #ddd;
+}
+
+.submit-item > input[type="url"]:focus {
+  border: 1px solid #aaa;
+  outline: none;
+}
+
 .submit-item > textarea {
   display: inline-block;
   color: #333;
@@ -325,6 +343,10 @@ li {
   display: inline-block;
   width: 10%;
   outline: 0;
+  color: #333;
+  line-height: 1.7;
+  padding-left: 9px;
+  border: 1px solid #ddd;
 }
 
 .submit-item > select {
