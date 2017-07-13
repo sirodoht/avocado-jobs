@@ -51,7 +51,3 @@ jobs:
             python manage.py test
           environment:
             DATABASE_URL: "postgres://postgres:@localhost:5432/postgres"
-
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
