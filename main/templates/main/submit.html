@@ -37,4 +37,61 @@
             <p>Questions with the posting? Reach us <a href="#">here</a>.
         </footer>
     </div>
+
+    <script>
+        var makeEditor = function (textarea_id) {
+            var textareaElem = document.getElementById(textarea_id);
+
+            var editorWrapper = document.createElement('div');
+            editorWrapper.className += 'editor-wrapper_' + textarea_id;
+            textareaElem.parentNode.insertBefore(editorWrapper, textareaElem);
+
+            var actionBar = document.createElement('div');
+            actionBar.className += 'action-bar_' + textarea_id;
+            editorWrapper.appendChild(actionBar);
+
+            var editorDiv = document.createElement('div');
+            editorDiv.className += 'editor_' + textarea_id;
+            editorDiv.contentEditable = true;
+            editorDiv.addEventListener('input', function () {
+                textareaElem.value = editorDiv.innerHTML;
+            });
+            editorWrapper.appendChild(editorDiv);
+            textareaElem.style.display = 'none';
+
+            var buttonBold = document.createElement('button');
+            buttonBold.className = 'editor-button';
+            buttonBold.innerHTML = '<b>Bold</b>';
+            buttonBold.title = 'Add bold text';
+            buttonBold.onclick = function () {
+                document.execCommand('bold', false);
+                return false;
+            }
+            actionBar.appendChild(buttonBold);
+
+            var buttonItalic = document.createElement('button');
+            buttonItalic.className = 'editor-button';
+            buttonItalic.innerHTML = '<i>Italic</i>';
+            buttonItalic.title = 'Add italic text';
+            buttonItalic.onclick = function () {
+                document.execCommand('italic', false);
+                return false;
+            }
+            actionBar.appendChild(buttonItalic);
+
+            var buttonUl = document.createElement('button');
+            buttonUl.className = 'editor-button';
+            buttonUl.innerHTML = '&bull; List';
+            buttonUl.title = 'Add bullet list';
+            buttonUl.onclick = function () {
+                document.execCommand('insertUnorderedList', false);
+                return false;
+            }
+            actionBar.appendChild(buttonUl);
+        }
+
+        // Django generated ids from ModelForm
+        makeEditor('id_company_desc');
+        makeEditor('id_role_desc');
+    </script>
 {% endblock %}
