@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, Textarea
+from django.forms import ModelForm, Textarea, NumberInput
 
 from .models import Listing
 
@@ -21,6 +21,7 @@ class ListingForm(ModelForm):
         widgets = {
             'company_desc': Textarea(attrs={'cols': 50, 'rows': 3}),
             'role_desc': Textarea(attrs={'cols': 50, 'rows': 10}),
+            'company_size': NumberInput(attrs={'min': 0}),
         }
         labels = {
             'company_desc': 'Company description',
