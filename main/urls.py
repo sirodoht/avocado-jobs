@@ -10,8 +10,8 @@ urlpatterns = [
     url(r'^submit/$', views.submit, name='submit'),
     # /jobs/submit/thank-you
     url(r'^submit/(?P<listing_id>[^/]*)/thank-you$', views.submit_confirm, name='submit-confirm'),
-    # ex: /jobs/5/
+    # ex: /jobs/randomuuid/
     url(r'^jobs/(?P<pk>[^/]*)/$', views.DetailView.as_view(), name='detail'),
-    # ex: /jobs/5/report/
+    # ex: /jobs/randomuuid/report/
     url(r'^jobs/(?P<listing_id>[^/]*)/report/$', views.report, name='report'),
 ]
