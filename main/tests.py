@@ -115,11 +115,12 @@ class ListingFormTests(TestCase):
             'company_funding': '12m',
             'company_tech': 'Rust',
             'role_desc': 'the best of the best',
+            'tags': 'red, green, blue',
             'role_position': 'Full time',
             'role_tech': 'Rust',
             'role_compensation': '100k',
             'apply_link': 'http://house.ink/careers/123',
-            'tags': 'red, green, blue',
+            'poster_email': 'person@email.com',
         }
         form = ListingForm(data=form_data)
         self.assertTrue(form.is_valid())
