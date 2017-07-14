@@ -17,6 +17,12 @@ class Category(models.Model):
 
 
 class Listing(models.Model):
+    id = models.CharField(
+        max_length=50,
+        primary_key=True,
+        default=generate_uuid,
+        editable=False,
+    )
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
