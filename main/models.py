@@ -1,5 +1,12 @@
+import shortuuid
+
 from django.db import models
 from django.utils import timezone
+
+
+def generate_uuid() -> str:
+    """Generate a UUID for an object."""
+    return shortuuid.ShortUUID("abdcefghjkmnpqrstuvwxyz").random()[:8]
 
 
 class Category(models.Model):
