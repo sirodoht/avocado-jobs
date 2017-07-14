@@ -16,7 +16,7 @@ class Listing(models.Model):
         null=True,
     )
     pub_date = models.DateTimeField('date published', default=timezone.now)
-    poster_email = models.EmailField(blank=True, null=True)
+    poster_email = models.EmailField(blank=True, null=True, default='')
     role_title = models.CharField(max_length=50, blank=True)
     company_name = models.CharField(max_length=50, blank=True)
     company_link = models.CharField(max_length=300, blank=True)
