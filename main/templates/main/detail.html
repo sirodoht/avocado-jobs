@@ -26,7 +26,9 @@
                 </div>
             {% endif %}
             <p>
-                {{ listing.company_desc|safe }}
+                <p>
+                    {{ listing.company_desc|safe }}
+                </p>
                 {% if not listing.company_image %}
                     <p>{{ listing.company_name }} is based in {{ listing.company_base }}.</p>
                 {% endif %}
@@ -50,7 +52,9 @@
             </div>
             <hr>
             <h3>About the role</h3>
-            {{ listing.role_desc|safe }}
+            <p>
+                {{ listing.role_desc|safe }}
+            </p>
             <div class="details">
                 <div class="details-single-wrapper">
                     <div class="details-single">
