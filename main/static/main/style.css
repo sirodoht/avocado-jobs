@@ -406,6 +406,7 @@ label[for="id_role_desc"] {
   width: 98%;
   overflow: auto;
   padding-left: 9px;
+  padding-top: 3px;
 }
 
 .editor_id_company_desc:focus,
