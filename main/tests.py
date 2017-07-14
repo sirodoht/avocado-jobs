@@ -105,6 +105,7 @@ class ListingFormTests(TestCase):
         cat = create_category(category_name="Frontend")
         form_data = {
             'category': cat.id,
+            'poster_email': 'person@email.com',
             'role_title': 'Frontend Developer',
             'company_name': 'House, Inc.',
             'company_link': 'http://house.ink',
@@ -116,14 +117,17 @@ class ListingFormTests(TestCase):
             'company_tech': 'Rust',
             'role_desc': 'the best of the best',
             'tags': 'red, green, blue',
-            'role_position': 'Full time',
+            'role_type': 'F',
+            'role_location': 'New York',
+            'role_remote': 1,
             'role_tech': 'Rust',
             'role_compensation': '100k',
             'apply_link': 'http://house.ink/careers/123',
-            'poster_email': 'person@email.com',
+            'apply_email': 'apply@avocado.com',
         }
         form = ListingForm(data=form_data)
         self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data['poster_email'], form_data['poster_email'])
         self.assertEqual(form.cleaned_data['role_title'], form_data['role_title'])
         self.assertEqual(form.cleaned_data['company_name'], form_data['company_name'])
         self.assertEqual(form.cleaned_data['company_link'], form_data['company_link'])
@@ -134,8 +138,11 @@ class ListingFormTests(TestCase):
         self.assertEqual(form.cleaned_data['company_funding'], form_data['company_funding'])
         self.assertEqual(form.cleaned_data['company_tech'], form_data['company_tech'])
         self.assertEqual(form.cleaned_data['role_desc'], form_data['role_desc'])
-        self.assertEqual(form.cleaned_data['role_position'], form_data['role_position'])
+        self.assertEqual(form.cleaned_data['role_type'], form_data['role_type'])
+        self.assertEqual(form.cleaned_data['role_location'], form_data['role_location'])
+        self.assertEqual(form.cleaned_data['role_remote'], form_data['role_remote'])
         self.assertEqual(form.cleaned_data['role_tech'], form_data['role_tech'])
         self.assertEqual(form.cleaned_data['role_compensation'], form_data['role_compensation'])
         self.assertEqual(form.cleaned_data['apply_link'], form_data['apply_link'])
+        self.assertEqual(form.cleaned_data['apply_email'], form_data['apply_email'])
         self.assertEqual(form.cleaned_data['tags'], form_data['tags'])
