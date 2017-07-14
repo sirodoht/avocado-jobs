@@ -37,6 +37,7 @@ class ListingForm(ModelForm):
             'company_link': 'Company URL',
             'company_desc': 'Company intro',
             'company_funding': 'Funding',
+            'company_tech': 'Company stack',
             'role_desc': 'Job description',
             'role_position': 'Position',
             'role_tech': 'Languages / tools',
