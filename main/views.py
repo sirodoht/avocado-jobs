@@ -38,11 +38,11 @@ def submit(request):
                 for single_tag in tags[:3]:
                     stripped_tag = single_tag.strip()
                     Tag.objects.create(tag_name=stripped_tag, listing=saved_listing)
-            return HttpResponseRedirect('/submit/thank-you')
+            return HttpResponseRedirect('/submit/%s/thank-you' % saved_listing.id)
     else:
         form = ListingForm()
 
     return render(request, 'main/submit.html', {'form': form})
 
-def submit_confirm(request):
-    return render(request, 'main/thank-you.html')
+def submit_confirm(request, listing_id):
+    return render(request, 'main/thank-you.html', {'listing_id': listing_id})
