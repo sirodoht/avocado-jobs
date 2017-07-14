@@ -300,7 +300,9 @@ li {
   vertical-align: top;
 }
 
-.submit-item > input[type="text"] {
+.submit-item > input[type="text"],
+.submit-item > input[type="url"],
+.submit-item > input[type="email"] {
   display: inline-block;
   width: 40%;
   color: #333;
@@ -309,12 +311,13 @@ li {
   border: 1px solid #ddd;
 }
 
-.submit-item > input[type="text"]:focus {
+.submit-item > input[type="text"]:focus,
+.submit-item > input[type="url"]:focus,
+.submit-item > input[type="email"]:focus {
   border: 1px solid #aaa;
   outline: none;
 }
 
-.submit-item > input[type="url"] {
   display: inline-block;
   width: 40%;
   color: #333;
@@ -323,7 +326,6 @@ li {
   border: 1px solid #ddd;
 }
 
-.submit-item > input[type="url"]:focus {
   border: 1px solid #aaa;
   outline: none;
 }
