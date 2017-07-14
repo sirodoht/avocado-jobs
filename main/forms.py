@@ -15,14 +15,14 @@ class ListingForm(ModelForm):
     field_order = ['category', 'role_title', 'company_name', 'company_link',
             'company_image', 'company_base', 'company_desc', 'company_size',
             'company_funding', 'company_tech', 'role_desc', 'tags', 'role_position',
-            'role_tech', 'role_compensation', 'apply_link']
+            'role_tech', 'role_compensation', 'apply_link', 'poster_email']
 
     class Meta:
         model = Listing
         fields = ['category', 'role_title', 'company_name', 'company_link',
             'company_image', 'company_base', 'company_desc', 'company_size',
             'company_funding', 'company_tech', 'role_desc', 'role_position',
-            'role_tech', 'role_compensation', 'apply_link']
+            'role_tech', 'role_compensation', 'apply_link', 'poster_email']
         widgets = {
             'company_desc': Textarea(attrs={'cols': 50, 'rows': 3}),
             'role_desc': Textarea(attrs={'cols': 50, 'rows': 10}),
@@ -42,6 +42,7 @@ class ListingForm(ModelForm):
             'role_position': 'Position',
             'role_tech': 'Languages / tools',
             'role_compensation': 'Compensation',
+            'poster_email': 'Email',
         }
         help_texts = {
             'role_title': 'eg. Frontend Developer',
@@ -57,4 +58,5 @@ class ListingForm(ModelForm):
             'role_tech': 'What technologies and/or languages is this role concerned with? eg. JavaScript, React',
             'role_compensation': 'What is the salary and/or equity for this role? eg. $70k - $110k / 0.25 - 0.5%',
             'apply_link': 'How can someone apply? eg. https://avocado-jobs.workable.com/apply/123',
+            'poster_email': 'The confirmation, along with an edit link for the posting will be sent here.',
         }
