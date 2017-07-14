@@ -11,7 +11,7 @@ urlpatterns = [
     # /jobs/submit/thank-you
     url(r'^submit/thank-you$', views.submit_confirm, name='submit_confirm'),
     # ex: /jobs/5/
-    url(r'^jobs/(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
+    url(r'^jobs/(?P<pk>[^/]*)/$', views.DetailView.as_view(), name='detail'),
     # ex: /jobs/5/report/
-    url(r'^jobs/(?P<listing_id>[0-9]+)/report/$', views.report, name='report'),
+    url(r'^jobs/(?P<listing_id>[^/]*)/report/$', views.report, name='report'),
 ]
