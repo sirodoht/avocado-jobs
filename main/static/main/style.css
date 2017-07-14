@@ -318,18 +318,6 @@ li {
   outline: none;
 }
 
-  display: inline-block;
-  width: 40%;
-  color: #333;
-  line-height: 1.7;
-  padding-left: 9px;
-  border: 1px solid #ddd;
-}
-
-  border: 1px solid #aaa;
-  outline: none;
-}
-
 .submit-item > textarea {
   display: inline-block;
   color: #333;
