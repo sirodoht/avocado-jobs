@@ -16,15 +16,20 @@
     <div class="container">
         <div class="body">
             <h3>About the company</h3>
-            <div class="company">
-                <figure class="company-figure">
-                    <img src="{{ listing.company_image }}" class="company-logo"
-                        alt="company logo">
-                    <figcaption>Based in {{ listing.company_base }}</figcaption>
-                </figure>
-            </div>
+            {% if listing.company_image %}
+                <div class="company">
+                    <figure class="company-figure">
+                        <img src="{{ listing.company_image }}" class="company-logo"
+                            alt="company logo">
+                        <figcaption>Based in {{ listing.company_base }}</figcaption>
+                    </figure>
+                </div>
+            {% endif %}
             <p>
                 {{ listing.company_desc|safe }}
+                {% if not listing.company_image %}
+                    <p>{{ listing.company_name }} is based in {{ listing.company_base }}.</p>
+                {% endif %}
             </p>
             <div class="details">
                 <div class="details-single-wrapper">
