@@ -1,3 +1,4 @@
+import bleach
 from django import forms
 from django.forms import ModelForm, Textarea, NumberInput, URLInput
 
@@ -17,6 +18,27 @@ class ListingForm(ModelForm):
             'company_funding', 'company_tech', 'role_desc', 'tags', 'role_type',
             'role_remote', 'role_location', 'role_tech', 'role_compensation',
             'apply_link', 'apply_email', 'poster_email']
+
+    def clean_company_desc(self):
+        data = self.cleaned_data['company_desc']
+        cleaned_data = bleach.clean(data,
+            tags=['br', 'b', 'i', 'ul', 'li'],
+            attributes=['abbr'],
+            styles=[],
+            strip=True,
+        )
+        return cleaned_data
+
+    def clean_role_desc(self):
+        data = self.cleaned_data['role_desc']
+        cleaned_data = bleach.clean(data,
+            tags=['br', 'b', 'i', 'ul', 'li'],
+            attributes=['abbr'],
+            styles=[],
+            strip=True,
+        )
+        return cleaned_data
+
 
     class Meta:
         model = Listing
