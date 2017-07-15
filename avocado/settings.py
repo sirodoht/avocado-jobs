@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", 'secret')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get("NODEBUG") is None else False
 
-ALLOWED_HOSTS = [] if os.environ.get("NODEBUG") is None else [".yourdomain.com"]
+ALLOWED_HOSTS = [] if os.environ.get("NODEBUG") is None else [".nepenth.xyz"]
 
 
 # Application definition
