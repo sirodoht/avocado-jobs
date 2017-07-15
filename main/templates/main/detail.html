@@ -8,7 +8,11 @@
             </div>
             <div class="header">
                 <h1>{{ listing.role_title }} <small>at <a href="{{ listing.company_link }}">{{ listing.company_name }}</a></small></h1>
-                <div>{{ listing.role_position }}</div>
+                {% if listing.role_remote %}
+                    <div>Remote</div>
+                {% else %}
+                    <div>{{ listing.get_role_type_display }}, out of {{ listing.role_location }}</div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -58,7 +62,12 @@
             <div class="details">
                 <div class="details-single-wrapper">
                     <div class="details-single">
-                        <span>Position:</span> {{ listing.role_position }}
+                        <span>Type:</span> {{ listing.get_role_type_display }}
+                    </div>
+                </div>
+                <div class="details-single-wrapper">
+                    <div class="details-single">
+                        <span>Remote:</span> {{ listing.role_remote }}
                     </div>
                 </div>
                 <div class="details-single-wrapper">
