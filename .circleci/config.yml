@@ -51,3 +51,7 @@ jobs:
             python manage.py test
           environment:
             DATABASE_URL: "postgres://postgres:@localhost:5432/postgres"
+
+      - run:
+          command: |
+            git push dokku
