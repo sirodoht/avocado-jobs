@@ -54,3 +54,6 @@ db.sqlite3
 .venv
 venv/
 ENV/
+
+# Secrets
+secrets.txt
