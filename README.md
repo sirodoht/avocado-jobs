@@ -19,10 +19,6 @@ Finally, run the Django server:
 python3 manage.py runserver
 ```
 
-## Deploy
-
-Avocado is deployed with dokku. It uses whitenoise to serve static files.
-
 ## Testing
 
 ```
