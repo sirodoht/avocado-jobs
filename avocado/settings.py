@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'q!s3v298r@50rhs*_9qu$r*e4wc*u8s9$l_z8$0_41n=vgsvnf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if os.environ.get("NODEBUG") is None else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [] if os.environ.get("NODEBUG") is None else ['avocado.nepenth.xyz']
 
 
 # Application definition
