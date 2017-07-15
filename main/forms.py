@@ -50,7 +50,7 @@ class ListingForm(ModelForm):
         widgets = {
             'company_desc': Textarea(attrs={'cols': 50, 'rows': 3}),
             'role_desc': Textarea(attrs={'cols': 50, 'rows': 10}),
-            'company_size': NumberInput(attrs={'min': 0}),
+            'company_size': NumberInput(attrs={'min': 1}),
             'company_link': URLInput(attrs={'placeholder': 'https://'}),
             'company_image': URLInput(attrs={'placeholder': 'https://github.com/logo.png'}),
             'apply_link': URLInput(attrs={'placeholder': 'https://'}),
