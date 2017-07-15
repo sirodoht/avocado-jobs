@@ -1,5 +1,7 @@
 {% extends 'main/layout.html' %}
 
+{% load app_filters %}
+
 {% block content %}
     <div class="jumbotron">
         <div class="container">
@@ -21,7 +23,7 @@
                 {% for field in form %}
                     <div class="submit-item">
                         {{ field.errors }}
-                        {{ field.label_tag }} {{ field }}
+                        {{ field.label_tag }} {{ field|tabindex:forloop.counter }}
                         {% if field.help_text %}
                             <p class="submit-item-help">{{ field.help_text|safe }}</p>
                         {% endif %}
@@ -39,7 +41,7 @@
     </div>
 
     <script>
-        var makeEditor = function (textarea_id) {
+        var makeEditor = function (textarea_id, tabindex) {
             var textareaElem = document.getElementById(textarea_id);
 
             var editorWrapper = document.createElement('div');
@@ -56,6 +58,7 @@
             editorDiv.addEventListener('input', function () {
                 textareaElem.value = editorDiv.innerHTML;
             });
+            editorDiv.setAttribute('tabindex', tabindex);
             editorWrapper.appendChild(editorDiv);
             textareaElem.style.display = 'none';
 
@@ -101,7 +104,7 @@
         }
 
         // Django generated ids from ModelForm
-        makeEditor('id_company_desc');
-        makeEditor('id_role_desc');
+        makeEditor('id_company_desc', 7);
+        makeEditor('id_role_desc', 11);
     </script>
 {% endblock %}
