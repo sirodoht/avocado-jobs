@@ -21,9 +21,7 @@ python3 manage.py runserver
 
 ## Deploy
 
-Avocado is deployed with dokku. It uses whitenoise to serve static files,
-and the commit applying it exists only on the 
-[`dokku`](https://github.com/sirodoht/avocado-jobs/compare/dokku) branch.
+Avocado is deployed with dokku. It uses whitenoise to serve static files.
 
 ## Testing
 
