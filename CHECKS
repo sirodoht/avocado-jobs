@@ -1,5 +1,4 @@
-WAIT=30     # Wait 1/2 minute
-TIMEOUT=60  # Timeout after a minute
-ATTEMPTS=10 # Attempt checks 10 times
+WAIT=30
+ATTEMPTS=10
 
 /  Avocado
