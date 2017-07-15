@@ -81,6 +81,7 @@ class ListingForm(ModelForm):
             'company_funding': 'Has your company received funding? If so, how much? eg. $2m / Series A',
             'company_tech': 'What technologies and/or languages does your company mainly use? eg. Java, Scala',
             'role_desc': 'What does this role include? Responsibilities, requirements, benefits, etc.',
+            'role_type': 'Is this a full time role or a contract?',
             'role_remote': 'Is this a remote position?',
             'role_location': 'Where will this role work from? eg. London, UK',
             'role_tech': 'What technologies and/or languages is this role concerned with? eg. JavaScript, React',
