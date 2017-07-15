@@ -88,6 +88,16 @@
                 return false;
             }
             actionBar.appendChild(buttonUl);
+
+            var buttonUl = document.createElement('button');
+            buttonUl.className = 'editor-button';
+            buttonUl.innerHTML = '&empty;';
+            buttonUl.title = 'Remove formatting';
+            buttonUl.onclick = function () {
+                document.execCommand('removeFormat', false);
+                return false;
+            }
+            actionBar.appendChild(buttonUl);
         }
 
         // Django generated ids from ModelForm
