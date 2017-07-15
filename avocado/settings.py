@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", 'secret')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get("NODEBUG") is None else False
 
-ALLOWED_HOSTS = [] if os.environ.get("NODEBUG") is None else [".nepenth.xyz"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -132,11 +132,6 @@ USE_TZ = True
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-STATIC_URL = '/static/'
+STATIC_URL = '/staticfiles/'
 
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
-)
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
