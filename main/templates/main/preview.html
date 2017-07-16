@@ -1,0 +1,168 @@
+{% extends 'main/layout.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="nav">
+                <div class="nav-banner">Preview</div>
+                <div class="nav-back">
+                    <a href="{% url 'main:index' %}">&larr; Back to all jobs</a>
+                </div>
+            </div>
+            <div class="header">
+                <h1>{{ listing.role_title }} <small>at <a href="{{ listing.company_link }}">{{ listing.company_name }}</a></small></h1>
+                {% if listing.role_remote %}
+                    <div>Remote</div>
+                {% else %}
+                    <div>{{ listing.get_role_type_display }}, out of {{ listing.role_location }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="body">
+            <h3>About the company</h3>
+            {% if listing.company_image %}
+                <div class="company">
+                    <figure class="company-figure">
+                        <img src="{{ listing.company_image }}" class="company-logo"
+                            alt="company logo">
+                        <figcaption>Based in {{ listing.company_base }}</figcaption>
+                    </figure>
+                </div>
+            {% endif %}
+            <p>
+                <p>
+                    {{ listing.company_desc|safe }}
+                </p>
+                {% if not listing.company_image %}
+                    <p>{{ listing.company_name }} is based in {{ listing.company_base }}.</p>
+                {% endif %}
+            </p>
+            <div class="details">
+                <div class="details-single-wrapper">
+                    <div class="details-single">
+                        <span>Company size:</span> {{ listing.company_size }} person{{ listing.company_size|pluralize }}
+                    </div>
+                </div>
+                <div class="details-single-wrapper">
+                    <div class="details-single">
+                        <span>Funding:</span> {{ listing.company_funding }}
+                    </div>
+                </div>
+                <div class="details-single-wrapper">
+                    <div class="details-single">
+                        <span>Company stack:</span> {{ listing.company_tech }}
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <h3>About the role</h3>
+            <p>
+                {{ listing.role_desc|safe }}
+            </p>
+            <div class="details">
+                <div class="details-single-wrapper">
+                    <div class="details-single">
+                        <span>Type:</span> {{ listing.get_role_type_display }}
+                    </div>
+                </div>
+                <div class="details-single-wrapper">
+                    <div class="details-single">
+                        <span>Remote:</span> {{ listing.role_remote }}
+                    </div>
+                </div>
+                <div class="details-single-wrapper">
+                    <div class="details-single">
+                        <span>Technologies for this role:</span> {{ listing.role_tech }}
+                    </div>
+                </div>
+                <div class="details-single-wrapper">
+                    <div class="details-single">
+                        <span>Compensation:</span> {{ listing.role_compensation }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="apply">
+            Apply at <a href="{{ listing.apply_link }}">{{ listing.apply_link }}</a>
+        </div>
+
+        <hr>
+
+        <div class="pay">
+            This is a preview of how your listing will appear.
+            <br>
+            If you are not satisfied with it you can either go back and edit it,
+            or reach as <a href="#">here</a>.
+            <br>
+            Once you pay the listing will appear live on the website.
+            <br>
+            {% csrf_token %}
+            <button class="pay-btn" id="pay-stripe">Pay with card</button>
+        </div>
+
+        <footer>
+            <p>Questions with the posting? Reach us <a href="#">here</a>.
+        </footer>
+    </div>
+
+    <script src="{% static '/main/superagent.min.js' %}"></script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+    <script>
+        var listingId = document.location.pathname.match(/\/submit\/([abdcefghjkmnpqrstuvwxyz]+)\/preview/)[1];
+
+        var inputElems = document.querySelectorAll('input');
+        var csrfToken = '';
+        for (i = 0; i < inputElems.length; ++i) {
+            if (inputElems[i].name === 'csrfmiddlewaretoken') {
+                csrfToken = inputElems[i].value;
+                break;
+            }
+        }
+
+        var handler = StripeCheckout.configure({
+            key: 'pk_test_kkUF6UkQvYT5PpzVxfHzLQLv',
+            image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+            locale: 'auto',
+            token: function (token) {
+                var data = {
+                    stripeToken: token['id'],
+                    email: token['email'],
+                    clientIp: token['client_ip'],
+                }
+                superagent
+                    .post('/submit/' + listingId + '/payment')
+                    .set('X-CSRFToken', csrfToken)
+                    .send(data)
+                    .end(function (err, res) {
+                        if (err) {
+                            console.log('Error at payment:', err);
+                        }
+                        document.location.pathname = '/submit/' + listingId + '/thank-you';
+                    });
+
+            }
+        });
+
+        document.getElementById('pay-stripe').addEventListener('click', function (event) {
+            // Open Checkout with further options:
+            handler.open({
+                name: 'Avocado, Ltd.',
+                description: 'Job listing for 2 months',
+                amount: 29900,
+            });
+            event.preventDefault();
+        });
+
+        // Close Checkout on page navigation:
+        window.addEventListener('popstate', function () {
+            handler.close();
+        });
+    </script>
+{% endblock %}
