@@ -46,7 +46,7 @@ def submit(request):
                 for single_tag in tags[:3]:
                     stripped_tag = single_tag.strip()
                     Tag.objects.create(tag_name=stripped_tag, listing=saved_listing)
-            return HttpResponseRedirect('/submit/%s/thank-you' % saved_listing.id)
+            return HttpResponseRedirect('/submit/%s/preview' % saved_listing.id)
     else:
         form = ListingForm()
 
