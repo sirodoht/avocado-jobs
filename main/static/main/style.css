@@ -37,18 +37,29 @@ a:hover {
 }
 
 .title {
-  padding-top: 100px;
-  padding-bottom: 80px;
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+ @media (min-width: 768px) {
+  .title {
+    padding-top: 80px;
+    padding-bottom: 60px;
+  }
 }
 
 .title h1 {
-  font-size: 90px;
+  font-size: 70px;
   font-weight: 300;
   text-align: center;
   color: #fff;
   text-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
   line-height: 1;
   margin-bottom: 20px;
+}
+ @media (min-width: 768px) {
+  .title h1 {
+      font-size: 90px;
+  }
 }
 
 .separator {
@@ -62,21 +73,31 @@ a:hover {
 
 .subtitle {
   color: #fff;
-  font-size: 26px;
+  font-size: 22px;
   text-align: center;
   text-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
+}
+@media (min-width: 768px) {
+  .subtitle {
+    font-size: 26px;
+  }
 }
 
 .post {
   background: #efefef;
+  line-height: 2;
   margin-top: 50px;
   margin-bottom: 50px;
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   text-align: center;
   color: #555;
 }
 
 .post a {
+  white-space: nowrap;
   background: #83bf33;
   margin: 10px;
   padding-right: 10px;
@@ -97,7 +118,15 @@ a:hover {
 .categories {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+@media (min-width: 580px) {
+  .categories {
+    flex-direction: row;
+  }
 }
 
 .categories-single {
@@ -120,6 +149,11 @@ a:hover {
 .categories-single::before {
   content: "# ";
   color: #888;
+}
+
+.listings {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .listings-section-link {
@@ -202,6 +236,7 @@ h2 {
   text-transform: uppercase;
   font-size: 26px;
   margin-top: 40px;
+  margin-bottom: 0;
   position: sticky;
   top: -1px;
   border-bottom: 1px solid #ddd;
@@ -216,8 +251,10 @@ h3 {
 }
 
 .container {
-  width: 780px;
+  max-width: 780px;
   margin: auto;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .nav {
@@ -298,12 +335,21 @@ li {
 
 .apply {
   text-align: center;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
   border: 2px solid #83bf33;
   margin-top: 50px;
   margin-bottom: 50px;
-  font-size: 24px;
+  font-size: 20px;
+}
+@media (min-width: 768px) {
+  .apply {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-size: 24px;
+  }
 }
 
 .submit-item {
