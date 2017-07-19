@@ -40,19 +40,19 @@
                 {% endif %}
             </p>
             <div class="details">
-                <div class="details-single-wrapper">
-                    <div class="details-single">
-                        <span>Company size:</span> {{ listing.company_size }} person{{ listing.company_size|pluralize }}
+                <div class="details-single">
+                    <div class="details-single-content">
+                        <div class="details-single-content-title">Company size:</div> <div class="details-single-content-body">{{ listing.company_size }} person{{ listing.company_size|pluralize }}</div>
                     </div>
                 </div>
-                <div class="details-single-wrapper">
-                    <div class="details-single">
-                        <span>Funding:</span> {{ listing.company_funding }}
+                <div class="details-single">
+                    <div class="details-single-content">
+                        <div class="details-single-content-title">Funding:</div> <div class="details-single-content-body">{{ listing.company_funding }}</div>
                     </div>
                 </div>
-                <div class="details-single-wrapper">
-                    <div class="details-single">
-                        <span>Company stack:</span> {{ listing.company_tech }}
+                <div class="details-single">
+                    <div class="details-single-content">
+                        <div class="details-single-content-title">Company stack:</div> <div class="details-single-content-body">{{ listing.company_tech }}</div>
                     </div>
                 </div>
             </div>
@@ -62,24 +62,24 @@
                 {{ listing.role_desc|safe }}
             </p>
             <div class="details">
-                <div class="details-single-wrapper">
-                    <div class="details-single">
-                        <span>Type:</span> {{ listing.get_role_type_display }}
+                <div class="details-single">
+                    <div class="details-single-content">
+                        <div class="details-single-content-title">Type:</div> <div class="details-single-content-body">{{ listing.get_role_type_display }}</div>
                     </div>
                 </div>
-                <div class="details-single-wrapper">
-                    <div class="details-single">
-                        <span>Remote:</span> {{ listing.role_remote }}
+                <div class="details-single">
+                    <div class="details-single-content">
+                        <div class="details-single-content-title">Remote:</div> <div class="details-single-content-body">{{ listing.role_remote }}</div>
                     </div>
                 </div>
-                <div class="details-single-wrapper">
-                    <div class="details-single">
-                        <span>Technologies for this role:</span> {{ listing.role_tech }}
+                <div class="details-single">
+                    <div class="details-single-content">
+                        <div class="details-single-content-title">Technologies for this role:</div> <div class="details-single-content-body">{{ listing.role_tech }}</div>
                     </div>
                 </div>
-                <div class="details-single-wrapper">
-                    <div class="details-single">
-                        <span>Compensation:</span> {{ listing.role_compensation }}
+                <div class="details-single">
+                    <div class="details-single-content">
+                        <div class="details-single-content-title">Compensation:</div> <div class="details-single-content-body">{{ listing.role_compensation }}</div>
                     </div>
                 </div>
             </div>

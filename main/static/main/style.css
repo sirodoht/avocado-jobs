@@ -246,8 +246,13 @@ a:hover {
 }
 
 h1 {
-  font-size: 48px;
+  font-size: 40px;
   font-weight: 400;
+}
+@media (min-width: 768px) {
+  h1 {
+    font-size: 48px;
+  }
 }
 
 h1 small {
@@ -305,6 +310,12 @@ h3 {
 .nav-back {
   font-size: 16px;
   flex: 1;
+  text-align: left;
+}
+@media (min-width: 768px) {
+  .nav-back {
+    text-align: right;
+  }
 }
 
 .header {
@@ -342,24 +353,44 @@ li {
 }
 
 .details-single {
-  display: inline-block;
+  display: flex;
+}
+
+.details-single-content {
+  display: flex;
+  font-size: 18px;
   margin-top: 10px;
   margin-bottom: 10px;
   border: 2px solid #83bf33;
-  padding-top: 4px;
-  padding-bottom: 4px;
   padding-right: 12px;
   border-radius: 3px;
 }
+@media (min-width: 768px) {
+  .details-single {
+    font-size: 19px;
+  }
+}
 
-.details-single > span {
+.details-single-content-title {
   background: #83bf33;
   color: #fff;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 6px;
+  padding-right: 6px;
   margin-right: 10px;
+}
+@media (min-width: 768px) {
+  .details-single-content-title {
+    padding-left: 10px;
+  }
+}
+
+.details-single-content-body {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 .apply {
