@@ -159,10 +159,16 @@ a:hover {
 .listings-section-link {
   text-decoration: none;
   color: #333;
-  font-size: 20px;
+  font-size: 17px;
+}
+@media (min-width: 768px) {
+  .listings-section-link {
+    font-size: 20px;
+  }
 }
 
 .listings-section-link-item {
+  display: flex;
   border-bottom: 1px solid #ddd;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -175,6 +181,10 @@ a:hover {
   color: #333;
 }
 
+.listings-section-link-item-title {
+  flex: 1 1 auto;
+}
+
 .muted {
   color: #aaa;
 }
@@ -184,20 +194,25 @@ a:hover {
 }
 
 .tags {
-  float: right;
+  text-align: right;
   position: relative;
   top: -3px;
 }
 
 .tags-single {
   display: inline-block;
-  font-size: 13px;
+  font-size: 12px;
   text-transform: uppercase;
   color: #555;
   border: 1px solid #ddd;
   border-radius: 3px;
   padding-left: 3px;
   padding-right: 3px;
+}
+@media (min-width: 768px) {
+  .tags-single {
+    font-size: 13px;
+  }
 }
 
 .jumbotron {
@@ -234,13 +249,18 @@ h1 small {
 h2 {
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 26px;
+  font-size: 21px;
   margin-top: 40px;
   margin-bottom: 0;
   position: sticky;
   top: -1px;
   border-bottom: 1px solid #ddd;
   background: #fff;
+}
+ @media (min-width: 768px) {
+  h2 {
+    font-size: 26px;
+  }
 }
 
 h3 {
