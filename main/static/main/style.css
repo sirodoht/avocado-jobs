@@ -215,6 +215,15 @@ a:hover {
   }
 }
 
+.empty {
+  font-size: 17px;
+}
+@media (min-width: 768px) {
+  .empty {
+    font-size: 19px;
+  }
+}
+
 .jumbotron {
   background: #83bf34;
   background: linear-gradient(120deg, #dce35b, #45b649);
