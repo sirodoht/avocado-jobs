@@ -196,7 +196,12 @@ a:hover {
 .tags {
   text-align: right;
   position: relative;
-  top: -3px;
+  top: 0px;
+}
+@media (min-width: 768px) {
+  .tags {
+    top: -2px;
+  }
 }
 
 .tags-single {
