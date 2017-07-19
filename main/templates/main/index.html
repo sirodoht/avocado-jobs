@@ -30,7 +30,11 @@
                         <div class="listings-section">
                             <a href="{% url 'main:detail' listing.id %}" class="listings-section-link">
                                 <div class="listings-section-link-item">
-                                    <strong>{{ listing.role_title }}</strong> <span class="muted">at</span> <span class="company-name">{{ listing.company_name }}</span>
+                                    <div class="listings-section-link-item-title">
+                                        <strong>{{ listing.role_title }}</strong>
+                                        <span class="muted">at</span>
+                                        <span class="company-name">{{ listing.company_name }}</span>
+                                    </div>
                                     <div class="tags">
                                         {% for tag in listing.tag_set.all %}
                                             <div class="tags-single">{{ tag }}</div>
