@@ -30,12 +30,6 @@ a:hover {
   color: #ddd;
 }
 
-.jumbotron-frontpage {
-  background: #83bf34;
-  background: linear-gradient(120deg, #dce35b, #45b649);
-  box-shadow: inset 0 0 300px 100px rgba(0, 0, 0, 0.1);
-}
-
 .title {
   padding-top: 40px;
   padding-bottom: 30px;
@@ -156,55 +150,63 @@ a:hover {
   padding-right: 10px;
 }
 
-.listings-section-link {
-  text-decoration: none;
-  color: #333;
-  font-size: 17px;
-}
-@media (min-width: 768px) {
-  .listings-section-link {
-    font-size: 20px;
-  }
-}
-
-.listings-section-link-item {
+.listings-entry {
   display: flex;
   border-bottom: 1px solid #ddd;
+}
+
+.listings-entry:hover {
+  background: #efefef;
+  color: #333;
+}
+
+.listings-entry-detail {
+  flex: 1;
+}
+
+.listings-entry-detail-info {
+  display: flex;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-.listings-section-link-item:hover {
+.listings-entry-detail-info:hover {
   background: #efefef;
   color: #333;
 }
 
-.listings-section-link-item-title {
+.listings-entry-detail-info-title {
   flex: 1 1 auto;
+  text-decoration: none;
+  color: #333;
+  font-size: 17px;
+}
+@media (min-width: 768px) {
+  .listings-entry-detail-info-title {
+    font-size: 20px;
+  }
+}
+
+.listings-entry-detail-info-title:hover {
+  background: inherit;
+  color: inherit;
 }
 
 .muted {
   color: #aaa;
 }
 
-.company-name {
+.listings-entry-detail-info-title-company {
   font-family: "Roboto Slab";
 }
 
-.tags {
+.listings-entry-detail-info-tags {
   text-align: right;
-  position: relative;
-  top: 0px;
-}
-@media (min-width: 768px) {
-  .tags {
-    top: -2px;
-  }
 }
 
-.tags-single {
+.listings-entry-detail-info-tags-single {
   display: inline-block;
   font-size: 12px;
   text-transform: uppercase;
@@ -229,14 +231,38 @@ a:hover {
   }
 }
 
+.listings-entry-control {
+  margin-right: 10px;
+  margin-top: 1px;
+}
+
+.listings-entry-control-check {
+  width: 12px;
+  cursor: pointer;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+}
+
+.listings-entry-control-check:hover {
+  font-weight: 700;
+  color: #83bf33;
+}
+
+.jumbotron-frontpage {
+  background: #83bf34;
+  background: linear-gradient(120deg, #dce35b, #45b649);
+  box-shadow: inset 0 0 300px 100px rgba(0, 0, 0, 0.1);
+}
+
 .jumbotron {
   background: #83bf34;
+  /* box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1); */
   background: linear-gradient(120deg, #dce35b, #45b649);
   box-shadow: inset 0 0 300px 100px rgba(0, 0, 0, 0.1);
   color: #fff;
   padding-top: 15px;
   padding-bottom: 20px;
-  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 40px;
 }
 
