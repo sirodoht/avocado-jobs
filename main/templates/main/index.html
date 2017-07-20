@@ -27,21 +27,24 @@
                 {% for category in categories %}
                     <h2 id="{{ category|lower }}">{{ category }} jobs</h2>
                      {% for listing in category.listing_set.all %}
-                        <div class="listings-section">
-                            <a href="{% url 'main:detail' listing.id %}" class="listings-section-link">
-                                <div class="listings-section-link-item">
-                                    <div class="listings-section-link-item-title">
+                        <div class="listings-entry">
+                            <div class="listings-entry-detail">
+                                <div class="listings-entry-detail-info">
+                                    <a class="listings-entry-detail-info-title"  href="{% url 'main:detail' listing.id %}" data-id="{{ listing.id }}">
                                         <strong>{{ listing.role_title }}</strong>
                                         <span class="muted">at</span>
-                                        <span class="company-name">{{ listing.company_name }}</span>
-                                    </div>
-                                    <div class="tags">
+                                        <span class="listings-entry-detail-info-title-company">{{ listing.company_name }}</span>
+                                    </a>
+                                    <div class="listings-entry-detail-info-tags">
                                         {% for tag in listing.tag_set.all %}
-                                            <div class="tags-single">{{ tag }}</div>
+                                            <div class="listings-entry-detail-info-tags-single">{{ tag }}</div>
                                         {% endfor %}
                                     </div>
                                 </div>
-                            </a>
+                            </div>
+                            <div class="listings-entry-control">
+                                <div class="listings-entry-control-check" title="Dim out jobs you have applied" data-id="{{ listing.id }}">&#9702;</div>
+                            </div>
                         </div>
                     {% empty %}
                         <div class="empty">No job listings exist in this category.</div>
@@ -61,4 +64,41 @@
             <p>Avocado Technologies, Inc. <a href="hi@avocadotech.com">Contact here.</a></p>
         </footer>
     </div>
+    <script>
+        (function () {
+            function renderDimmedElems() {
+                var listingLinkElems = document.getElementsByClassName('listings-entry-detail-info-title');
+                var keys = Object.keys(window.localStorage);
+                var i = 0;
+                for (i = 0; i < listingLinkElems.length; i++) {
+                    keys.forEach(function (singleKey) {
+                        if (singleKey === listingLinkElems[i].dataset.id) {
+                            listingLinkElems[i].style.opacity = 0.2;
+                        }
+                    });
+                }
+            };
+
+            function controlCheckListener(event) {
+                var id = event.target.dataset.id;
+                if (localStorage.getItem(id) === 'checked') {
+                    document.querySelectorAll('a[data-id="' + id + '"')[0].style.opacity = 1;
+                    localStorage.removeItem(event.target.dataset.id);
+                } else {
+                    localStorage.setItem(event.target.dataset.id, 'checked');
+                }
+                renderDimmedElems();
+            }
+
+            // add event listeners to bullet icons
+            var controlCheckElems = document.getElementsByClassName('listings-entry-control-check');
+            var i = 0;
+            for (i = 0; i < controlCheckElems.length; i++) {
+                controlCheckElems[i].addEventListener('click', controlCheckListener);
+            }
+
+            // initial dim rendering
+            renderDimmedElems();
+        })()
+    </script>
 {% endblock %}
