@@ -90,3 +90,8 @@ class ListingForm(ModelForm):
             'apply_email': 'Enter an email in case this is the prefered way of applying. If both this and an \'apply link\' exist, only the link will appear. (optional)',
             'poster_email': 'The confirmation, along with an edit link for the posting will be sent at this email.',
         }
+
+
+class EmailForm(forms.Form):
+    """The email form for the login page."""
+    email = forms.EmailField(label="Your email address")
