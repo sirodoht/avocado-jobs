@@ -1,26 +1,19 @@
 {% extends 'main/layout.html' %}
 
+{% load static %}
+
 {% block content %}
-    <div class="jumbotron">
-        <div class="container">
-            <div class="nav">
-                <div class="nav-back">
-                    <a href="{% url 'main:index' %}">&larr; Back to Avocado Jobs</a>
-                </div>
-            </div>
-            <div class="header">
-                <h1>Job posted!</h1>
-            </div>
+    <div class="container-content-header">
+        <div class="container-content-header-content">
+            <h1>Thank you.</h1>
         </div>
     </div>
 
-    <div class="container">
-        <div class="body">
-            <h1>Thank you</h3>
-            <p>
-                Your job posting is live! You can see it <a href="{% url 'main:detail' listing_id %}">here</a>.
-            </p>
-        </div>
+    <div class="container-content-body">
+        <p class="container-content-body-para">
+            Your job posting is live! You can see it <a href="{% url 'main:detail' listing_id %}">here</a>.
+        </p>
+        <video class="thank-video" src="{% static '/main/peace-out.mp4' %}" type="video/mp4" autoplay loop></video>
 
         <footer>
             <p>Questions with the posting? Reach us <a href="#">here</a>.

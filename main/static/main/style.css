@@ -534,6 +534,10 @@ li {
   background: #75ab2e;
 }
 
+.thank-video {
+  margin-top: 20px;
+}
+
 label[for="id_company_desc"],
 label[for="id_role_desc"] {
   margin-top: 30px;
