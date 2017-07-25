@@ -152,6 +152,20 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/staticfiles/'
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+# Email
+# https://docs.djangoproject.com/en/1.11/topics/email/
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_HOST_USER = 'postmaster@sirodoht.xyz'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '27047cf4121492f3340c8529387b438c')
+EMAIL_PORT = 587
+
+
 # Authentication backends
 AUTHENTICATION_BACKENDS = (
     'main.auth_backends.EmailTokenBackend',
