@@ -72,6 +72,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'avocado.wsgi.application'
 
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+AUTH_TOKEN_DURATION = 5 * 60
+DEFAULT_FROM_EMAIL = 'noreply@avocadojobs.com'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -146,3 +152,8 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/staticfiles/'
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Authentication backends
+AUTHENTICATION_BACKENDS = (
+    'main.auth_backends.EmailTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
