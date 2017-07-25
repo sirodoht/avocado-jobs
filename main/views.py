@@ -1,14 +1,21 @@
-import os, json
+import os
+
 import stripe
 
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.urls import reverse
 from django.views import generic
-from django.utils import timezone
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.core.signing import Signer
 
 from .models import Listing, Category, Tag
-from .forms import ListingForm
+from .forms import ListingForm, EmailForm
+from avocado import settings
 
 
 class IndexView(generic.ListView):
@@ -52,6 +59,7 @@ def submit(request):
 
     return render(request, 'main/submit.html', {'form': form})
 
+
 def submit_payment(request, listing_id):
     stripe_keys = {}
     stripe_keys['publishable_key'] = os.environ.get('STRIPE_PUBLISHABLE_KEY', 'pk_test_kkUF6UkQvYT5PpzVxfHzLQLv')
@@ -85,5 +93,66 @@ def submit_payment(request, listing_id):
         }
         return JsonResponse(response, status=400)
 
+
 def submit_thank(request, listing_id):
     return render(request, 'main/thank-you.html', {'listing_id': listing_id})
+
+
+def get_login(request):
+    return render(request, 'main/login.html')
+
+
+def token_post(request):
+    if request.user.is_authenticated():
+        messages.error(request, 'You are already logged in.')
+        return redirect(settings.LOGIN_REDIRECT_URL)
+
+    if request.GET.get('d'):
+        # The user has clicked a login link.
+        user = authenticate(token=request.GET['d'])
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Login successful.')
+            return redirect(settings.LOGIN_REDIRECT_URL)
+        else:
+            messages.error(request, 'The login link was invalid or has expired. Please try to log in again.')
+    elif request.method == 'POST':
+        # The user has submitted the email form.
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            email_login_link(request, form.cleaned_data['email'])
+            messages.success(request, 'Login email sent! Please check your inbox and click on the link to be logged in.')
+        else:
+            messages.error(request, 'The email address was invalid. Please check the address and try again.')
+    else:
+        messages.error(request, 'The login link was invalid or has expired. Please try to log in again.')
+
+    return redirect(settings.LOGIN_URL)
+
+
+def email_login_link(request, email):
+    current_site = get_current_site(request)
+
+    # Create the signed structure containing the time and email address.
+    email = email.lower().strip()
+    data = {
+        't': int(time.time()),
+        'e': email,
+    }
+    data = Signer().sign(base64.b64encode(json.dumps(data).encode('utf8')))
+
+    # Send the link by email.
+    send_mail(
+        "Yo! It's your login link from Avocado Jobs",
+        render_to_string('main/token_auth_email.txt', {'current_site': current_site, 'data': data}, request=request),
+        settings.DEFAULT_FROM_EMAIL,
+        [email],
+        fail_silently=False,
+    )
+
+
+@login_required
+def get_logout(request):
+    logout(request)
+    messages.success(request, 'You have been logged out.')
+    return redirect(settings.LOGOUT_REDIRECT_URL)
