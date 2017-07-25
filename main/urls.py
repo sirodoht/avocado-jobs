@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 
 from . import views
 
@@ -7,7 +7,16 @@ urlpatterns = [
     # /
     url(r'^$', views.IndexView.as_view(), name='index'),
 
-    # /submit/
+    # /login
+    url(r'^login/$', views.get_login, name='login'),
+
+    # /auth
+    url(r'^auth/$', views.token_post, name='auth'),
+
+    # /logout
+    url(r'^logout/$', views.get_logout, name='logout'),
+
+    # /submit
     url(r'^submit/$', views.submit, name='submit'),
 
     # /submit/randomuuid/preview
