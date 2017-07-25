@@ -1,0 +1,48 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+    <div class="container-content-header">
+        <div class="container-content-header-content">
+            <h1>Log in</h1>
+        </div>
+    </div>
+
+    <div class="container-content-body">
+        {% if next %}
+            {% if user.is_authenticated %}
+                <p>Your account doesn't have access to this ({{ next }}) page. To proceed,
+                please login with an account that has access.</p>
+            {% else %}
+                <p>Please login to see this ({{ next }}) page.</p>
+            {% endif %}
+        {% endif %}
+
+        <p>
+            To register or log in, just enter your email address below. You will
+            receive an email with a link, which you can visit to log in.
+        </p>
+
+        <p>
+            There is no username or password to remember, just your email address.
+        </p>
+
+        <p>
+            The link will expire in a few hours, but you will stay logged in
+            until you choose to log out. However, be careful not to share it,
+            as it will allow anyone to log in to your account.
+        </p>
+
+        <form method="post" action="{% url 'main:auth' %}">
+            {% csrf_token %}
+
+            <input name="email" type="email" />
+
+            <input type="submit" value="login">
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+
+        <footer>
+            <p>Questions with the posting? Reach us <a href="#">here</a>.
+        </footer>
+    </div>
+{% endblock %}
