@@ -11,13 +11,13 @@ urlpatterns = [
     url(r'^submit/$', views.submit, name='submit'),
 
     # /submit/randomuuid/preview
-    url(r'^submit/(?P<pk>[^/]*)/preview$', views.PreviewView.as_view(), name='submit-preview'),
+    url(r'^submit/(?P<pk>[^/]*)/preview$', views.PreviewView.as_view(), name='submit_preview'),
 
     # /submit/payment
-    url(r'^submit/(?P<listing_id>[^/]*)/payment$', views.submit_payment, name='submit-payment'),
+    url(r'^submit/(?P<listing_id>[^/]*)/payment$', views.submit_payment, name='submit_payment'),
 
     # /submit/thank-you
-    url(r'^submit/(?P<listing_id>[^/]*)/thank-you$', views.submit_thank, name='submit-thank'),
+    url(r'^submit/(?P<listing_id>[^/]*)/thank-you$', views.submit_thank, name='submit_thank'),
 
     # /jobs/randomuuid/
     url(r'^jobs/(?P<pk>[^/]*)/$', views.DetailView.as_view(), name='detail'),
