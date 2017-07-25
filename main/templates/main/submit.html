@@ -3,39 +3,30 @@
 {% load app_filters %}
 
 {% block content %}
-    <div class="jumbotron">
-        <div class="container">
-            <div class="nav">
-                <div class="nav-back">
-                    <a href="{% url 'main:index' %}">&larr; Back to Avocado Jobs</a>
-                </div>
-            </div>
-            <div class="header">
-                <h1>Post a job</h1>
-            </div>
+    <div class="container-content-header">
+        <div class="container-content-header-content">
+            <h1>Post a job</h1>
         </div>
     </div>
 
-    <div class="container">
-        <div class="body">
-            <h3>Create a listing</h3>
-            <form action="{% url 'main:submit' %}" method="post">
-                {% csrf_token %}
-                {{ form.non_field_errors }}
-                {% for field in form %}
-                    <div class="submit-item">
-                        {{ field.errors }}
-                        {{ field.label_tag }} {{ field|tabindex:forloop.counter }}
-                        {% if field.help_text %}
-                            <p class="submit-item-help">{{ field.help_text|safe }}</p>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                <div class="submit-button">
-                    <input type="submit" value="Submit">
+    <div class="container-content-body">
+        <h3>Create a listing</h3>
+        <form action="{% url 'main:submit' %}" method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for field in form %}
+                <div class="submit-item">
+                    {{ field.errors }}
+                    {{ field.label_tag }} {{ field|tabindex:forloop.counter }}
+                    {% if field.help_text %}
+                        <p class="submit-item-help">{{ field.help_text|safe }}</p>
+                    {% endif %}
                 </div>
-            </form>
-        </div>
+            {% endfor %}
+            <div class="submit-button">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
 
         <footer>
             <p>Questions with the posting? Reach us <a href="#">here</a>.
