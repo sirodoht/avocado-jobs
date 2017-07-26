@@ -52,7 +52,7 @@ jobs:
           environment:
             DATABASE_URL: "postgres://postgres:@localhost:5432/postgres"
 
-      - run:
-          command: |
-            ssh-keyscan -H nepenth.xyz >> ~/.ssh/known_hosts
-            git push dokku@nepenth.xyz:avocado master
+      # - run:
+      #     command: |
+      #       ssh-keyscan -H nepenth.xyz >> ~/.ssh/known_hosts
+      #       git push dokku@nepenth.xyz:avocado master
