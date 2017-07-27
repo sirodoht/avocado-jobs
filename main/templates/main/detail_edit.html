@@ -5,13 +5,13 @@
 {% block content %}
     <div class="container-content-header">
         <div class="container-content-header-content">
-            <h1>Post a job</h1>
+            <h1>Update listing for {{ listing.company_name }}</h1>
         </div>
     </div>
 
     <div class="container-content-body">
-        <h3>Create a listing</h3>
-        <form action="{% url 'main:submit' %}" method="post">
+        <h3>Update listing</h3>
+        <form action="{% url 'main:listing_edit' listing.id %}" method="post">
             {% csrf_token %}
             {{ form.non_field_errors }}
             {% for field in form %}
@@ -19,7 +19,7 @@
                     {{ field.errors }}
                     {{ field.label_tag }} {{ field|tabindex:forloop.counter }}
                     {% if field.help_text %}
-                        <p class="submit-item-help">{{ field.help_text|safe }}</p>
+                        <p class="submit-item-help">{{ field.help_text }}</p>
                     {% endif %}
                 </div>
             {% endfor %}
@@ -54,6 +54,9 @@
             editorDiv.setAttribute('tabindex', tabindex);
             editorWrapper.appendChild(editorDiv);
             textareaElem.style.display = 'none';
+
+            // Pre-fill contenteditable
+            editorDiv.innerHTML = textareaElem.value;
 
             var buttonBold = document.createElement('button');
             buttonBold.className = 'editor-button';
