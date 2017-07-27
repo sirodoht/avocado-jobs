@@ -43,6 +43,12 @@ class SubmissionsView(generic.ListView):
     template_name = 'main/submissions.html'
     model = Listing
 
+
+class ListingDelete(generic.edit.DeleteView):
+    model = Listing
+    success_url = reverse_lazy('main:account')
+
+
 def report(request, listing_id):
     return HttpResponse("You're looking at the report of listing %s." % listing_id)
 
