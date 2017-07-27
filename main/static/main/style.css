@@ -115,19 +115,21 @@ li {
   font-size: 19px;
 }
 
-.nav-back {
+.nav-links {
   font-size: 16px;
   padding-top: 5px;
   padding-right: 15px;
 }
 
-.nav-back a {
+.nav-links a {
   color: #fff;
   text-decoration: none;
+  margin-left: 15px;
 }
 
-.nav-back a:hover {
-  text-decoration: underline;
+.nav-links a:hover {
+  background: #fff;
+  color: #83bf33;
 }
 
 .container {
@@ -335,7 +337,7 @@ li {
 .listings-entry-control-check {
   width: 12px;
   cursor: pointer;
-  padding-top: 5px;
+  padding-top: 6px;
   padding-bottom: 5px;
   padding-left: 5px;
 }
@@ -343,6 +345,24 @@ li {
 .listings-entry-control-check:hover {
   font-weight: 700;
   color: #83bf33;
+}
+
+.listings-entry-control-edit,
+.listings-entry-control-delete {
+  display: inline-flex;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 15px;
+  color: #555;
+  text-decoration: underline;
+}
+
+.listings-entry-control-edit:hover,
+.listings-entry-control-delete:hover {
+  color: #fff;
+  text-decoration: none;
+  background: #83bf33;
 }
 
 .company-figure {
