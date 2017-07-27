@@ -8,7 +8,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.urls import reverse_lazy
 from django.views import generic
+from django.forms import model_to_dict
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.core.signing import Signer
@@ -106,6 +108,26 @@ def submit_payment(request, listing_id):
 
 def submit_thank(request, listing_id):
     return render(request, 'main/thank-you.html', {'listing_id': listing_id})
+
+
+def listing_edit(request, listing_id):
+    if request.method == 'POST':
+        pass
+        # form = ListingForm(request.POST)
+        # if form.is_valid():
+        #     saved_listing = form.save()
+        #     if form.cleaned_data['tags'].strip():
+        #         tags = form.cleaned_data['tags'].split(',')
+        #         for single_tag in tags[:3]:
+        #             stripped_tag = single_tag.strip()
+        #             Tag.objects.create(tag_name=stripped_tag, listing=saved_listing)
+        #     return HttpResponseRedirect('/submit/%s/preview' % saved_listing.id)
+    else:
+        listing = Listing.objects.get(id=listing_id)
+        listing_dict = model_to_dict(listing)
+        form = ListingForm(listing_dict)
+
+    return render(request, 'main/detail_edit.html', {'form': form})
 
 
 def get_login(request):
