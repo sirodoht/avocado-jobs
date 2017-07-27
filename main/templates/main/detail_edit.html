@@ -1,0 +1,103 @@
+{% extends 'main/layout.html' %}
+
+{% load app_filters %}
+
+{% block content %}
+    <div class="container-content-header">
+        <div class="container-content-header-content">
+            <h1>Post a job</h1>
+        </div>
+    </div>
+
+    <div class="container-content-body">
+        <h3>Create a listing</h3>
+        <form action="{% url 'main:submit' %}" method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for field in form %}
+                <div class="submit-item">
+                    {{ field.errors }}
+                    {{ field.label_tag }} {{ field|tabindex:forloop.counter }}
+                    {% if field.help_text %}
+                        <p class="submit-item-help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <div class="submit-button">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+
+        <footer>
+            <p>Questions with the posting? Reach us <a href="#">here</a>.
+        </footer>
+    </div>
+
+    <script>
+        var makeEditor = function (textarea_id, tabindex) {
+            var textareaElem = document.getElementById(textarea_id);
+
+            var editorWrapper = document.createElement('div');
+            editorWrapper.className += 'editor-wrapper_' + textarea_id;
+            textareaElem.parentNode.insertBefore(editorWrapper, textareaElem);
+
+            var actionBar = document.createElement('div');
+            actionBar.className += 'action-bar_' + textarea_id;
+            editorWrapper.appendChild(actionBar);
+
+            var editorDiv = document.createElement('div');
+            editorDiv.className += 'editor_' + textarea_id;
+            editorDiv.contentEditable = true;
+            editorDiv.addEventListener('input', function () {
+                textareaElem.value = editorDiv.innerHTML;
+            });
+            editorDiv.setAttribute('tabindex', tabindex);
+            editorWrapper.appendChild(editorDiv);
+            textareaElem.style.display = 'none';
+
+            var buttonBold = document.createElement('button');
+            buttonBold.className = 'editor-button';
+            buttonBold.innerHTML = '<b>Bold</b>';
+            buttonBold.title = 'Add bold text';
+            buttonBold.onclick = function () {
+                document.execCommand('bold', false);
+                return false;
+            }
+            actionBar.appendChild(buttonBold);
+
+            var buttonItalic = document.createElement('button');
+            buttonItalic.className = 'editor-button';
+            buttonItalic.innerHTML = '<i>Italic</i>';
+            buttonItalic.title = 'Add italic text';
+            buttonItalic.onclick = function () {
+                document.execCommand('italic', false);
+                return false;
+            }
+            actionBar.appendChild(buttonItalic);
+
+            var buttonUl = document.createElement('button');
+            buttonUl.className = 'editor-button';
+            buttonUl.innerHTML = '&bull; List';
+            buttonUl.title = 'Add bullet list';
+            buttonUl.onclick = function () {
+                document.execCommand('insertUnorderedList', false);
+                return false;
+            }
+            actionBar.appendChild(buttonUl);
+
+            var buttonUl = document.createElement('button');
+            buttonUl.className = 'editor-button';
+            buttonUl.innerHTML = '&empty;';
+            buttonUl.title = 'Remove formatting';
+            buttonUl.onclick = function () {
+                document.execCommand('removeFormat', false);
+                return false;
+            }
+            actionBar.appendChild(buttonUl);
+        }
+
+        // Django generated ids from ModelForm
+        makeEditor('id_company_desc', 7);
+        makeEditor('id_role_desc', 11);
+    </script>
+{% endblock %}
