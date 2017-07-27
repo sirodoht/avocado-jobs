@@ -1,4 +1,4 @@
-import os
+import os, time, json, base64
 
 import stripe
 
@@ -38,6 +38,10 @@ class PreviewView(generic.DetailView):
     template_name = 'main/preview.html'
     model = Listing
 
+
+class SubmissionsView(generic.ListView):
+    template_name = 'main/submissions.html'
+    model = Listing
 
 def report(request, listing_id):
     return HttpResponse("You're looking at the report of listing %s." % listing_id)
