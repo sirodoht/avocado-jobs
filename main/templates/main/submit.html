@@ -19,7 +19,7 @@
                     {{ field.errors }}
                     {{ field.label_tag }} {{ field|tabindex:forloop.counter }}
                     {% if field.help_text %}
-                        <p class="submit-item-help">{{ field.help_text|safe }}</p>
+                        <p class="submit-item-help">{{ field.help_text }}</p>
                     {% endif %}
                 </div>
             {% endfor %}
