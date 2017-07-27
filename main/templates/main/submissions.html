@@ -1,0 +1,81 @@
+{% extends 'main/layout.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container-content-header">
+        <div class="container-content-header-content">
+            <h1>Job listing submissions</h1>
+        </div>
+    </div>
+
+    <div class="container-content-body">
+        <div class="listings">
+            {% for listing in listing_list %}
+                <div class="listings-entry">
+                    <div class="listings-entry-detail">
+                        <div class="listings-entry-detail-info">
+                            <a class="listings-entry-detail-info-title"  href="{% url 'main:detail' listing.id %}" data-id="{{ listing.id }}">
+                                <strong>{{ listing.role_title }}</strong>
+                                <span class="muted">at</span>
+                                <span class="listings-entry-detail-info-title-company">{{ listing.company_name }}</span>
+                            </a>
+                            <div class="listings-entry-detail-info-tags">
+                                {% for tag in listing.tag_set.all %}
+                                    <div class="listings-entry-detail-info-tags-single">{{ tag }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="listings-entry-control">
+                        {% csrf_token %}
+                        <a href="{% url 'main:listing_edit' listing.id %}" class="listings-entry-control-edit" title="Edit listing">Edit</a>
+                        <div class="listings-entry-control-delete" title="Delete listing" data-id="{{ listing.id }}" onclick="deleteListing(event)">Delete</div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="empty">
+                    You have submitted 0 job listings. Create one
+                    <a href="{% url 'main:submit' %}">here</a>!
+                </div>
+            {% endfor %}
+        </div>
+
+        <footer>
+            <p>Avocado Technologies, Inc. <a href="hi@avocadotech.com">Contact here.</a></p>
+        </footer>
+    </div>
+
+    <script src="{% static '/main/superagent.min.js' %}"></script>
+    <script>
+        function deleteListing(event) {
+            event.preventDefault();
+
+            if (!window.confirm('Are you sure you want to delete this job listing?')) {
+                return;
+            }
+
+            var inputElems = document.querySelectorAll('input');
+            var csrfToken = '';
+            for (i = 0; i < inputElems.length; ++i) {
+                if (inputElems[i].name === 'csrfmiddlewaretoken') {
+                    csrfToken = inputElems[i].value;
+                    break;
+                }
+            }
+
+            var idForDeletion = event.target.dataset.id;
+
+            superagent
+                .post('/jobs/' + idForDeletion + '/delete/')
+                .set('X-CSRFToken', csrfToken)
+                .end(function (err, res) {
+                    if (err) {
+                        console.log('Error at deletion:', err);
+                    } else {
+                        document.location.reload();
+                    }
+                });
+        }
+    </script>
+{% endblock %}
