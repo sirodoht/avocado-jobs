@@ -48,7 +48,7 @@ class SubmissionsView(generic.ListView):
 
 class ListingDelete(generic.edit.DeleteView):
     model = Listing
-    success_url = reverse_lazy('main:account')
+    success_url = reverse_lazy('main:submissions')
 
 
 def report(request, listing_id):
