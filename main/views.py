@@ -112,22 +112,29 @@ def submit_thank(request, listing_id):
 
 def listing_edit(request, listing_id):
     if request.method == 'POST':
-        pass
-        # form = ListingForm(request.POST)
-        # if form.is_valid():
-        #     saved_listing = form.save()
-        #     if form.cleaned_data['tags'].strip():
-        #         tags = form.cleaned_data['tags'].split(',')
-        #         for single_tag in tags[:3]:
-        #             stripped_tag = single_tag.strip()
-        #             Tag.objects.create(tag_name=stripped_tag, listing=saved_listing)
-        #     return HttpResponseRedirect('/submit/%s/preview' % saved_listing.id)
+        listing_instance = Listing.objects.get(id=listing_id)
+        form = ListingForm(request.POST, instance=listing_instance)
+        if form.is_valid():
+            saved_listing = form.save()
+            if form.cleaned_data['tags'].strip():
+                tags = form.cleaned_data['tags'].split(',')
+                for single_tag in tags[:3]:
+                    stripped_tag = single_tag.strip()
+                    Tag.objects.create(tag_name=stripped_tag, listing=saved_listing)
+            return HttpResponseRedirect('/jobs/%s/' % saved_listing.id)
     else:
         listing = Listing.objects.get(id=listing_id)
         listing_dict = model_to_dict(listing)
+
+        tags = []
+        for single_tag in Tag.objects.filter(listing=listing.id):
+            tags.append(single_tag.tag_name)
+        tags_string = ', '.join(tags)
+
+        listing_dict['tags'] = tags_string
         form = ListingForm(listing_dict)
 
-    return render(request, 'main/detail_edit.html', {'form': form})
+        return render(request, 'main/detail_edit.html', {'form': form, 'listing': listing})
 
 
 def get_login(request):
