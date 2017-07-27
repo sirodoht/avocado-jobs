@@ -16,6 +16,15 @@ urlpatterns = [
     # /logout
     url(r'^logout/$', views.get_logout, name='logout'),
 
+    # /submissions
+    url(r'^submissions/$', views.SubmissionsView.as_view(), name='submissions'),
+
+    # /jobs/randomuuid/delete
+    url(r'^jobs/(?P<pk>[^/]*)/delete/$', views.ListingDelete.as_view(), name='listing_delete'),
+
+    # /jobs/randomuuid/edit
+    url(r'^jobs/(?P<listing_id>[^/]*)/edit/$', views.listing_edit, name='listing_edit'),
+
     # /submit
     url(r'^submit/$', views.submit, name='submit'),
 
