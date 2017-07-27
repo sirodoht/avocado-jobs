@@ -68,8 +68,7 @@ def submit(request):
             return HttpResponseRedirect('/submit/%s/preview' % saved_listing.id)
     else:
         form = ListingForm()
-
-    return render(request, 'main/submit.html', {'form': form})
+        return render(request, 'main/submit.html', {'form': form})
 
 
 def submit_payment(request, listing_id):
