@@ -404,7 +404,7 @@ li {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 6px;
-  padding-right: 6px;
+  padding-right: 10px;
   margin-right: 10px;
 }
 @media (min-width: 768px) {
@@ -469,6 +469,13 @@ li {
 .submit-item > input[type="email"]:focus {
   border: 1px solid #aaa;
   outline: none;
+}
+
+.submit-item > input[type="text"][disabled],
+.submit-item > input[type="url"][disabled],
+.submit-item > input[type="email"][disabled] {
+  background-color: #eee;
+  cursor: not-allowed;
 }
 
 .submit-item > textarea {
