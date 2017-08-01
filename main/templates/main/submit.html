@@ -99,5 +99,16 @@
         // Django generated ids from ModelForm
         makeEditor('id_company_desc', 7);
         makeEditor('id_role_desc', 11);
+
+        // Disable 'role location' field if remote = true
+        document.getElementById('id_role_remote').addEventListener('change', function (event) {
+            if (event.target.checked) {
+                document.getElementById('id_role_location').disabled = true;
+                document.getElementById('id_role_location').placeholder = 'Remote';
+            } else {
+                document.getElementById('id_role_location').disabled = false;
+                document.getElementById('id_role_location').placeholder = '';
+            }
+        });
     </script>
 {% endblock %}
