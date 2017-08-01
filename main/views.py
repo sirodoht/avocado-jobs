@@ -55,22 +55,27 @@ def report(request, listing_id):
     return HttpResponse("You're looking at the report of listing %s." % listing_id)
 
 
+@login_required
 def submit(request):
     if request.method == 'POST':
         form = ListingForm(request.POST)
         if form.is_valid():
             saved_listing = form.save()
+            # saved_listing.user = request.user
             if form.cleaned_data['tags'].strip():
                 tags = form.cleaned_data['tags'].split(',')
                 for single_tag in tags[:3]:
                     stripped_tag = single_tag.strip()
                     Tag.objects.create(tag_name=stripped_tag, listing=saved_listing)
             return HttpResponseRedirect('/submit/%s/preview' % saved_listing.id)
+        else:
+            return HttpResponse('Listing edit form of %s is invalid.' % listing_id)
     else:
         form = ListingForm()
         return render(request, 'main/submit.html', {'form': form})
 
 
+@login_required
 def submit_payment(request, listing_id):
     stripe_keys = {}
     stripe_keys['publishable_key'] = os.environ.get('STRIPE_PUBLISHABLE_KEY', 'pk_test_kkUF6UkQvYT5PpzVxfHzLQLv')
@@ -105,10 +110,12 @@ def submit_payment(request, listing_id):
         return JsonResponse(response, status=400)
 
 
+@login_required
 def submit_thank(request, listing_id):
     return render(request, 'main/thank-you.html', {'listing_id': listing_id})
 
 
+@login_required
 def listing_edit(request, listing_id):
     if request.method == 'POST':
         listing_instance = Listing.objects.get(id=listing_id)
@@ -121,6 +128,8 @@ def listing_edit(request, listing_id):
                     stripped_tag = single_tag.strip()
                     Tag.objects.create(tag_name=stripped_tag, listing=saved_listing)
             return HttpResponseRedirect('/jobs/%s/' % saved_listing.id)
+        else:
+            return HttpResponse('Listing edit form of %s is invalid.' % listing_id)
     else:
         listing = Listing.objects.get(id=listing_id)
         listing_dict = model_to_dict(listing)
