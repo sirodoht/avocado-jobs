@@ -10,14 +10,14 @@ class ListingForm(ModelForm):
         label='Tags',
         max_length=300,
         required=False,
-        help_text = 'Comma separated keywords (max 3) eg. frontend, react'
+        help_text = 'Comma separated keywords (max 3 - optional) eg. frontend, react'
     )
 
     field_order = ['category', 'role_title', 'company_name', 'company_link',
             'company_image', 'company_base', 'company_desc', 'company_size',
             'company_funding', 'company_tech', 'role_desc', 'tags', 'role_type',
             'role_remote', 'role_location', 'role_tech', 'role_compensation',
-            'apply_link', 'apply_email', 'poster_email']
+            'apply_link']
 
     def clean_company_desc(self):
         data = self.cleaned_data['company_desc']
@@ -46,7 +46,7 @@ class ListingForm(ModelForm):
             'company_image', 'company_base', 'company_desc', 'company_size',
             'company_funding', 'company_tech', 'role_desc', 'role_type',
             'role_remote', 'role_location', 'role_tech', 'role_compensation',
-            'apply_link', 'apply_email', 'poster_email']
+            'apply_link']
         widgets = {
             'company_desc': Textarea(attrs={'cols': 50, 'rows': 3}),
             'role_desc': Textarea(attrs={'cols': 50, 'rows': 10}),
@@ -68,8 +68,7 @@ class ListingForm(ModelForm):
             'role_location': 'Job location',
             'role_tech': 'Languages / tools',
             'role_compensation': 'Compensation',
-            'apply_email': 'Apply email',
-            'poster_email': 'Email',
+            'apply_link': 'Apply link / email',
         }
         help_texts = {
             'role_title': 'eg. Frontend Developer',
@@ -86,9 +85,7 @@ class ListingForm(ModelForm):
             'role_location': 'Where will this role work from? eg. London, UK',
             'role_tech': 'What technologies and/or languages is this role concerned with? eg. JavaScript, React',
             'role_compensation': 'What is the salary and/or equity for this role? eg. $70k - $110k / 0.25 - 0.5%',
-            'apply_link': 'How can someone apply? eg. https://avocado-jobs.workable.com/apply/123',
-            'apply_email': 'Enter an email in case this is the prefered way of applying. If both this and an \'apply link\' exist, only the link will appear. (optional)',
-            'poster_email': 'The confirmation, along with an edit link for the posting will be sent at this email.',
+            'apply_link': 'How can someone apply? Link or email. eg. https://avocado-jobs.workable.com/apply/123 or jim@avocadojobs.com',
         }
 
 
