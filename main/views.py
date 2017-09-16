@@ -1,7 +1,5 @@
 import os, time, json, base64
 
-import stripe
-
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -33,11 +31,6 @@ class IndexView(generic.ListView):
 
 class DetailView(generic.DetailView):
     template_name = 'main/detail.html'
-    model = Listing
-
-
-class PreviewView(generic.DetailView):
-    template_name = 'main/preview.html'
     model = Listing
 
 
@@ -76,38 +69,9 @@ def submit(request):
 
 
 @login_required
-def submit_payment(request, listing_id):
-    stripe_keys = {}
-    stripe_keys['publishable_key'] = os.environ.get('STRIPE_PUBLISHABLE_KEY', 'pk_test_kkUF6UkQvYT5PpzVxfHzLQLv')
-    stripe_keys['secret_key'] = os.environ.get('STRIPE_SECRET_KEY', 'sk_test_UNVwOYwTV7CkTFzLUhjASR08')
-
-    stripe.api_key = stripe_keys['secret_key']
-
-    try:
-      data = json.loads(request.body.decode('utf-8'))
-    except KeyError:
-      HttpResponseServerError('Malformed data!')
-
-    customer = stripe.Customer.create(
-        email=data['email'],
-        source=data['stripeToken'],
-    )
-
-    charge = stripe.Charge.create(
-        customer=customer.id,
-        amount=29900,
-        currency='usd',
-        description='Job listing for 2 months',
-    )
-
-    if charge['status'] == 'succeeded':
-        return HttpResponse(status=204)
-    else:
-        response = {
-            'status': False,
-            'message': 'Unfortunately, there was an charge error. Please try again.',
-        }
-        return JsonResponse(response, status=400)
+def submit_preview(request, listing_id):
+    listing = Listing.objects.get(id=listing_id)
+    return render(request, 'main/preview.html', {'listing': listing})
 
 
 @login_required
