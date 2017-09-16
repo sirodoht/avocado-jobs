@@ -30,10 +30,7 @@ urlpatterns = [
     url(r'^submit/$', views.submit, name='submit'),
 
     # /submit/randomuuid/preview
-    url(r'^submit/(?P<pk>[^/]*)/preview$', views.PreviewView.as_view(), name='submit_preview'),
-
-    # /submit/payment
-    url(r'^submit/(?P<listing_id>[^/]*)/payment$', views.submit_payment, name='submit_payment'),
+    url(r'^submit/(?P<listing_id>[^/]*)/preview$', views.submit_preview, name='submit_preview'),
 
     # /submit/thank-you
     url(r'^submit/(?P<listing_id>[^/]*)/thank-you$', views.submit_thank, name='submit_thank'),
