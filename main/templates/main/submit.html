@@ -5,12 +5,18 @@
 {% block content %}
     <div class="container-content-header">
         <div class="container-content-header-content">
-            <h1>Post a job</h1>
+            <h1>Post a job listing</h1>
         </div>
     </div>
 
     <div class="container-content-body">
         <h3>Create a listing</h3>
+        <ul>
+            <li>Posting a job listing is free of charge.</li>
+            <li>It will appear on the site for 60 days.</li>
+            <li>We will immediately publish it, and review it within 24 hours.</li>
+        </ul>
+        <br>
         <form action="{% url 'main:submit' %}" method="post">
             {% csrf_token %}
             {{ form.non_field_errors }}
@@ -29,7 +35,7 @@
         </form>
 
         <footer>
-            <p>Questions with the posting? Reach us <a href="#">here</a>.
+            <p>Questions with the posting? Reach us <a href="mailto:hi@avocadojobs.com">here</a>.<p>
         </footer>
     </div>
 

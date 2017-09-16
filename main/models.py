@@ -64,6 +64,8 @@ class Listing(models.Model):
     role_compensation = models.CharField(max_length=100)
     apply_link = models.CharField(max_length=300, blank=True)
 
+    users = models.ManyToManyField(User, related_name='applications')
+
     def __str__(self):
         return self.role_title + " at " + self.company_name
 
