@@ -123,6 +123,8 @@ def listing_edit(request, listing_id):
         if form.is_valid():
             saved_listing = form.save()
             if form.cleaned_data['tags'].strip():
+                old_tags = Tag.objects.filter(listing=saved_listing)
+                old_tags.delete()
                 tags = form.cleaned_data['tags'].split(',')
                 for single_tag in tags[:3]:
                     stripped_tag = single_tag.strip()
