@@ -537,13 +537,18 @@ li {
   background: #75ab2e;
 }
 
-.pay {
+.confirm {
   padding-top: 40px;
 }
 
-.pay-btn {
+.confirm-controls {
+  text-align: center;
+}
+
+.btn-primary {
   cursor: pointer;
   border: none;
+  text-decoration: none;
   background: #83bf33;
   outline: 0;
   color: #fff;
@@ -557,8 +562,29 @@ li {
   transition: 0.1s;
 }
 
-.pay-btn:hover {
+.btn-primary:hover {
   background: #75ab2e;
+}
+
+.btn-secondary {
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  background: #888;
+  outline: 0;
+  color: #fff;
+  margin-top: 20px;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 9px;
+  padding-bottom: 7px;
+  box-shadow: inset 0 -10px 20px -10px rgba(0, 0, 0, 0.1);
+  border-bottom: 3px solid #444;
+  transition: 0.1s;
+}
+
+.btn-secondary:hover {
+  background: #666;
 }
 
 .thank-video {
