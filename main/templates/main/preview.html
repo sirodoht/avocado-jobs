@@ -83,74 +83,20 @@
 
         <hr>
 
-        <div class="pay">
-            1. This is a preview of how your listing will appear.
+        <div class="confirm">
+            <ul>
+                <li>This is a preview of how your listing. If you are not satisfied with it you can go back and edit it.</li>
+                <li>Once you confirm the listing will be published live on the website.</li>
+            </ul>
             <br>
-            2. If you are not satisfied with it you can either go back and edit it,
-            or reach as <a href="#">here</a>.
-            <br>
-            3. Once you pay the listing will appear live on the website.
-            <br>
-            {% csrf_token %}
-            <button class="pay-btn" id="pay-stripe">Pay with card</button>
+            <div class="confirm-controls">
+                <a class="btn-secondary" href="{% url 'main:listing_edit' listing.id %}">Edit</a>
+                <a class="btn-primary" href="{% url 'main:submit_thank' listing.id %}">Confirm</a>
+            </div>
         </div>
 
         <footer>
-            <p>Questions with the posting? Reach us <a href="#">here</a>.
+            <p>Questions with the posting? Reach us <a href="mailto:hi@avocadojobs.com">here</a>.
         </footer>
     </div>
-
-    <script src="{% static '/main/superagent.min.js' %}"></script>
-    <script src="https://checkout.stripe.com/checkout.js"></script>
-    <script>
-        var listingId = document.location.pathname.match(/\/submit\/([abdcefghjkmnpqrstuvwxyz]+)\/preview/)[1];
-
-        var inputElems = document.querySelectorAll('input');
-        var csrfToken = '';
-        for (i = 0; i < inputElems.length; ++i) {
-            if (inputElems[i].name === 'csrfmiddlewaretoken') {
-                csrfToken = inputElems[i].value;
-                break;
-            }
-        }
-
-        var handler = StripeCheckout.configure({
-            key: 'pk_test_kkUF6UkQvYT5PpzVxfHzLQLv',
-            image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-            locale: 'auto',
-            token: function (token) {
-                var data = {
-                    stripeToken: token['id'],
-                    email: token['email'],
-                    clientIp: token['client_ip'],
-                }
-                superagent
-                    .post('/submit/' + listingId + '/payment')
-                    .set('X-CSRFToken', csrfToken)
-                    .send(data)
-                    .end(function (err, res) {
-                        if (err) {
-                            console.log('Error at payment:', err);
-                        }
-                        document.location.pathname = '/submit/' + listingId + '/thank-you';
-                    });
-
-            }
-        });
-
-        document.getElementById('pay-stripe').addEventListener('click', function (event) {
-            // Open Checkout with further options:
-            handler.open({
-                name: 'Avocado, Ltd.',
-                description: 'Job listing for 2 months',
-                amount: 29900,
-            });
-            event.preventDefault();
-        });
-
-        // Close Checkout on page navigation:
-        window.addEventListener('popstate', function () {
-            handler.close();
-        });
-    </script>
 {% endblock %}
