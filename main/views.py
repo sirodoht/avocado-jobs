@@ -3,8 +3,9 @@ import os, time, json, base64
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
 from django.views import generic
@@ -49,12 +50,48 @@ def report(request, listing_id):
 
 
 @login_required
+def applications(request):
+    if request.method == 'POST':
+        current_user = User.objects.get(id=request.user.id)
+        body = request.body.decode('utf-8')
+        data = json.loads(body)
+        given_listing = Listing.objects.get(id=data['listing_id'])
+        given_listing.users.add(current_user)
+        return HttpResponse(status=200)
+    else:
+        if request.content_type == 'application/json':
+            current_user = User.objects.get(id=request.user.id)
+            application_listings_values_qs = Listing.objects.filter(users__id=current_user.id).values_list('id')
+            application_listings_values_list = list(application_listings_values_qs)
+            application_listings_values = [listing_id for listings_tuple in application_listings_values_list for listing_id in listings_tuple]
+            return JsonResponse({
+                'applications': list(application_listings_values)
+            })
+        else:
+            current_user = User.objects.get(id=request.user.id)
+            application_listings = Listing.objects.filter(users__id=current_user.id)
+            return render(request, 'main/applications.html', {
+                'application_listings': application_listings,
+            })
+
+
+@login_required
+def applications_delete(request, listing_id):
+    if request.method == 'POST':
+        current_user = User.objects.get(id=request.user.id)
+        given_listing = Listing.objects.get(id=listing_id)
+        given_listing.users.remove(current_user)
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=405)
+
+
+@login_required
 def submit(request):
     if request.method == 'POST':
         form = ListingForm(request.POST)
         if form.is_valid():
             saved_listing = form.save()
-            # saved_listing.user = request.user
             if form.cleaned_data['tags'].strip():
                 tags = form.cleaned_data['tags'].split(',')
                 for single_tag in tags[:3]:
