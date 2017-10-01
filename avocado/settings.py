@@ -22,12 +22,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", 'secret')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'secretwith50charssecretwith50charssecretwith50char')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if os.environ.get("NODEBUG") is None else False
+DEBUG = True if os.environ.get('NODEBUG') is None else False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'avocadojobs.com',
+]
 
 
 # Application definition
@@ -106,6 +110,7 @@ DATABASES['default'].update(db_from_env)
 
 # Password hashing
 # https://docs.djangoproject.com/en/1.11/topics/auth/passwords/#how-django-stores-passwords
+
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.Argon2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
@@ -141,9 +146,9 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+USE_I18N = False
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 
@@ -196,6 +201,5 @@ if not DEBUG:
 # https://docs.sentry.io/clients/python/integrations/django/
 
 RAVEN_CONFIG = {
-    # 'dsn': os.environ.get('SENTRY_DSN', ''),
-    'dsn': 'https://cb30ae6b805246ccbc440b97125214cc:022284088aac490188cfbe0a7acc0b14@sentry.io/193623',
+    'dsn': os.environ.get('SENTRY_DSN', ''),
 }
