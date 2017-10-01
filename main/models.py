@@ -42,7 +42,7 @@ class Listing(models.Model):
     company_image = models.CharField(max_length=300, blank=True)
     company_base = models.CharField(max_length=100)
     company_desc = models.TextField()
-    company_size = models.IntegerField()
+    company_size = models.CharField(max_length=50)
     company_funding = models.CharField(max_length=50)
     company_tech = models.CharField(max_length=100)
     role_desc = models.TextField()
