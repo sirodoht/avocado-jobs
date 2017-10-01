@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -40,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+if not DEBUG:
+    INSTALLED_APPS.append('raven.contrib.django.raven_compat')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -78,6 +82,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 AUTH_TOKEN_DURATION = 5 * 60
 DEFAULT_FROM_EMAIL = 'noreply@avocadojobs.com'
+
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -158,7 +163,6 @@ STATIC_URL = '/staticfiles/'
 # https://docs.djangoproject.com/en/1.11/topics/email/
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.mailgun.org'
 EMAIL_HOST_USER = 'postmaster@sirodoht.xyz'
@@ -171,3 +175,27 @@ AUTHENTICATION_BACKENDS = (
     'main.auth_backends.EmailTokenBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+
+# Security middleware
+# https://docs.djangoproject.com/en/1.11/ref/middleware/#module-django.middleware.security
+
+if not DEBUG:
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_BROWSER_XSS_FILTER = True
+    X_FRAME_OPTIONS = 'DENY'
+
+    # FIXME when SSL is live
+    # SESSION_COOKIE_SECURE = True
+    # CSRF_COOKIE_SECURE = True
+    # SECURE_SSL_REDIRECT = True
+    # SECURE_HSTS_SECONDS = 0
+
+
+# Sentry
+# https://docs.sentry.io/clients/python/integrations/django/
+
+RAVEN_CONFIG = {
+    # 'dsn': os.environ.get('SENTRY_DSN', ''),
+    'dsn': 'https://cb30ae6b805246ccbc440b97125214cc:022284088aac490188cfbe0a7acc0b14@sentry.io/193623',
+}
