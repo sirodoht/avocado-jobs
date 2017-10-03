@@ -1,5 +1,5 @@
+from faker import Faker
 from django.test import TestCase
-from django.utils import timezone
 from django.urls import reverse
 
 from .models import Listing, Category
@@ -14,14 +14,27 @@ def create_category(category_name):
         category_name=category_name,
     )
 
-def create_listing(role_title, company_name, category):
+
+def create_listing(category):
     """
-    Create a listing with the givens `role_title` and `company_name`.
+    Create a listing given its category.
     """
+    fake = Faker()
     return Listing.objects.create(
-        role_title=role_title,
-        company_name=company_name,
         category=category,
+        role_title=fake.job(),
+        poster_email=fake.email(),
+        company_name=fake.company(),
+        company_link=fake.url(),
+        company_base=fake.country(),
+        company_desc=fake.text(),
+        company_size=fake.word(),
+        company_tech=fake.word(),
+        role_desc=fake.text(),
+        role_type='F',
+        role_remote=fake.boolean(),
+        role_tech=fake.color_name(),
+        role_compensation=fake.color_name(),
     )
 
 
@@ -32,19 +45,15 @@ class ListingIndexViewTests(TestCase):
         """
         response = self.client.get(reverse('main:index'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "No job listings exist :(")
+        self.assertContains(response, 'No job listings exist :(')
         self.assertQuerysetEqual(response.context['categories'], [])
 
     def test_listing(self):
         """
         The listings index page may display a single listing.
         """
-        cat = create_category(category_name="Frontend")
-        listing = create_listing(
-            role_title="Single listing",
-            company_name="Red",
-            category=cat,
-        )
+        cat = create_category(category_name='Frontend')
+        listing = create_listing(category=cat)
         response = self.client.get(reverse('main:index'))
         self.assertQuerysetEqual(
             response.context['categories'],
@@ -57,18 +66,10 @@ class ListingIndexViewTests(TestCase):
         """
         The listings index page may display multiple listings.
         """
-        cat_1 = create_category(category_name="Frontend")
-        cat_2 = create_category(category_name="Backend")
-        listing_1 = create_listing(
-            role_title="Listing Frontend",
-            company_name="Red",
-            category=cat_1,
-        )
-        listing_2 = create_listing(
-            role_title="Listing Backend",
-            company_name="Red",
-            category=cat_2,
-        )
+        cat_1 = create_category(category_name='Frontend')
+        cat_2 = create_category(category_name='Backend')
+        listing_1 = create_listing(category=cat_1)
+        listing_2 = create_listing(category=cat_2)
         response = self.client.get(reverse('main:index'))
         self.assertQuerysetEqual(
             response.context['categories'],
@@ -85,12 +86,8 @@ class ListingDetailViewTests(TestCase):
         """
         The detail view of a listing displays the listing's content.
         """
-        cat = create_category(category_name="Frontend")
-        listing = create_listing(
-            role_title="Listing Frontend",
-            company_name="Red",
-            category=cat,
-        )
+        cat = create_category(category_name='Frontend')
+        listing = create_listing(category=cat)
         url = reverse('main:detail', args=(listing.id,))
         response = self.client.get(url)
         self.assertContains(response, listing.role_title)
@@ -102,17 +99,16 @@ class ListingFormTests(TestCase):
         """
         The listing form submits the details.
         """
-        cat = create_category(category_name="Frontend")
+        cat = create_category(category_name='Frontend')
         form_data = {
             'category': cat.id,
-            'poster_email': 'person@email.com',
             'role_title': 'Frontend Developer',
             'company_name': 'House, Inc.',
             'company_link': 'http://house.ink',
             'company_image': 'http://house.ink/logo.png',
             'company_base': 'London, UK',
             'company_desc': 'the best of the best',
-            'company_size': 12,
+            'company_size': '~15',
             'company_funding': '12m',
             'company_tech': 'Rust',
             'role_desc': 'the best of the best',
@@ -123,11 +119,9 @@ class ListingFormTests(TestCase):
             'role_tech': 'Rust',
             'role_compensation': '100k',
             'apply_link': 'http://house.ink/careers/123',
-            'apply_email': 'apply@avocado.com',
         }
         form = ListingForm(data=form_data)
         self.assertTrue(form.is_valid())
-        self.assertEqual(form.cleaned_data['poster_email'], form_data['poster_email'])
         self.assertEqual(form.cleaned_data['role_title'], form_data['role_title'])
         self.assertEqual(form.cleaned_data['company_name'], form_data['company_name'])
         self.assertEqual(form.cleaned_data['company_link'], form_data['company_link'])
@@ -144,5 +138,4 @@ class ListingFormTests(TestCase):
         self.assertEqual(form.cleaned_data['role_tech'], form_data['role_tech'])
         self.assertEqual(form.cleaned_data['role_compensation'], form_data['role_compensation'])
         self.assertEqual(form.cleaned_data['apply_link'], form_data['apply_link'])
-        self.assertEqual(form.cleaned_data['apply_email'], form_data['apply_email'])
         self.assertEqual(form.cleaned_data['tags'], form_data['tags'])
