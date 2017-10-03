@@ -78,7 +78,7 @@
 
             // fetch listings applications ids for this user from the app
             function getApplicationListings() {
-                superagent.get('/applications')
+                superagent.get('/applications/')
                     .type('application/json')
                     .end(function (err, res) {
                         if (err) {
