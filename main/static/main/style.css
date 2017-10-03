@@ -239,10 +239,6 @@ html, body {
   color: #333;
 }
 
-p, ul {
-  font-family: "Noto Serif", "Georgia", serif;
-}
-
 hr {
   border: 0;
   height: 0;
@@ -344,9 +340,10 @@ li {
   text-decoration: none;
 }
 
-.nav-header span {
-  font-family: "Noto Serif", "Georgia", serif;
-  font-size: 19px;
+@media (max-width: 500px) {
+  .nav-header span {
+    display: none;
+  }
 }
 
 .nav-links {
