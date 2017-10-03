@@ -9,6 +9,7 @@ bleach==2.0.0
 cffi==1.10.0              # via argon2-cffi
 dj-database-url==0.4.2
 django==1.11.3
+faker==0.8.4
 flake8==3.4.1
 gunicorn==19.7.1
 html5lib==0.999999999     # via bleach
@@ -17,9 +18,10 @@ psycopg2==2.7.1
 pycodestyle==2.3.1        # via flake8
 pycparser==2.18           # via cffi
 pyflakes==1.5.0           # via flake8
+python-dateutil==2.6.1    # via faker
 pytz==2017.2              # via django
 raven==6.2.1
 shortuuid==0.5.0
-six==1.10.0               # via argon2-cffi, bleach, html5lib
+six==1.10.0               # via argon2-cffi, bleach, faker, html5lib, python-dateutil
 webencodings==0.5.1       # via html5lib
 whitenoise==3.3.0
