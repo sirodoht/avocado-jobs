@@ -53,7 +53,7 @@ jobs:
             DATABASE_URL: "postgres://postgres:@localhost:5432/postgres"
 
       # deploy
-      # - run:
-      #     command: |
-      #       ssh-keyscan -H avocadojobs.com >> ~/.ssh/known_hosts
-      #       git push dokku@avocadojobs.com:avocadojobs master
+      - run:
+          command: |
+            ssh-keyscan -H avocadojobs.com >> ~/.ssh/known_hosts
+            git push dokku@avocadojobs.com:avocadojobs master
