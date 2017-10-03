@@ -10,7 +10,7 @@ class ListingForm(ModelForm):
         label='Tags',
         max_length=300,
         required=False,
-        help_text = 'Comma separated keywords (max 3 - optional) eg. frontend, react'
+        help_text='Comma separated keywords (max 3 - optional) eg. frontend, react'
     )
 
     field_order = ['category', 'role_title', 'company_name', 'company_link',
@@ -39,7 +39,6 @@ class ListingForm(ModelForm):
         )
         return cleaned_data
 
-
     class Meta:
         model = Listing
         fields = ['category', 'role_title', 'company_name', 'company_link',
@@ -56,8 +55,6 @@ class ListingForm(ModelForm):
             'apply_link': URLInput(attrs={'placeholder': 'https://'}),
         }
         labels = {
-            'company_desc': 'Company description',
-            'role_desc': 'Role description',
             'company_link': 'Company URL',
             'company_desc': 'Company intro',
             'company_funding': 'Funding',
