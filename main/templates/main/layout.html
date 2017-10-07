@@ -19,6 +19,7 @@
         </div>
         <div class="nav-links">
             {% if user.is_authenticated %}
+                <div class="hidden" id="user-authed"></div>
                 <a href="{% url 'main:applications' %}">Applications</a>
                 <a href="{% url 'main:submissions' %}">Submissions</a>
                 <a href="{% url 'main:logout' %}">Log out</a>

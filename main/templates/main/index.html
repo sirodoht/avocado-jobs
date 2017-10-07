@@ -89,6 +89,15 @@
                     });
             };
 
+            // check if user is authenticated
+            function isAuthed() {
+                if (document.getElementById('user-authed')) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
             // get csrf from the html
             function getCsrf() {
                 var inputElems = document.querySelectorAll('input');
@@ -107,16 +116,18 @@
                 document.querySelectorAll('a[data-id="' + listingIdForDeletion + '"')[0].style.opacity = 1;
                 listingIdsStore.splice(idIndex, 1);
 
-                var csrfToken = getCsrf();
-                superagent.post('/applications/' + listingIdForDeletion + '/delete/')
-                    .set('X-CSRFToken', csrfToken)
-                    .end(function (err, res) {
-                        if (err) {
-                            console.log('Failed at deleting application. Error:', err);
-                        } else {
-                            document.location.reload();
-                        }
-                    });
+                if (isAuthed()) {
+                    var csrfToken = getCsrf();
+                    superagent.post('/applications/' + listingIdForDeletion + '/delete/')
+                        .set('X-CSRFToken', csrfToken)
+                        .end(function (err, res) {
+                            if (err) {
+                                console.log('Failed at deleting application. Error:', err);
+                            } else {
+                                document.location.reload();
+                            }
+                        });
+                }
             }
 
             // add new listing as application, aka opacity = 20%
@@ -124,18 +135,19 @@
                 document.querySelectorAll('a[data-id="' + listingId + '"')[0].style.opacity = 0.2;
                 listingIdsStore.push(listingId);
 
-                var csrfToken = getCsrf();
-                superagent.post('/applications/')
-                    .send({
-                        'listing_id': listingId,
-                    })
-                    .set('X-CSRFToken', csrfToken)
-                    .end(function superagentEndCallback(err, res) {
-                        if (err) {
-                            console.log('Failed to create new application listing. Error:', err);
-                        }
-                    });
-
+                if (isAuthed()) {
+                    var csrfToken = getCsrf();
+                    superagent.post('/applications/')
+                        .send({
+                            'listing_id': listingId,
+                        })
+                        .set('X-CSRFToken', csrfToken)
+                        .end(function superagentEndCallback(err, res) {
+                            if (err) {
+                                console.log('Failed to create new application listing. Error:', err);
+                            }
+                        });
+                }
             }
 
             // function to run when a circle is clicked
@@ -158,7 +170,9 @@
             }
 
             // init page scripts
-            getApplicationListings();
+            if (isAuthed()) {
+                getApplicationListings();
+            }
         })()
     </script>
 {% endblock %}
