@@ -652,20 +652,28 @@ li {
 }
 
 .apply {
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
   border: 2px solid #83bf33;
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+.apply-tag-content {
+  display: inline-block;
+  background: #83bf33;
+  color: #fff;
+  padding-bottom: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom-right-radius: 3px;
+}
+
+.apply-link {
+  text-align: center;
+  padding-bottom: 33px;
   font-size: 20px;
 }
 @media (min-width: 768px) {
-  .apply {
-    padding-top: 30px;
-    padding-bottom: 30px;
+  .apply-link {
     font-size: 24px;
   }
 }
