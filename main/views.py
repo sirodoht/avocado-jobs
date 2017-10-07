@@ -197,7 +197,6 @@ def email_login_link(request, email):
         render_to_string('main/token_auth_email.txt', {'current_site': current_site, 'data': data}, request=request),
         settings.DEFAULT_FROM_EMAIL,
         [email],
-        fail_silently=False,
     )
 
 
