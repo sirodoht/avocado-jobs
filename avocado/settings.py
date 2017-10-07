@@ -85,7 +85,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 AUTH_TOKEN_DURATION = 5 * 60
-DEFAULT_FROM_EMAIL = 'noreply@avocadojobs.com'
+DEFAULT_FROM_EMAIL = 'hi@avocadojobs.com'
 
 
 # Database
