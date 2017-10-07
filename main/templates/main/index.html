@@ -113,9 +113,6 @@
 
             // remove application listing, aka make opacity 100%
             function removeApplicationListing(listingIdForDeletion, idIndex) {
-                document.querySelectorAll('a[data-id="' + listingIdForDeletion + '"')[0].style.opacity = 1;
-                listingIdsStore.splice(idIndex, 1);
-
                 if (isAuthed()) {
                     var csrfToken = getCsrf();
                     superagent.post('/applications/' + listingIdForDeletion + '/delete/')
@@ -124,17 +121,18 @@
                             if (err) {
                                 console.log('Failed at deleting application. Error:', err);
                             } else {
-                                document.location.reload();
+                                document.querySelectorAll('a[data-id="' + listingIdForDeletion + '"')[0].style.opacity = 1;
+                                listingIdsStore.splice(idIndex, 1);
                             }
                         });
+                } else {
+                    document.querySelectorAll('a[data-id="' + listingIdForDeletion + '"')[0].style.opacity = 1;
+                    listingIdsStore.splice(idIndex, 1);
                 }
             }
 
             // add new listing as application, aka opacity = 20%
             function checkNewApplication(listingId) {
-                document.querySelectorAll('a[data-id="' + listingId + '"')[0].style.opacity = 0.2;
-                listingIdsStore.push(listingId);
-
                 if (isAuthed()) {
                     var csrfToken = getCsrf();
                     superagent.post('/applications/')
@@ -146,7 +144,12 @@
                             if (err) {
                                 console.log('Failed to create new application listing. Error:', err);
                             }
+                            document.querySelectorAll('a[data-id="' + listingId + '"')[0].style.opacity = 0.2;
+                            listingIdsStore.push(listingId);
                         });
+                } else {
+                    document.querySelectorAll('a[data-id="' + listingId + '"')[0].style.opacity = 0.2;
+                    listingIdsStore.push(listingId);
                 }
             }
 
