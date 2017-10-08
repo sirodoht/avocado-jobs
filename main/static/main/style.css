@@ -370,6 +370,12 @@ li {
   color: #83bf33;
 }
 
+.alert {
+  background: #83bf33;
+  color: #fff;
+  padding: 20px;
+}
+
 .container {
   max-width: 780px;
   margin: auto;
