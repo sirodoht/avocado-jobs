@@ -1,12 +1,13 @@
 Hello!
 
 This email contains your secret Avocado Jobs login link. To log in,
-just click the link below, and please don't share it with anyone, or they will
-be able to access your account.
+just click the link below.
+
+Also don't share it with anyone unless you want them to access your account.
 
 Click to log in:
 
 https://{{ current_site.domain }}{% url 'main:auth' %}?d={{ data }}
 
-Thanks!
-The Avocado team
+<3,
+The Avocado Jobs Team
