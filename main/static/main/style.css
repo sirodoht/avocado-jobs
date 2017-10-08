@@ -671,6 +671,10 @@ li {
   margin-bottom: 50px;
 }
 
+.apply-tag {
+  text-align: center;
+}
+
 .apply-tag-content {
   display: inline-block;
   background: #83bf33;
@@ -678,12 +682,14 @@ li {
   padding-bottom: 3px;
   padding-left: 10px;
   padding-right: 10px;
+  border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 
 .apply-link {
   text-align: center;
-  padding-bottom: 33px;
+  padding-top: 10px;
+  padding-bottom: 20px;
   font-size: 20px;
 }
 @media (min-width: 768px) {
