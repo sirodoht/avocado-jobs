@@ -19,10 +19,12 @@
         </div>
         <div class="nav-links">
             {% if user.is_authenticated %}
-                <div class="hidden" id="user-authed"></div>
                 <a href="{% url 'main:applications' %}">Applications</a>
                 <a href="{% url 'main:submissions' %}">Submissions</a>
                 <a href="{% url 'main:logout' %}">Log out</a>
+
+                <!-- This is for js to check. Also it must be last because of first-child styling. -->
+                <div class="hidden" id="user-authed"></div>
             {% else %}
                 <a href="{% url 'main:login' %}">Log in / Sign up</a>
             {% endif %}
