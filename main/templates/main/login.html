@@ -10,10 +10,12 @@
     <div class="container-content-body">
         {% if next %}
             {% if user.is_authenticated %}
-                <p>Your account doesn't have access to this ({{ next }}) page. To proceed,
-                please login with an account that has access.</p>
+                <p>
+                    Your account doesn't have access to this page.
+                    To proceed please login with an account that has access.
+                </p>
             {% else %}
-                <p>Please login to see this ({{ next }}) page.</p>
+                <p>Please login to see this page.</p>
             {% endif %}
         {% endif %}
 
@@ -35,14 +37,23 @@
         <form method="post" action="{% url 'main:auth' %}">
             {% csrf_token %}
 
-            <input name="email" type="email" />
+            <input name="email" type="email">
 
-            <input type="submit" value="login">
+            <input type="submit" value="Send link">
             <input type="hidden" name="next" value="{{ next }}">
         </form>
 
+        {% if messages %}
+            <p class="alert">
+                {% for message in messages %}
+                    {{ message }}
+                    <br>
+                {% endfor %}
+            </p>
+        {% endif %}
+
         <footer>
-            <p>Questions with the posting? Reach us <a href="#">here</a>.
+            <p>Avocado Jobs. Contact <a href="mailto:hi@avocadojobs.com">here</a>.</p>
         </footer>
     </div>
 {% endblock %}

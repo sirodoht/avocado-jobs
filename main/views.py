@@ -149,7 +149,9 @@ def listing_edit(request, listing_id):
 
 
 def get_login(request):
-    return render(request, 'main/login.html')
+    return render(request, 'main/login.html', {
+        'next': request.GET.get('next'),
+    })
 
 
 def token_post(request):

@@ -370,6 +370,12 @@ li {
   color: #83bf33;
 }
 
+.alert {
+  background: #83bf33;
+  color: #fff;
+  padding: 20px;
+}
+
 .container {
   max-width: 780px;
   margin: auto;
@@ -700,9 +706,9 @@ li {
   vertical-align: top;
 }
 
-.submit-item > input[type="text"],
-.submit-item > input[type="url"],
-.submit-item > input[type="email"] {
+input[type="text"],
+input[type="url"],
+input[type="email"] {
   display: inline-block;
   width: 40%;
   color: #333;
@@ -711,21 +717,21 @@ li {
   border: 1px solid #ddd;
 }
 
-.submit-item > input[type="text"]:focus,
-.submit-item > input[type="url"]:focus,
-.submit-item > input[type="email"]:focus {
+input[type="text"]:focus,
+input[type="url"]:focus,
+input[type="email"]:focus {
   border: 1px solid #aaa;
   outline: none;
 }
 
-.submit-item > input[type="text"][disabled],
-.submit-item > input[type="url"][disabled],
-.submit-item > input[type="email"][disabled] {
+input[type="text"][disabled],
+input[type="url"][disabled],
+input[type="email"][disabled] {
   background-color: #eee;
   cursor: not-allowed;
 }
 
-.submit-item > textarea {
+textarea {
   display: inline-block;
   color: #333;
   line-height: 1.7;
@@ -733,12 +739,12 @@ li {
   border: 1px solid #ddd;
 }
 
-.submit-item > textarea:focus {
+textarea:focus {
   border: 1px solid #aaa;
   outline: none;
 }
 
-.submit-item > input[type="number"] {
+input[type="number"] {
   display: inline-block;
   width: 10%;
   outline: 0;
@@ -748,7 +754,7 @@ li {
   border: 1px solid #ddd;
 }
 
-.submit-item > select {
+select {
   width: 42%;
   outline: none;
   color: #333;
@@ -766,7 +772,7 @@ li {
   margin-top: 60px;
 }
 
-.submit-button > input[type="submit"] {
+input[type="submit"] {
   cursor: pointer;
   border: none;
   background: #83bf33;
@@ -780,7 +786,7 @@ li {
   transition: 0.1s;
 }
 
-.submit-button > input[type="submit"]:hover {
+input[type="submit"]:hover {
   background: #75ab2e;
 }
 
