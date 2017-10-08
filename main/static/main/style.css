@@ -323,6 +323,7 @@ li {
 
 .nav {
   display: flex;
+  flex-wrap: wrap;
   background: #83bf33;
   color: #fff;
   padding-top: 10px;
@@ -332,7 +333,8 @@ li {
 
 .nav-header {
   font-size: 22px;
-  flex: 1;
+  flex-grow: 1;
+  flex-shrink: 0;
 }
 
 .nav-header a {
@@ -340,7 +342,7 @@ li {
   text-decoration: none;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 620px) {
   .nav-header span {
     display: none;
   }
@@ -350,12 +352,17 @@ li {
   font-size: 16px;
   padding-top: 5px;
   padding-right: 15px;
+  flex-shrink: 0;
 }
 
 .nav-links a {
   color: #fff;
   text-decoration: none;
   margin-left: 15px;
+}
+
+.nav-links a:first-child {
+  margin-left: 0;
 }
 
 .nav-links a:hover {
@@ -381,6 +388,8 @@ li {
   margin-right: auto;
   padding-top: 70px;
   padding-bottom: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .container-content-header-content-subtitle {
@@ -399,6 +408,8 @@ li {
 .container-content-body {
   margin-left: auto;
   margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
   max-width: 780px;
 }
 
@@ -407,7 +418,9 @@ li {
 }
 
 .post {
-  background: #efefef;
+  display: block;
+  text-decoration: none;
+  background: #83bf33;
   line-height: 2;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -416,25 +429,16 @@ li {
   padding-top: 30px;
   padding-bottom: 30px;
   text-align: center;
-  color: #555;
-}
-
-.post a {
-  white-space: nowrap;
-  background: #83bf33;
-  margin: 10px;
-  padding-right: 10px;
-  padding-left: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
   color: #fff;
-  text-decoration: none;
-  box-shadow: inset 0 -10px 20px -10px rgba(0, 0, 0, 0.1);
-  border-bottom: 3px solid #5a8323;
-  transition: 0.1s;
+}
+@media (max-width: 620px) {
+  .post {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 }
 
-.post a:hover {
+.post:hover {
   background: #75ab2e;
 }
 
@@ -495,6 +499,7 @@ li {
 
 .listings-entry-detail-info {
   display: flex;
+  flex-wrap: wrap;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
@@ -507,10 +512,13 @@ li {
 }
 
 .listings-entry-detail-info-title {
-  flex: 1 1 auto;
+  flex-grow: 1;
+  flex-shrink: 0;
   text-decoration: none;
   color: #333;
   font-size: 17px;
+  margin-top: 3px;
+  margin-right: 5px;
 }
 @media (min-width: 768px) {
   .listings-entry-detail-info-title {
