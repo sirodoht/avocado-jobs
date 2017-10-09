@@ -20,25 +20,27 @@
                 {% for category in categories %}
                     <h2 id="{{ category|lower }}">{{ category }} jobs</h2>
                      {% for listing in category.listing_set.all %}
-                        <div class="listings-entry">
-                            <div class="listings-entry-detail">
-                                <div class="listings-entry-detail-info">
-                                    <a class="listings-entry-detail-info-title"  href="{% url 'main:detail' listing.id %}" data-id="{{ listing.id }}">
-                                        <strong>{{ listing.role_title }}</strong>
-                                        <span class="muted">at</span>
-                                        <span class="listings-entry-detail-info-title-company">{{ listing.company_name }}</span>
-                                    </a>
-                                    <div class="listings-entry-detail-info-tags">
-                                        {% for tag in listing.tag_set.all %}
-                                            <div class="listings-entry-detail-info-tags-single">{{ tag }}</div>
-                                        {% endfor %}
+                        {% if listing.confirmed %}
+                            <div class="listings-entry">
+                                <div class="listings-entry-detail">
+                                    <div class="listings-entry-detail-info">
+                                        <a class="listings-entry-detail-info-title"  href="{% url 'main:detail' listing.id %}" data-id="{{ listing.id }}">
+                                            <strong>{{ listing.role_title }}</strong>
+                                            <span class="muted">at</span>
+                                            <span class="listings-entry-detail-info-title-company">{{ listing.company_name }}</span>
+                                        </a>
+                                        <div class="listings-entry-detail-info-tags">
+                                            {% for tag in listing.tag_set.all %}
+                                                <div class="listings-entry-detail-info-tags-single">{{ tag }}</div>
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="listings-entry-control">
+                                    <div class="listings-entry-control-check" title="Dim out jobs you have applied" data-id="{{ listing.id }}">&#9702;</div>
+                                </div>
                             </div>
-                            <div class="listings-entry-control">
-                                <div class="listings-entry-control-check" title="Dim out jobs you have applied" data-id="{{ listing.id }}">&#9702;</div>
-                            </div>
-                        </div>
+                        {% endif %}
                     {% empty %}
                         <div class="empty">No job listings exist in this category.</div>
                     {% endfor %}
