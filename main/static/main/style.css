@@ -877,3 +877,47 @@ label[for="id_company_desc"],
 label[for="id_role_desc"] {
   margin-top: 30px;
 }
+
+.intro {
+  display: inline-block;
+  font-size: 16px;
+  position: absolute;
+  top: 70px;
+  left: 15px;
+}
+
+.intro-button {
+  display: inline-block;
+  cursor: pointer;
+  background: #fff;
+  color: #999;
+  border: 2px solid #ddd;
+  border-radius: 3px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 16px;
+  padding-right: 16px;
+  transition: border-color 0.2s ease-in;
+}
+
+.intro-button:hover {
+  border-color: #bbb;
+}
+
+.intro-body {
+  position: relative;
+  z-index: 10;
+  background: #fff;
+  color: #4e6b26;
+  border: 1px solid #83bf33;
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.intro-body-hidden {
+  opacity: 0;
+  transition: all 0.1s ease-out;
+}
