@@ -152,6 +152,9 @@ def listing_edit(request, listing_id):
             return HttpResponse('Listing edit form of %s is invalid.' % listing_id)
     else:
         listing = Listing.objects.get(id=listing_id)
+        if listing.owner != request.user:
+            return HttpResponseRedirect(reverse('main:detail', kwargs={'listing_id': listing.id}))
+
         listing_dict = model_to_dict(listing)
 
         tags = []
