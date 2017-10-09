@@ -189,6 +189,11 @@
             if (isAuthed()) {
                 getApplicationListings();
             }
+
+            // add event listener for why box
+            document.getElementById('intro-trigger').addEventListener('click', function (event) {
+                document.getElementById('intro-box').classList.toggle('intro-body-hidden');
+            });
         })()
     </script>
 {% endblock %}
