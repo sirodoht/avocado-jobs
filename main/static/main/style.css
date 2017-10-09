@@ -898,6 +898,11 @@ label[for="id_role_desc"] {
   padding-left: 16px;
   padding-right: 16px;
 }
+@media (max-width: 992px) {
+  .intro-button {
+    display: none;
+  }
+}
 
 .intro-body {
   position: relative;
