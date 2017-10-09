@@ -639,7 +639,8 @@ li {
 
 .company-logo {
   border-bottom: 1px solid #ddd;
-  width: 300px;
+  min-width: 200px;
+  max-width: 300px;
   max-height: 300px;
 }
 
