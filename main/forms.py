@@ -1,6 +1,8 @@
 import bleach
+
 from django import forms
 from django.forms import ModelForm, Textarea, NumberInput, URLInput
+from ckeditor.widgets import CKEditorWidget
 
 from .models import Listing
 
@@ -22,8 +24,8 @@ class ListingForm(ModelForm):
     def clean_company_desc(self):
         data = self.cleaned_data['company_desc']
         cleaned_data = bleach.clean(data,
-            tags=['br', 'b', 'i', 'ul', 'li'],
-            attributes=['abbr'],
+            tags=['em', 'strong', 'ul', 'li', 'a'],
+            attributes=['abbr', 'href'],
             styles=[],
             strip=True,
         )
@@ -47,8 +49,8 @@ class ListingForm(ModelForm):
             'role_remote', 'role_location', 'role_tech', 'role_compensation',
             'apply_link']
         widgets = {
-            'company_desc': Textarea(attrs={'cols': 50, 'rows': 3}),
-            'role_desc': Textarea(attrs={'cols': 50, 'rows': 10}),
+            'company_desc': CKEditorWidget(),
+            'role_desc': CKEditorWidget(),
             'company_link': URLInput(attrs={'placeholder': 'https://'}),
             'company_image': URLInput(attrs={'placeholder': 'https://github.com/logo.png'}),
             'apply_link': URLInput(attrs={'placeholder': 'https://'}),
