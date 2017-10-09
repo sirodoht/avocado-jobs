@@ -57,26 +57,31 @@ def listings(request):
 @login_required
 def applications(request):
     if request.method == 'POST':
-        current_user = User.objects.get(id=request.user.id)
         body = request.body.decode('utf-8')
         data = json.loads(body)
         given_listing = Listing.objects.get(id=data['listing_id'])
-        given_listing.users.add(current_user)
+        Application.objects.create(user=request.user, listing=given_listing, stage='INITIAL')
+        return HttpResponse(status=200)
+    elif request.method == 'PATCH':
+        body = request.body.decode('utf-8')
+        data = json.loads(body)
+        given_listing = Listing.objects.get(id=data['listing_id'])
+        new_stage = data['stage'].upper()
+        Application.objects.filter(user=request.user, listing=given_listing).update(stage=new_stage)
         return HttpResponse(status=200)
     else:
-        if request.content_type == 'application/json':
-            current_user = User.objects.get(id=request.user.id)
-            application_listings_values_qs = Listing.objects.filter(users__id=current_user.id).values_list('id')
+        if request.content_type == 'application/json':  # for frontpage js
+            application_listings_values_qs = Listing.objects.filter(users__id=request.user.id).values_list('id')
             application_listings_values_list = list(application_listings_values_qs)
             application_listings_values = [listing_id for listings_tuple in application_listings_values_list for listing_id in listings_tuple]
             return JsonResponse({
                 'applications': list(application_listings_values)
             })
         else:
-            current_user = User.objects.get(id=request.user.id)
-            application_listings = Listing.objects.filter(users__id=current_user.id)
+            # application_listings = Listing.objects.filter(users__id=request.user.id)
+            applications_list = Application.objects.filter(user=request.user)
             return render(request, 'main/applications.html', {
-                'application_listings': application_listings,
+                'applications_list': applications_list,
             })
 
 
