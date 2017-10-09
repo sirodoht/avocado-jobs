@@ -125,6 +125,7 @@ def create_preview(request, listing_id):
 
 @login_required
 def create_thank(request, listing_id):
+    Listing.objects.filter(id=listing_id).update(confirmed=True)
     return render(request, 'main/thank-you.html', {
         'listing_id': listing_id
     })
