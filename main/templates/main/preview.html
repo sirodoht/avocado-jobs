@@ -78,7 +78,12 @@
         </div>
 
         <div class="apply">
-            Apply at <a href="{{ listing.apply_link }}">{{ listing.apply_link }}</a>
+            <div class="apply-tag">
+                <div class="apply-tag-content">Apply here</div>
+            </div>
+            <div class="apply-link">
+                <a href="{{ listing.apply_link }}">{{ listing.apply_link }}</a>
+            </div>
         </div>
 
         <hr>
@@ -91,7 +96,7 @@
             <br>
             <div class="confirm-controls">
                 <a class="btn-secondary" href="{% url 'main:listing_edit' listing.id %}">Edit</a>
-                <a class="btn-primary" href="{% url 'main:submit_thank' listing.id %}">Confirm</a>
+                <a class="btn-primary" href="{% url 'main:create_thank' listing.id %}">Confirm</a>
             </div>
         </div>
 
