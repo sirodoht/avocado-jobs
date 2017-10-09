@@ -78,7 +78,6 @@ def applications(request):
                 'applications': list(application_listings_values)
             })
         else:
-            # application_listings = Listing.objects.filter(users__id=request.user.id)
             applications_list = Application.objects.filter(user=request.user)
             return render(request, 'main/applications.html', {
                 'applications_list': applications_list,
