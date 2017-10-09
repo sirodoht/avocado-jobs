@@ -1,5 +1,6 @@
 {% extends 'main/layout.html' %}
 
+{% load static %}
 {% load app_filters %}
 
 {% block content %}
@@ -39,73 +40,9 @@
         </footer>
     </div>
 
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
     <script>
-        var makeEditor = function (textarea_id, tabindex) {
-            var textareaElem = document.getElementById(textarea_id);
-
-            var editorWrapper = document.createElement('div');
-            editorWrapper.className += 'editor-wrapper_' + textarea_id;
-            textareaElem.parentNode.insertBefore(editorWrapper, textareaElem);
-
-            var actionBar = document.createElement('div');
-            actionBar.className += 'action-bar_' + textarea_id;
-            editorWrapper.appendChild(actionBar);
-
-            var editorDiv = document.createElement('div');
-            editorDiv.className += 'editor_' + textarea_id;
-            editorDiv.contentEditable = true;
-            editorDiv.addEventListener('input', function () {
-                textareaElem.value = editorDiv.innerHTML;
-            });
-            editorDiv.setAttribute('tabindex', tabindex);
-            editorWrapper.appendChild(editorDiv);
-            textareaElem.style.display = 'none';
-
-            var buttonBold = document.createElement('button');
-            buttonBold.className = 'editor-button';
-            buttonBold.innerHTML = '<b>Bold</b>';
-            buttonBold.title = 'Add bold text';
-            buttonBold.onclick = function () {
-                document.execCommand('bold', false);
-                return false;
-            }
-            actionBar.appendChild(buttonBold);
-
-            var buttonItalic = document.createElement('button');
-            buttonItalic.className = 'editor-button';
-            buttonItalic.innerHTML = '<i>Italic</i>';
-            buttonItalic.title = 'Add italic text';
-            buttonItalic.onclick = function () {
-                document.execCommand('italic', false);
-                return false;
-            }
-            actionBar.appendChild(buttonItalic);
-
-            var buttonUl = document.createElement('button');
-            buttonUl.className = 'editor-button';
-            buttonUl.innerHTML = '&bull; List';
-            buttonUl.title = 'Add bullet list';
-            buttonUl.onclick = function () {
-                document.execCommand('insertUnorderedList', false);
-                return false;
-            }
-            actionBar.appendChild(buttonUl);
-
-            var buttonUl = document.createElement('button');
-            buttonUl.className = 'editor-button';
-            buttonUl.innerHTML = '&empty;';
-            buttonUl.title = 'Remove formatting';
-            buttonUl.onclick = function () {
-                document.execCommand('removeFormat', false);
-                return false;
-            }
-            actionBar.appendChild(buttonUl);
-        }
-
-        // Django generated ids from ModelForm
-        makeEditor('id_company_desc', 7);
-        makeEditor('id_role_desc', 11);
-
         // Disable 'role location' field if remote = true
         document.getElementById('id_role_remote').addEventListener('change', function (event) {
             if (event.target.checked) {
@@ -116,5 +53,12 @@
                 document.getElementById('id_role_location').placeholder = '';
             }
         });
+
+        // Fix CKEditor width
+        var ckeditorElems = document.getElementsByClassName('django-ckeditor-widget')
+        var i = 0;
+        for(i = 0; i < ckeditorElems.length; i++) {
+            ckeditorElems[i].style.width = '75%';
+        }
     </script>
 {% endblock %}

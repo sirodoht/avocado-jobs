@@ -3,6 +3,7 @@ import shortuuid
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 
 def generate_uuid() -> str:
@@ -41,11 +42,12 @@ class Listing(models.Model):
     company_link = models.CharField(max_length=300)
     company_image = models.CharField(max_length=300, blank=True)
     company_base = models.CharField(max_length=100)
-    company_desc = models.TextField()
+    company_desc = RichTextField()
     company_size = models.CharField(max_length=50)
     company_funding = models.CharField(max_length=50)
     company_tech = models.CharField(max_length=100)
-    role_desc = models.TextField()
+    role_desc = RichTextField()
+    confirmed = models.BooleanField(default=False)
 
     FULLTIME = 'F'
     CONTRACT = 'C'

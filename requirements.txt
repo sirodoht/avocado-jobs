@@ -8,6 +8,8 @@ argon2-cffi==16.3.0
 bleach==2.1.1
 cffi==1.11.1              # via argon2-cffi
 dj-database-url==0.4.2
+django-ckeditor==5.3.0
+django-js-asset==0.1.1    # via django-ckeditor
 django==1.11.6
 faker==0.8.4
 flake8==3.4.1

@@ -35,6 +35,7 @@ def create_listing(category):
         role_remote=fake.boolean(),
         role_tech=fake.color_name(),
         role_compensation=fake.color_name(),
+        confirmed=True,
     )
 
 
