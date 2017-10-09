@@ -88,48 +88,57 @@ def applications(request):
 @login_required
 def applications_delete(request, listing_id):
     if request.method == 'POST':
-        current_user = User.objects.get(id=request.user.id)
         given_listing = Listing.objects.get(id=listing_id)
-        given_listing.users.remove(current_user)
+        Application.objects.get(user=request.user, listing=given_listing).delete()
         return HttpResponse(status=200)
     else:
         return HttpResponse(status=405)
 
 
 @login_required
-def submit(request):
+def create(request):
     if request.method == 'POST':
         form = ListingForm(request.POST)
         if form.is_valid():
-            saved_listing = form.save()
+            saved_listing = form.save(commit=False)
+            saved_listing.owner = request.user
+            saved_listing.save()
             if form.cleaned_data['tags'].strip():
                 tags = form.cleaned_data['tags'].split(',')
                 for single_tag in tags[:3]:
                     stripped_tag = single_tag.strip()
                     Tag.objects.create(tag_name=stripped_tag, listing=saved_listing)
-            return HttpResponseRedirect('/submit/%s/preview' % saved_listing.id)
+            return HttpResponseRedirect(reverse('main:preview', saved_listing.id))
         else:
             return HttpResponse('Listing edit form of %s is invalid.' % listing_id)
     else:
         form = ListingForm()
-        return render(request, 'main/submit.html', {'form': form})
+        return render(request, 'main/create.html', {
+            'form': form
+        })
 
 
 @login_required
-def submit_preview(request, listing_id):
+def create_preview(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
-    return render(request, 'main/preview.html', {'listing': listing})
+    return render(request, 'main/preview.html', {
+        'listing': listing
+    })
 
 
 @login_required
-def submit_thank(request, listing_id):
-    return render(request, 'main/thank-you.html', {'listing_id': listing_id})
+def create_thank(request, listing_id):
+    return render(request, 'main/thank-you.html', {
+        'listing_id': listing_id
+    })
 
 
 @login_required
 def listing_edit(request, listing_id):
     if request.method == 'POST':
         listing_instance = Listing.objects.get(id=listing_id)
+        if listing_instance.owner != request.user:
+            return HttpResponse(status=401)
         form = ListingForm(request.POST, instance=listing_instance)
         if form.is_valid():
             saved_listing = form.save()
