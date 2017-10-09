@@ -3,12 +3,10 @@ import os, time, json, base64
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-from django.views import generic
 from django.forms import model_to_dict
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
@@ -107,7 +105,7 @@ def create(request):
                 for single_tag in tags[:3]:
                     stripped_tag = single_tag.strip()
                     Tag.objects.create(tag_name=stripped_tag, listing=saved_listing)
-            return HttpResponseRedirect(reverse('main:preview', saved_listing.id))
+            return HttpResponseRedirect(reverse('main:create_preview', kwargs={'listing_id': saved_listing.id}))
         else:
             return HttpResponse('Listing edit form of %s is invalid.' % listing_id)
     else:
