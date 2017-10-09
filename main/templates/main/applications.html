@@ -16,7 +16,7 @@
                 <div class="listings-entry">
                     <div class="listings-entry-detail">
                         <div class="listings-entry-detail-info">
-                            <a class="listings-entry-detail-info-title"  href="{% url 'main:detail' listing.id %}">
+                            <a class="listings-entry-detail-info-title"  href="{% url 'main:detail' application.listing.id %}">
                                 <strong>{{ application.listing.role_title }}</strong>
                                 <span class="muted">at</span>
                                 <span class="listings-entry-detail-info-title-company">{{ application.listing.company_name }}</span>
