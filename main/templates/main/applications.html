@@ -5,31 +5,39 @@
 {% block content %}
     <div class="container-content-header">
         <div class="container-content-header-content">
-            <h1>Job listing submissions</h1>
+            <h1>Job applications</h1>
         </div>
     </div>
 
     <div class="container-content-body">
         <div class="listings">
-            {% for listing in application_listings %}
+            {% csrf_token %}
+            {% for application in applications_list %}
                 <div class="listings-entry">
                     <div class="listings-entry-detail">
                         <div class="listings-entry-detail-info">
-                            <a class="listings-entry-detail-info-title"  href="{% url 'main:detail' listing.id %}" data-id="{{ listing.id }}">
-                                <strong>{{ listing.role_title }}</strong>
+                            <a class="listings-entry-detail-info-title"  href="{% url 'main:detail' listing.id %}">
+                                <strong>{{ application.listing.role_title }}</strong>
                                 <span class="muted">at</span>
-                                <span class="listings-entry-detail-info-title-company">{{ listing.company_name }}</span>
+                                <span class="listings-entry-detail-info-title-company">{{ application.listing.company_name }}</span>
                             </a>
-                            <div class="listings-entry-detail-info-tags">
-                                {% for tag in listing.tag_set.all %}
-                                    <div class="listings-entry-detail-info-tags-single">{{ tag }}</div>
-                                {% endfor %}
+                            <div class="listings-entry-detail-info-stage" data-id="{{ application.listing.id }}">
+                                <select name="stage" class="submission-stage">
+                                    <option {% if application.stage == 'INITIAL' %}selected{% endif %} value="initial">No initial response yet</option>
+                                    <option {% if application.stage == 'NEED' %}selected{% endif %} value="need">I need to respond</option>
+                                    <option {% if application.stage == 'AWAIT' %}selected{% endif %} value="await">Awaiting response</option>
+                                    <option {% if application.stage == 'SCHEDULED' %}selected{% endif %} value="scheduled">Interview scheduled</option>
+                                    <option {% if application.stage == 'OFFER' %}selected{% endif %} value="offer">Got offer</option>
+                                    <option {% if application.stage == 'DECLINED' %}selected{% endif %} value="declined">Declined</option>
+                                    <option {% if application.stage == 'REJECTED' %}selected{% endif %} value="rejected">Got Rejected</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="listings-entry-control">
-                        {% csrf_token %}
-                        <div class="listings-entry-control-delete" title="Remove listing from applications" data-id="{{ listing.id }}" onclick="removeApplication(event)">Remove</div>
+                        <div class="listings-entry-control-delete" title="Remove listing from applications" data-id="{{ listing.id }}" onclick="removeApplication(event)">
+                            <span style="font-family: monospace;">rm</span>
+                        </div>
                     </div>
                 </div>
             {% empty %}
