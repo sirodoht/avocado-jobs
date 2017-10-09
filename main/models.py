@@ -24,7 +24,7 @@ class Listing(models.Model):
         default=generate_uuid,
         editable=False,
     )
-    user = models.ForeignKey(
+    owner = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
         null=True,
@@ -64,10 +64,40 @@ class Listing(models.Model):
     role_compensation = models.CharField(max_length=100)
     apply_link = models.CharField(max_length=300, blank=True)
 
-    users = models.ManyToManyField(User, related_name='applications')
+    users = models.ManyToManyField(User, through='Application', related_name='applications')
 
     def __str__(self):
         return self.role_title + " at " + self.company_name
+
+
+class Application(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    date_applied = models.DateField(default=timezone.now)
+
+    INITIAL = 'initial'
+    NEED = 'need'
+    AWAIT = 'await'
+    SCHEDULED = 'scheduled'
+    OFFER = 'offer'
+    DECLINED = 'declined'
+    REJECTED = 'rejected'
+    STAGE_CHOICES = (
+        (INITIAL, 'No initial response yet'),
+        (NEED, 'I need to respond'),
+        (AWAIT, 'Awaiting response'),
+        (SCHEDULED, 'Interview scheduled'),
+        (OFFER, 'Got offer'),
+        (DECLINED, 'Declined'),
+        (REJECTED, 'Got Rejected'),
+    )
+    stage = models.CharField(
+        choices=STAGE_CHOICES,
+        max_length=50,
+    )
+
+    def __str__(self):
+        return 'User with ID ' + str(self.user.id) + ' applied for ' + self.listing.role_title
 
 
 class Tag(models.Model):
