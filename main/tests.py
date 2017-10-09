@@ -48,6 +48,7 @@ class ListingIndexViewTests(TestCase):
         self.assertContains(response, 'No job listings exist :(')
         self.assertQuerysetEqual(response.context['categories'], [])
 
+
     def test_listing(self):
         """
         The listings index page may display a single listing.
@@ -61,6 +62,7 @@ class ListingIndexViewTests(TestCase):
         )
         self.assertContains(response, listing.role_title)
         self.assertContains(response, listing.company_name)
+
 
     def test_two_listings(self):
         """

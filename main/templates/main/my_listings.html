@@ -5,13 +5,13 @@
 {% block content %}
     <div class="container-content-header">
         <div class="container-content-header-content">
-            <h1>Job listing submissions</h1>
+            <h1>My job listings</h1>
         </div>
     </div>
 
     <div class="container-content-body">
         <div class="listings">
-            {% for listing in listing_list %}
+            {% for listing in listings_list %}
                 <div class="listings-entry">
                     <div class="listings-entry-detail">
                         <div class="listings-entry-detail-info">
@@ -30,13 +30,13 @@
                     <div class="listings-entry-control">
                         {% csrf_token %}
                         <a href="{% url 'main:listing_edit' listing.id %}" class="listings-entry-control-edit" title="Edit listing">Edit</a>
-                        <div class="listings-entry-control-delete" title="Delete listing" data-id="{{ listing.id }}" onclick="deleteListing(event)">Delete</div>
+                        <div class="listings-entry-control-delete" title="Remove listing from Avocado Jobs" data-id="{{ listing.id }}" onclick="deleteListing(event)">Delete</div>
                     </div>
                 </div>
             {% empty %}
                 <div class="empty">
-                    You have submitted 0 job listings. Create one
-                    <a href="{% url 'main:submit' %}">here</a>!
+                    You have created 0 job listings. Post one
+                    <a href="{% url 'main:create' %}">here</a>!
                 </div>
             {% endfor %}
         </div>

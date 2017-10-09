@@ -3,46 +3,41 @@ import os, time, json, base64
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.urls import reverse_lazy
-from django.views import generic
+from django.urls import reverse
 from django.forms import model_to_dict
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.core.signing import Signer
 
-from .models import Listing, Category, Tag
+from .models import Listing, Category, Tag, Application
 from .forms import ListingForm, EmailForm
 from avocado import settings
 
 
-class IndexView(generic.ListView):
-    template_name = 'main/index.html'
-    context_object_name = 'categories'
-
-    def get_queryset(self):
-        """
-        Return all listings
-        """
-        return Category.objects.order_by('id')
+def index(request):
+    categories = Category.objects.order_by('id')
+    return render(request, 'main/index.html', {
+        'categories': categories,
+    })
 
 
-class DetailView(generic.DetailView):
-    template_name = 'main/detail.html'
-    model = Listing
+def listing_detail(request, listing_id):
+    listing = Listing.objects.get(id=listing_id)
+    return render(request, 'main/detail.html', {
+        'listing': listing,
+    })
 
 
-class SubmissionsView(generic.ListView):
-    template_name = 'main/submissions.html'
-    model = Listing
-
-
-class ListingDelete(generic.edit.DeleteView):
-    model = Listing
-    success_url = reverse_lazy('main:submissions')
+def listing_delete(request, listing_id):
+    if request.method == 'POST':
+        listing = Listing.objects.get(id=listing_id)
+        listing.delete()
+        return HttpResponseRedirect(reverse('main:listings'))
+    else:
+        return HttpResponse(status=404)
 
 
 def report(request, listing_id):
@@ -50,76 +45,97 @@ def report(request, listing_id):
 
 
 @login_required
+def listings(request):
+    listings_list = Listing.objects.filter(owner=request.user)
+    return render(request, 'main/my_listings.html', {
+        'listings_list': listings_list,
+    })
+
+
+@login_required
 def applications(request):
     if request.method == 'POST':
-        current_user = User.objects.get(id=request.user.id)
         body = request.body.decode('utf-8')
         data = json.loads(body)
         given_listing = Listing.objects.get(id=data['listing_id'])
-        given_listing.users.add(current_user)
+        Application.objects.create(user=request.user, listing=given_listing, stage='INITIAL')
+        return HttpResponse(status=200)
+    elif request.method == 'PATCH':
+        body = request.body.decode('utf-8')
+        data = json.loads(body)
+        given_listing = Listing.objects.get(id=data['listing_id'])
+        new_stage = data['stage'].upper()
+        Application.objects.filter(user=request.user, listing=given_listing).update(stage=new_stage)
         return HttpResponse(status=200)
     else:
-        if request.content_type == 'application/json':
-            current_user = User.objects.get(id=request.user.id)
-            application_listings_values_qs = Listing.objects.filter(users__id=current_user.id).values_list('id')
+        if request.content_type == 'application/json':  # for frontpage js
+            application_listings_values_qs = Listing.objects.filter(users__id=request.user.id).values_list('id')
             application_listings_values_list = list(application_listings_values_qs)
             application_listings_values = [listing_id for listings_tuple in application_listings_values_list for listing_id in listings_tuple]
             return JsonResponse({
                 'applications': list(application_listings_values)
             })
         else:
-            current_user = User.objects.get(id=request.user.id)
-            application_listings = Listing.objects.filter(users__id=current_user.id)
+            applications_list = Application.objects.filter(user=request.user)
             return render(request, 'main/applications.html', {
-                'application_listings': application_listings,
+                'applications_list': applications_list,
             })
 
 
 @login_required
 def applications_delete(request, listing_id):
     if request.method == 'POST':
-        current_user = User.objects.get(id=request.user.id)
         given_listing = Listing.objects.get(id=listing_id)
-        given_listing.users.remove(current_user)
+        Application.objects.get(user=request.user, listing=given_listing).delete()
         return HttpResponse(status=200)
     else:
         return HttpResponse(status=405)
 
 
 @login_required
-def submit(request):
+def create(request):
     if request.method == 'POST':
         form = ListingForm(request.POST)
         if form.is_valid():
-            saved_listing = form.save()
+            saved_listing = form.save(commit=False)
+            saved_listing.owner = request.user
+            saved_listing.save()
             if form.cleaned_data['tags'].strip():
                 tags = form.cleaned_data['tags'].split(',')
                 for single_tag in tags[:3]:
                     stripped_tag = single_tag.strip()
                     Tag.objects.create(tag_name=stripped_tag, listing=saved_listing)
-            return HttpResponseRedirect('/submit/%s/preview' % saved_listing.id)
+            return HttpResponseRedirect(reverse('main:create_preview', kwargs={'listing_id': saved_listing.id}))
         else:
             return HttpResponse('Listing edit form of %s is invalid.' % listing_id)
     else:
         form = ListingForm()
-        return render(request, 'main/submit.html', {'form': form})
+        return render(request, 'main/create.html', {
+            'form': form
+        })
 
 
 @login_required
-def submit_preview(request, listing_id):
+def create_preview(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
-    return render(request, 'main/preview.html', {'listing': listing})
+    return render(request, 'main/preview.html', {
+        'listing': listing
+    })
 
 
 @login_required
-def submit_thank(request, listing_id):
-    return render(request, 'main/thank-you.html', {'listing_id': listing_id})
+def create_thank(request, listing_id):
+    return render(request, 'main/thank-you.html', {
+        'listing_id': listing_id
+    })
 
 
 @login_required
 def listing_edit(request, listing_id):
     if request.method == 'POST':
         listing_instance = Listing.objects.get(id=listing_id)
+        if listing_instance.owner != request.user:
+            return HttpResponse(status=401)
         form = ListingForm(request.POST, instance=listing_instance)
         if form.is_valid():
             saved_listing = form.save()

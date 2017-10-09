@@ -20,7 +20,9 @@
         <div class="nav-links">
             {% if user.is_authenticated %}
                 <a href="{% url 'main:applications' %}">Applications</a>
-                <a href="{% url 'main:submissions' %}">Submissions</a>
+                {% if has_listings %}
+                    <a href="{% url 'main:listings' %}">My listings</a>
+                {% endif %}
                 <a href="{% url 'main:logout' %}">Log out</a>
 
                 <!-- This is for js to check. Also it must be last because of first-child styling. -->

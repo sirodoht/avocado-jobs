@@ -565,6 +565,10 @@ li {
   }
 }
 
+.listings-entry-detail-info-stage > select {
+  font-size: 16px;
+}
+
 .empty {
   font-size: 17px;
 }
@@ -761,10 +765,12 @@ input[type="number"] {
 }
 
 select {
-  width: 42%;
   outline: none;
   color: #333;
   border: 1px solid #ddd;
+}
+.submit-item > select {
+  width: 42%;
 }
 
 .submit-item-help {

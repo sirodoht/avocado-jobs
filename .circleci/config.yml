@@ -54,6 +54,4 @@ jobs:
 
       # deploy
       - run:
-          command: |
-            ssh-keyscan -H avocadojobs.com >> ~/.ssh/known_hosts
-            git push dokku@avocadojobs.com:avocadojobs master
+          command: ./deploy.sh
