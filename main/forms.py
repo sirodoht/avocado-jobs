@@ -24,7 +24,7 @@ class ListingForm(ModelForm):
     def clean_company_desc(self):
         data = self.cleaned_data['company_desc']
         cleaned_data = bleach.clean(data,
-            tags=['em', 'strong', 'ul', 'li', 'a'],
+            tags=['em', 'strong', 'ul', 'li', 'a', 'br'],
             attributes=['abbr', 'href'],
             styles=[],
             strip=True,
