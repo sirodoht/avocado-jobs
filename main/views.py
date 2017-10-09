@@ -7,46 +7,51 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.urls import reverse_lazy
+from django.urls import reverse
 from django.views import generic
 from django.forms import model_to_dict
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.core.signing import Signer
 
-from .models import Listing, Category, Tag
+from .models import Listing, Category, Tag, Application
 from .forms import ListingForm, EmailForm
 from avocado import settings
 
 
-class IndexView(generic.ListView):
-    template_name = 'main/index.html'
-    context_object_name = 'categories'
-
-    def get_queryset(self):
-        """
-        Return all listings
-        """
-        return Category.objects.order_by('id')
+def index(request):
+    categories = Category.objects.order_by('id')
+    return render(request, 'main/index.html', {
+        'categories': categories,
+    })
 
 
-class DetailView(generic.DetailView):
-    template_name = 'main/detail.html'
-    model = Listing
+def listing_detail(request, listing_id):
+    listing = Listing.objects.get(id=listing_id)
+    return render(request, 'main/detail.html', {
+        'listing': listing,
+    })
 
 
-class SubmissionsView(generic.ListView):
-    template_name = 'main/submissions.html'
-    model = Listing
-
-
-class ListingDelete(generic.edit.DeleteView):
-    model = Listing
-    success_url = reverse_lazy('main:submissions')
+def listing_delete(request, listing_id):
+    if request.method == 'POST':
+        listing = Listing.objects.get(id=listing_id)
+        listing.delete()
+        return HttpResponseRedirect(reverse('main:listings'))
+    else:
+        return HttpResponse(status=404)
 
 
 def report(request, listing_id):
     return HttpResponse("You're looking at the report of listing %s." % listing_id)
+
+
+@login_required
+def listings(request):
+    listings_list = Listing.objects.filter(owner=request.user)
+    return render(request, 'main/my_listings.html', {
+        'listings_list': listings_list,
+    })
 
 
 @login_required

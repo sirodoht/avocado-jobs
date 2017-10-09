@@ -6,7 +6,7 @@ from . import views
 app_name = 'main'
 urlpatterns = [
     # /
-    url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^$', views.index, name='index'),
 
     # /login
     url(r'^login/$', views.get_login, name='login'),
@@ -23,27 +23,27 @@ urlpatterns = [
     # /applications/jobuuid/delete
     url(r'^applications/(?P<listing_id>[^/]*)/delete/$', views.applications_delete, name='applications_delete'),
 
-    # /submissions
-    url(r'^submissions/$', views.SubmissionsView.as_view(), name='submissions'),
+    # /listings
+    url(r'^listings/$', views.listings, name='listings'),
 
-    # /jobs/randomuuid/delete
-    url(r'^jobs/(?P<pk>[^/]*)/delete/$', views.ListingDelete.as_view(), name='listing_delete'),
+    # /jobs/jobuuid/delete
+    url(r'^jobs/(?P<listing_id>[^/]*)/delete/$', views.listing_delete, name='listing_delete'),
 
-    # /jobs/randomuuid/edit
+    # /jobs/jobuuid/edit
     url(r'^jobs/(?P<listing_id>[^/]*)/edit/$', views.listing_edit, name='listing_edit'),
 
-    # /submit
-    url(r'^submit/$', views.submit, name='submit'),
+    # /create
+    url(r'^create/$', views.create, name='create'),
 
-    # /submit/randomuuid/preview
-    url(r'^submit/(?P<listing_id>[^/]*)/preview$', views.submit_preview, name='submit_preview'),
+    # /create/jobuuid/preview
+    url(r'^create/(?P<listing_id>[^/]*)/preview$', views.create_preview, name='create_preview'),
 
-    # /submit/thank-you
-    url(r'^submit/(?P<listing_id>[^/]*)/thank-you$', views.submit_thank, name='submit_thank'),
+    # /create/thank-you
+    url(r'^create/(?P<listing_id>[^/]*)/thank-you$', views.create_thank, name='create_thank'),
 
-    # /jobs/randomuuid/
-    url(r'^jobs/(?P<pk>[^/]*)/$', views.DetailView.as_view(), name='detail'),
+    # /jobs/jobuuid/
+    url(r'^jobs/(?P<listing_id>[^/]*)/$', views.listing_detail, name='detail'),
 
-    # /jobs/randomuuid/report/
+    # /jobs/jobuuid/report/
     url(r'^jobs/(?P<listing_id>[^/]*)/report/$', views.report, name='report'),
 ]
