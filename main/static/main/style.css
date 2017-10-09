@@ -614,6 +614,21 @@ li {
   background: #83bf33;
 }
 
+.listings-entry-control-rm {
+  display: inline-flex;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 15px;
+  font-family: monospace;
+  color: #555;
+}
+
+.listings-entry-control-rm:hover {
+  color: #fff;
+  background: #83bf33;
+}
+
 .company-figure {
   float: right;
   margin-top: 0;
