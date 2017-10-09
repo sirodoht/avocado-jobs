@@ -2,12 +2,22 @@ import shortuuid
 
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User as DjUser
 
 
 def generate_uuid() -> str:
     """Generate a UUID for an object."""
     return shortuuid.ShortUUID("abdcefghjkmnpqrstuvwxyz").random()[:8]
+
+
+class User(DjUser):
+    class Meta:
+        proxy = True
+
+    @property
+    def has_listings(self):
+        print('test does this work??:', self.listing_set.exists())
+        return self.listing_set.exists()
 
 
 class Category(models.Model):
@@ -25,7 +35,7 @@ class Listing(models.Model):
         editable=False,
     )
     owner = models.ForeignKey(
-        User,
+        DjUser,
         on_delete=models.SET_NULL,
         null=True,
     )
@@ -64,14 +74,15 @@ class Listing(models.Model):
     role_compensation = models.CharField(max_length=100)
     apply_link = models.CharField(max_length=300, blank=True)
 
-    users = models.ManyToManyField(User, through='Application', related_name='applications')
+    users = models.ManyToManyField(DjUser, through='Application', related_name='applications')
+
 
     def __str__(self):
-        return self.role_title + " at " + self.company_name
+        return self.role_title + ' at ' + self.company_name
 
 
 class Application(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(DjUser, on_delete=models.CASCADE)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     date_applied = models.DateField(default=timezone.now)
 
