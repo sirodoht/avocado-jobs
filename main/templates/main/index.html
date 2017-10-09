@@ -191,8 +191,11 @@
             }
 
             // add event listener for why box
-            document.getElementById('intro-trigger').addEventListener('click', function (event) {
-                document.getElementById('intro-box').classList.toggle('intro-body-hidden');
+            document.getElementById('intro-trigger').addEventListener('mouseover', function (event) {
+                document.getElementById('intro-box').classList.remove('intro-body-hidden');
+            });
+            document.getElementById('intro-trigger').addEventListener('mouseout', function (event) {
+                document.getElementById('intro-box').classList.add('intro-body-hidden');
             });
         })()
     </script>

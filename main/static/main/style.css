@@ -897,11 +897,6 @@ label[for="id_role_desc"] {
   padding-bottom: 3px;
   padding-left: 16px;
   padding-right: 16px;
-  transition: border-color 0.2s ease-in;
-}
-
-.intro-button:hover {
-  border-color: #bbb;
 }
 
 .intro-body {
@@ -919,5 +914,4 @@ label[for="id_role_desc"] {
 
 .intro-body-hidden {
   opacity: 0;
-  transition: all 0.1s ease-out;
 }
