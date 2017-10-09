@@ -17,7 +17,7 @@
             <li>We will immediately publish it, and review it within 24 hours.</li>
         </ul>
         <br>
-        <form action="{% url 'main:submit' %}" method="post">
+        <form action="{% url 'main:create' %}" method="post">
             {% csrf_token %}
             {{ form.non_field_errors }}
             {% for field in form %}
