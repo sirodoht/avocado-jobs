@@ -1,5 +1,7 @@
 import os, time, json, base64
 
+import analytics
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -19,6 +21,9 @@ from avocado import settings
 
 def index(request):
     categories = Category.objects.order_by('id')
+    analytics.page('anonymous', 'No Auth', 'Index', {
+        'url': request.get_full_path(),
+    })
     return render(request, 'main/index.html', {
         'categories': categories,
     })
@@ -26,11 +31,15 @@ def index(request):
 
 def listing_detail(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
+    analytics.page('anonymous', 'No Auth', 'Listing Detail', {
+        'url': request.get_full_path(),
+    })
     return render(request, 'main/detail.html', {
         'listing': listing,
     })
 
 
+@login_required
 def listing_delete(request, listing_id):
     if request.method == 'POST':
         listing = Listing.objects.get(id=listing_id)
@@ -118,6 +127,10 @@ def create(request):
 @login_required
 def create_preview(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
+    analytics.track(request.user.id, 'Listing preview', {
+        'id': saved_listing.id,
+        'role': saved_listing.role_title,
+    })
     return render(request, 'main/preview.html', {
         'listing': listing
     })
@@ -126,6 +139,10 @@ def create_preview(request, listing_id):
 @login_required
 def create_thank(request, listing_id):
     Listing.objects.filter(id=listing_id).update(confirmed=True)
+    analytics.track(request.user.id, 'Listing confirmed', {
+        'id': saved_listing.id,
+        'role': saved_listing.role_title,
+    })
     return render(request, 'main/thank-you.html', {
         'listing_id': listing_id
     })
@@ -147,7 +164,11 @@ def listing_edit(request, listing_id):
                 for single_tag in tags[:3]:
                     stripped_tag = single_tag.strip()
                     Tag.objects.create(tag_name=stripped_tag, listing=saved_listing)
-            return HttpResponseRedirect('/jobs/%s/' % saved_listing.id)
+            analytics.track(request.user.id, 'Listing edit', {
+                'id': saved_listing.id,
+                'role': saved_listing.role_title,
+            })
+            return HttpResponseRedirect(reverse('main:detail', kwargs={'listing_id': saved_listing.id}))
         else:
             return HttpResponse('Listing edit form of %s is invalid.' % listing_id)
     else:
@@ -169,6 +190,9 @@ def listing_edit(request, listing_id):
 
 
 def get_login(request):
+    analytics.page('anonymous', 'No Auth', 'Login', {
+        'url': request.get_full_path(),
+    })
     return render(request, 'main/login.html', {
         'next': request.GET.get('next'),
     })
@@ -185,6 +209,14 @@ def token_post(request):
         if user is not None:
             login(request, user)
             messages.success(request, 'Login successful.')
+
+            # segment identify user
+            analytics.identify(request.user.id, {
+                'email': request.user.email,
+            })
+
+            analytics.track(request.user.id, 'Login success')
+
             return redirect(settings.LOGIN_REDIRECT_URL)
         else:
             messages.error(request, 'The login link was invalid or has expired. Please try to log in again.')
@@ -194,6 +226,9 @@ def token_post(request):
         if form.is_valid():
             email_login_link(request, form.cleaned_data['email'])
             messages.success(request, 'Login email sent! Please check your inbox and click on the link log in.')
+            analytics.page('anonymous', 'No Auth', 'Login', {
+                'url': request.get_full_path(),
+            })
         else:
             messages.error(request, 'The email address was invalid. Please check the address and try again.')
     else:
@@ -225,5 +260,6 @@ def email_login_link(request, email):
 @login_required
 def get_logout(request):
     logout(request)
-    messages.success(request, 'You have been logged out.')
+    messages.success(request.user.id, 'You have been logged out.')
+    analytics.track(request.user.id, 'Log out')
     return redirect(settings.LOGOUT_REDIRECT_URL)

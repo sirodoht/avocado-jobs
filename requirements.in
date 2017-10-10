@@ -10,3 +10,4 @@ raven
 flake8
 Faker
 django-ckeditor
+analytics-python

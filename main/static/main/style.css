@@ -873,11 +873,6 @@ input[type="submit"]:hover {
   margin-top: 20px;
 }
 
-label[for="id_company_desc"],
-label[for="id_role_desc"] {
-  margin-top: 30px;
-}
-
 .intro {
   display: inline-block;
   font-size: 16px;
