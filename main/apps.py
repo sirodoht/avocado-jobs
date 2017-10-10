@@ -10,4 +10,4 @@ class MainConfig(AppConfig):
 
     # https://segment.com/docs/sources/server/python/quickstart/
     def ready(self):
-        analytics.write_key = os.getenv('AVOCADO_SECRET_KEY')
+        analytics.write_key = os.getenv('AVOCADO_SEGMENT_KEY', 'dummykey')
