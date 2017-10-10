@@ -1,5 +1,8 @@
-from django.apps import AppConfig
+import os
+
 import analytics
+
+from django.apps import AppConfig
 
 
 class MainConfig(AppConfig):
@@ -7,4 +10,4 @@ class MainConfig(AppConfig):
 
     # https://segment.com/docs/sources/server/python/quickstart/
     def ready(self):
-        analytics.write_key = 'PQgHtk73z7KmT0ZqK6oiMMH13jXmjGXV'
+        analytics.write_key = os.getenv('AVOCADO_SECRET_KEY')
