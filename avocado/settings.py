@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'secretwith50charssecretwith50charssecretwith50char')
+SECRET_KEY = os.getenv('AVOCADO_SECRET_KEY', 'secretwith50charssecretwith50charssecretwith50char')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.getenv('NODEBUG') is None else False
@@ -203,7 +203,7 @@ if not DEBUG:
 # https://docs.sentry.io/clients/python/integrations/django/
 
 RAVEN_CONFIG = {
-    'dsn': os.getenv('SENTRY_DSN'),
+    'dsn': os.getenv('AVOCADO_SENTRY_DSN'),
 }
 
 
