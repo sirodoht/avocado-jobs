@@ -30,9 +30,8 @@ def get_client_ip(request):
 
 def index(request):
     categories = Category.objects.order_by('id')
-    analytics.page('anonymous', 'No Auth', 'Index', {
+    analytics.page(get_client_ip(request), 'No Auth', 'Index', {
         'url': request.get_full_path(),
-        'ip': get_client_ip(request),
     })
     return render(request, 'main/index.html', {
         'categories': categories,
@@ -41,9 +40,8 @@ def index(request):
 
 def listing_detail(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
-    analytics.page('anonymous', 'No Auth', 'Listing Detail', {
+    analytics.page(get_client_ip(request), 'No Auth', 'Listing Detail', {
         'url': request.get_full_path(),
-        'ip': get_client_ip(request),
     })
     return render(request, 'main/detail.html', {
         'listing': listing,
@@ -141,7 +139,6 @@ def create_preview(request, listing_id):
     analytics.track(request.user.id, 'Listing preview', {
         'id': saved_listing.id,
         'role': saved_listing.role_title,
-        'ip': get_client_ip(request),
     })
     return render(request, 'main/preview.html', {
         'listing': listing
@@ -154,7 +151,6 @@ def create_thank(request, listing_id):
     analytics.track(request.user.id, 'Listing confirmed', {
         'id': saved_listing.id,
         'role': saved_listing.role_title,
-        'ip': get_client_ip(request),
     })
     return render(request, 'main/thank-you.html', {
         'listing_id': listing_id
@@ -180,7 +176,6 @@ def listing_edit(request, listing_id):
             analytics.track(request.user.id, 'Listing edit', {
                 'id': saved_listing.id,
                 'role': saved_listing.role_title,
-                'ip': get_client_ip(request),
             })
             return HttpResponseRedirect(reverse('main:detail', kwargs={'listing_id': saved_listing.id}))
         else:
@@ -204,9 +199,8 @@ def listing_edit(request, listing_id):
 
 
 def get_login(request):
-    analytics.page('anonymous', 'No Auth', 'Login', {
+    analytics.page(get_client_ip(request), 'No Auth', 'Login', {
         'url': request.get_full_path(),
-        'ip': get_client_ip(request),
     })
     return render(request, 'main/login.html', {
         'next': request.GET.get('next'),
@@ -228,7 +222,6 @@ def token_post(request):
             # segment identify user
             analytics.identify(request.user.id, {
                 'email': request.user.email,
-                'ip': get_client_ip(request),
             })
 
             analytics.track(request.user.id, 'Login success')
@@ -242,9 +235,8 @@ def token_post(request):
         if form.is_valid():
             email_login_link(request, form.cleaned_data['email'])
             messages.success(request, 'Login email sent! Please check your inbox and click on the link log in.')
-            analytics.page('anonymous', 'No Auth', 'Login', {
+            analytics.page(get_client_ip(request), 'No Auth', 'Login', {
                 'url': request.get_full_path(),
-                'ip': get_client_ip(request),
             })
         else:
             messages.error(request, 'The email address was invalid. Please check the address and try again.')
