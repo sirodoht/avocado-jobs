@@ -104,7 +104,7 @@ def applications(request):
             })
         else:
             applications_list = Application.objects.filter(user=request.user)
-            analytics.page('why', 'Applications', {
+            analytics.track(request.user.id, 'Applications', {
                 'url': request.get_full_path(),
                 'ip': get_client_ip(request),
             })
