@@ -81,6 +81,11 @@ def applications(request):
         data = json.loads(body)
         given_listing = Listing.objects.get(id=data['listing_id'])
         Application.objects.create(user=request.user, listing=given_listing, stage='INITIAL')
+        analytics.track(request.user.id, 'Add listing to applications', {
+            'id': given_listing.id,
+            'role': given_listing.role_title,
+            'ip': get_client_ip(request),
+        })
         return HttpResponse(status=200)
     elif request.method == 'PATCH':
         body = request.body.decode('utf-8')
