@@ -65,6 +65,10 @@ def report(request, listing_id):
 @login_required
 def listings(request):
     listings_list = Listing.objects.filter(owner=request.user)
+    analytics.page(request.user.id, 'Applications', {
+        'url': request.get_full_path(),
+        'ip': get_client_ip(request),
+    })
     return render(request, 'main/my_listings.html', {
         'listings_list': listings_list,
     })
@@ -95,6 +99,10 @@ def applications(request):
             })
         else:
             applications_list = Application.objects.filter(user=request.user)
+            analytics.page(request.user.id, 'Applications', {
+                'url': request.get_full_path(),
+                'ip': get_client_ip(request),
+            })
             return render(request, 'main/applications.html', {
                 'applications_list': applications_list,
             })
@@ -139,6 +147,7 @@ def create_preview(request, listing_id):
     analytics.track(request.user.id, 'Listing preview', {
         'id': saved_listing.id,
         'role': saved_listing.role_title,
+        'ip': get_client_ip(request),
     })
     return render(request, 'main/preview.html', {
         'listing': listing
@@ -151,6 +160,7 @@ def create_thank(request, listing_id):
     analytics.track(request.user.id, 'Listing confirmed', {
         'id': saved_listing.id,
         'role': saved_listing.role_title,
+        'ip': get_client_ip(request),
     })
     return render(request, 'main/thank-you.html', {
         'listing_id': listing_id
@@ -176,6 +186,7 @@ def listing_edit(request, listing_id):
             analytics.track(request.user.id, 'Listing edit', {
                 'id': saved_listing.id,
                 'role': saved_listing.role_title,
+                'ip': get_client_ip(request),
             })
             return HttpResponseRedirect(reverse('main:detail', kwargs={'listing_id': saved_listing.id}))
         else:
@@ -222,6 +233,7 @@ def token_post(request):
             # segment identify user
             analytics.identify(request.user.id, {
                 'email': request.user.email,
+                'ip': get_client_ip(request),
             })
 
             analytics.track(request.user.id, 'Login success')
