@@ -150,8 +150,8 @@ def create(request):
 def create_preview(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
     analytics.track(request.user.id, 'Listing preview', {
-        'id': saved_listing.id,
-        'role': saved_listing.role_title,
+        'id': listing.id,
+        'role': listing.role_title,
         'ip': get_client_ip(request),
     })
     return render(request, 'main/preview.html', {
