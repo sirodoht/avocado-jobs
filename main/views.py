@@ -161,10 +161,10 @@ def create_preview(request, listing_id):
 
 @login_required
 def create_thank(request, listing_id):
-    Listing.objects.filter(id=listing_id).update(confirmed=True)
+    listing = Listing.objects.filter(id=listing_id).update(confirmed=True)
     analytics.track(request.user.id, 'Listing confirmed', {
-        'id': saved_listing.id,
-        'role': saved_listing.role_title,
+        'id': listing.id,
+        'role': listing.role_title,
         'ip': get_client_ip(request),
     })
     return render(request, 'main/thank-you.html', {
