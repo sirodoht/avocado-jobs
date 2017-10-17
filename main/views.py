@@ -65,7 +65,7 @@ def report(request, listing_id):
 @login_required
 def listings(request):
     listings_list = Listing.objects.filter(owner=request.user)
-    analytics.page(request.user.id, 'Applications', {
+    analytics.page(get_client_ip(request), 'No Auth', 'Applications', {
         'url': request.get_full_path(),
         'ip': get_client_ip(request),
     })
