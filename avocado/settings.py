@@ -205,20 +205,3 @@ if not DEBUG:
 RAVEN_CONFIG = {
     'dsn': os.getenv('AVOCADO_SENTRY_DSN'),
 }
-
-
-# CKEditor
-# https://github.com/django-ckeditor/django-ckeditor
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'width': '100%',
-        'toolbar': 'avocado',
-        'toolbar_avocado': [
-            ['Bold', 'Italic'],
-            ['NumberedList', 'BulletedList'],
-            ['Link', 'Unlink'],
-            ['RemoveFormat'],
-        ]
-    }
-}
