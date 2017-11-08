@@ -5,7 +5,7 @@
 {% block content %}
     <div class="container-content-header">
         <div class="container-content-header-content">
-            <h1>Job applications</h1>
+            <h1>Keep track of your job applications</h1>
         </div>
     </div>
 
@@ -16,12 +16,12 @@
                 <div class="listings-entry">
                     <div class="listings-entry-detail">
                         <div class="listings-entry-detail-info">
-                            <a class="listings-entry-detail-info-title"  href="{% url 'main:detail' application.listing.id %}">
-                                <strong>{{ application.listing.role_title }}</strong>
+                            <a class="listings-entry-detail-info-title" href="{{ application.url }">
+                                <strong>{{ application.role_title }}</strong>
                                 <span class="muted">at</span>
-                                <span class="listings-entry-detail-info-title-company">{{ application.listing.company_name }}</span>
+                                <span class="listings-entry-detail-info-title-company">{{ application.company_name }}</span>
                             </a>
-                            <div class="listings-entry-detail-info-stage" data-id="{{ application.listing.id }}">
+                            <div class="listings-entry-detail-info-stage" data-id="{{ application.id }}">
                                 <select name="stage" class="submission-stage">
                                     <option {% if application.stage == 'INITIAL' %}selected{% endif %} value="initial">No initial response yet</option>
                                     <option {% if application.stage == 'NEED' %}selected{% endif %} value="need">I need to respond</option>
@@ -35,17 +35,24 @@
                         </div>
                     </div>
                     <div class="listings-entry-control">
-                        <div class="listings-entry-control-rm" title="Remove listing from applications" data-id="{{ listing.id }}" onclick="removeApplication(event)">rm</div>
+                        <div class="listings-entry-control-rm" title="Remove listing from applications" data-id="{{ application.id }}" onclick="removeApplication(event)">x</div>
                     </div>
                 </div>
             {% empty %}
-                <div class="empty">
-                    You have not checked off any listings.
-                    You can do that by clicking the circle on the right of every
-                    listing line on the <a href="{% url 'main:index' %}">frontpage</a>.
-                </div>
+                {% if user.is_authenticated %}
+                    <div class="empty">
+                        There are no job applications.
+                        <br>
+                        You can add a new one by click clicking the button at the top.
+                    </div>
+                {% endif %}
             {% endfor %}
         </div>
+        {% if not user.is_authenticated %}
+            <div class="reset">
+                <div class="reset-content" title="Reset demo data to their initial values" onclick="resetApplications()">Reset demo data</div>
+            </div>
+        {% endif %}
     </div>
 
     <script src="{% static '/main/superagent.min.js' %}"></script>
