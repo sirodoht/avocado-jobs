@@ -1,13 +1,10 @@
 argon2-cffi
-bleach
 dj-database-url
 Django
-gunicorn
 psycopg2
 shortuuid
 whitenoise
 raven
 flake8
 Faker
-django-ckeditor
 analytics-python

@@ -1,7 +1,9 @@
-import base64, json, time
+import base64
+import json
+import time
 
 from django.contrib.auth import get_user_model
-from django.core.signing import Signer
+from django.core.signing import Signer, BadSignature
 
 from avocado import settings
 
@@ -19,7 +21,7 @@ class EmailTokenBackend:
         """Authenticate a user given a signed token."""
         try:
             data = Signer().unsign(token)
-        except:
+        except BadSignature:
             return
 
         data = json.loads(base64.b64decode(data).decode('utf8'))
