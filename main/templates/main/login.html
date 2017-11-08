@@ -35,7 +35,7 @@
         <form method="post" action="{% url 'main:auth' %}">
             {% csrf_token %}
 
-            <input name="email" type="email">
+            <input name="email" type="email" placeholder="Email">
 
             <input type="submit" value="Send link">
             <input type="hidden" name="next" value="{{ next }}">
