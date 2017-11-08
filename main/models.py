@@ -13,6 +13,10 @@ def generate_uuid() -> str:
 class Application(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_applied = models.DateField(default=timezone.now)
+    role = models.CharField(max_length=200)
+    company = models.CharField(max_length=200)
+    link = models.CharField(max_length=400, null=True, blank=True)
+    salary = models.CharField(max_length=100, null=True, blank=True)
 
     INITIAL = 'initial'
     NEED = 'need'
