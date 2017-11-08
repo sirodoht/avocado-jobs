@@ -70,7 +70,6 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'main.context_processors.users_processor',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -163,8 +162,6 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/staticfiles/'
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 
 # Email
 # https://docs.djangoproject.com/en/1.11/topics/email/
@@ -178,6 +175,8 @@ EMAIL_PORT = 587
 
 
 # Authentication backends
+# https://docs.djangoproject.com/en/1.11/topics/auth/customizing/
+
 AUTHENTICATION_BACKENDS = (
     'main.auth_backends.EmailTokenBackend',
     'django.contrib.auth.backends.ModelBackend',
