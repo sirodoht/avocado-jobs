@@ -38,5 +38,12 @@
             <p class="footer-content-para">Avocado Jobs. Contact <a href="mailto:hi@avocadojobs.com">here</a>.</p>
         </div>
     </footer>
+
+    {% if user.is_authenticated %}
+        <script src="{% static '/main/superagent.min.js' %}"></script>
+        <script src="{% static '/main/authed.js' %}"></script>
+    {% else %}
+        <script src="{% static '/main/non-authed.js' %}"></script>
+    {% endif %}
 </body>
 </html>
