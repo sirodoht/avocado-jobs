@@ -44,7 +44,9 @@
 
     <div class="container-content-body">
         <div class="listings">
-            {% csrf_token %}
+            {% if user.is_authenticated %}
+                {% csrf_token %}
+            {% endif %}
             {% for application in applications_list %}
                 <div class="listings-entry">
                     <div class="listings-entry-detail">
