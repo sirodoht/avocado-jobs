@@ -61,3 +61,46 @@ function initApplicationStage() {
 }
 
 initApplicationStage()
+
+function showAddApplication() {
+  var headerNormalDisplay = document.getElementById('header-normal').style.display;
+  if (headerNormalDisplay !== 'none') {
+    document.getElementById('header-normal').style.display = 'none';
+    document.getElementById('header-add').style.display = 'block';
+  } else {
+    document.getElementById('header-normal').style.display = 'block';
+    document.getElementById('header-add').style.display = 'none';
+  }
+}
+
+function addApplication() {
+  var newRole = document.getElementById('add-role');
+  var newCompany = document.getElementById('add-company');
+  var newSalary = document.getElementById('add-salary');
+  var newStage = document.getElementById('add-stage');
+  var newLink = document.getElementById('add-link');
+
+  var csrfToken = getCsrf();
+  superagent.post('/applications/')
+    .send({
+      role: newRole.value,
+      company: newCompany.value,
+      salary: newSalary.value,
+      stage: newStage.value,
+      link: newLink.value,
+    })
+    .set('X-CSRFToken', csrfToken)
+    .end(function superagentEndCallback(err, res) {
+      if (err) {
+        console.log('Failed to create new application. Error:', err);
+        throw err;
+      }
+
+      newRole.value = '';
+      newCompany.value = '';
+      newSalary.value = '';
+      newStage.value = '';
+      newLink.value = '';
+    });
+
+}
