@@ -19,6 +19,8 @@
             <a href="/">Avocado Jobs</a>
         </div>
         <div class="nav-links">
+            <button onclick="showAddApplication()" class="nav-links-btn">Add application</button>
+
             {% if user.is_authenticated %}
                 <a href="{% url 'main:logout' %}">Log out</a>
 
