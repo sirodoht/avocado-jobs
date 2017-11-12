@@ -67,16 +67,16 @@
                                 <span class="listings-entry-detail-info-title-company">{{ application.company }}</span>
                                 <span class="listings-entry-detail-info-title-date" title="Date applied">{{ application.date_applied|date:"M j" }}</span>
                             </a>
-                            <div class="listings-entry-detail-info-salary" contenteditable="true" title="Salary">{{ application.salary }}</div>
+                            <div class="listings-entry-detail-info-salary" id="here" data-id="{{ application.id }}" contenteditable="true" title="Salary">{{ application.salary }}</div>
                             <div class="listings-entry-detail-info-stage" data-id="{{ application.id }}" title="Current interview stage">
                                 <select name="stage" class="submission-stage">
-                                    <option {% if application.stage == 'INITIAL' %}selected{% endif %} value="initial">No initial response yet</option>
-                                    <option {% if application.stage == 'NEED' %}selected{% endif %} value="need">I need to respond</option>
-                                    <option {% if application.stage == 'AWAIT' %}selected{% endif %} value="await">Awaiting response</option>
-                                    <option {% if application.stage == 'SCHEDULED' %}selected{% endif %} value="scheduled">Interview scheduled</option>
-                                    <option {% if application.stage == 'OFFER' %}selected{% endif %} value="offer">Got offer</option>
-                                    <option {% if application.stage == 'DECLINED' %}selected{% endif %} value="declined">Declined</option>
-                                    <option {% if application.stage == 'REJECTED' %}selected{% endif %} value="rejected">Got Rejected</option>
+                                    <option {% if application.stage == 'initial' %}selected{% endif %} value="initial">No initial response yet</option>
+                                    <option {% if application.stage == 'need' %}selected{% endif %} value="need">I need to respond</option>
+                                    <option {% if application.stage == 'await' %}selected{% endif %} value="await">Awaiting response</option>
+                                    <option {% if application.stage == 'scheduled' %}selected{% endif %} value="scheduled">Interview scheduled</option>
+                                    <option {% if application.stage == 'offer' %}selected{% endif %} value="offer">Got offer</option>
+                                    <option {% if application.stage == 'declined' %}selected{% endif %} value="declined">Declined</option>
+                                    <option {% if application.stage == 'rejected' %}selected{% endif %} value="rejected">Got Rejected</option>
                                 </select>
                             </div>
                         </div>
