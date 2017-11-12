@@ -3,18 +3,24 @@ var demoData = [{
     role: 'Frontend Developer',
     company: 'Avocado Jobs',
     stage: 'scheduled',
+    salary: '$100k',
+    link: 'https://careers.avocadojobs.com/front-end-8basd8',
   },
   {
     id: 2,
     role: 'Backend Engineeer',
     company: 'Acme Corporation',
     stage: 'need',
+    salary: '$80k',
+    link: 'https://careers.avocadojobs.com/front-end-8basd8',
   },
   {
     id: 3,
     role: 'Security Engineer',
     company: 'E Corp',
     stage: 'initial',
+    salary: '$135k',
+    link: 'https://careers.avocadojobs.com/front-end-8basd8',
   },
 ];
 
@@ -101,7 +107,7 @@ function renderData(demoData) {
 
     var listingsEntryDetailInfoTitleElem = document.createElement('a');
     listingsEntryDetailInfoTitleElem.classList.add('listings-entry-detail-info-title');
-    listingsEntryDetailInfoTitleElem.href = '#';
+    listingsEntryDetailInfoTitleElem.href = applicationRecord.link;
     listingsEntryDetailInfoElem.appendChild(listingsEntryDetailInfoTitleElem);
 
     var listingsEntryDetailInfoTitleStrongElem = document.createElement('strong');
@@ -117,6 +123,11 @@ function renderData(demoData) {
     listingsEntryDetailInfoTitleCompanyElem.classList.add('listings-entry-detail-info-title-company');
     listingsEntryDetailInfoTitleCompanyElem.appendChild(document.createTextNode(applicationRecord.company));
     listingsEntryDetailInfoTitleElem.appendChild(listingsEntryDetailInfoTitleCompanyElem);
+
+    var listingsEntryDetailInfoTitleSalaryElem = document.createElement('span');
+    listingsEntryDetailInfoTitleSalaryElem.classList.add('listings-entry-detail-info-title-salary');
+    listingsEntryDetailInfoTitleSalaryElem.appendChild(document.createTextNode(applicationRecord.salary));
+    listingsEntryDetailInfoTitleElem.appendChild(listingsEntryDetailInfoTitleSalaryElem);
 
     var listingsEntryDetailInfoStageElem = document.createElement('div');
     listingsEntryDetailInfoStageElem.classList.add('listings-entry-detail-info-stage');
@@ -245,6 +256,7 @@ function addApplication() {
     company: newCompany,
     stage: newStage,
     salary: newSalary,
+    link: newLink,
   })
   setNewData(newData);
 
