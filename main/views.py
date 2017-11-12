@@ -1,6 +1,7 @@
 import time
 import json
 import base64
+import datetime
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -18,7 +19,13 @@ from avocado import settings
 
 
 def index(request):
-    return render(request, 'main/applications.html')
+    applications_list = Application.objects.all()
+    applications_list = []
+    today = datetime.datetime.now()
+    return render(request, 'main/applications.html', {
+        'applications_list': applications_list,
+        'today': today,
+    })
 
 
 def applications(request):
