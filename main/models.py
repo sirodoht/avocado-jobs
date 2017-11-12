@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
-def generate_uuid() -> str:
+def generate_uuid():
     """Generate a UUID for an object."""
     return shortuuid.ShortUUID("abdcefghjkmnpqrstuvwxyz").random()[:8]
 
