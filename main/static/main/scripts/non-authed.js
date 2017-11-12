@@ -189,7 +189,28 @@ function renderData(demoData) {
     listingsEntryControlRmElem.title = 'Remove listing from applications';
     listingsEntryControlRmElem.dataset.id = applicationRecord.id;
     listingsEntryControlRmElem.onclick = removeApplication;
-    listingsEntryControlRmElem.appendChild(document.createTextNode('x'));
+
+    var svgXIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svgXIcon.setAttribute('width', '24');
+    svgXIcon.setAttribute('height', '24');
+    svgXIcon.setAttribute('viewBox', '0 0 24 24');
+    svgXIcon.setAttribute('stroke', 'currentColor');
+    svgXIcon.setAttribute('stroke-width', '2px');
+    svgXIcon.setAttribute('stroke-linecap', 'round');
+    var lineOne = document.createElementNS('http://www.w3.org/2000/svg','line');
+    lineOne.setAttribute('x1','18');
+    lineOne.setAttribute('y1','6');
+    lineOne.setAttribute('x2','6');
+    lineOne.setAttribute('y2','18');
+    var lineTwo = document.createElementNS('http://www.w3.org/2000/svg','line');
+    lineTwo.setAttribute('x1','6');
+    lineTwo.setAttribute('y1','6');
+    lineTwo.setAttribute('x2','18');
+    lineTwo.setAttribute('y2','18');
+    svgXIcon.append(lineOne);
+    svgXIcon.append(lineTwo);
+
+    listingsEntryControlRmElem.appendChild(svgXIcon);
     listingsEntryControlElem.appendChild(listingsEntryControlRmElem);
   });
 
