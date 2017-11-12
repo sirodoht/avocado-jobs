@@ -4,7 +4,8 @@ var demoData = [{
     company: 'Avocado Jobs',
     stage: 'scheduled',
     salary: '$100k',
-    link: 'https://careers.avocadojobs.com/front-end-8basd8',
+    link: 'https://careers.avocadojobs.com/frontend-dev-8basd8',
+    date: 'Oct 10',
   },
   {
     id: 2,
@@ -12,7 +13,8 @@ var demoData = [{
     company: 'Acme Corporation',
     stage: 'need',
     salary: '$80k',
-    link: 'https://careers.avocadojobs.com/front-end-8basd8',
+    link: 'https://careers.acme.corporation/backend-dev-jd975d',
+    date: 'Oct 22',
   },
   {
     id: 3,
@@ -20,7 +22,8 @@ var demoData = [{
     company: 'E Corp',
     stage: 'initial',
     salary: '$135k',
-    link: 'https://careers.avocadojobs.com/front-end-8basd8',
+    link: 'https://careers.e.corp/security-eng-5as7dn',
+    date: 'Nov 2',
   },
 ];
 
@@ -89,6 +92,18 @@ function changeStageListen(event) {
   })
 }
 
+function changeSalaryListen(event) {
+  var applicationId = parseInt(event.target.dataset.id);
+  var newSalary = event.target.innerText;
+  var newData = getData();
+  newData.forEach(function findRecord(record, index) {
+    if (record.id === applicationId) {
+      record.salary = newSalary;
+      setNewData(newData);
+    }
+  })
+}
+
 // I don't like this code, I need to use a lib, which means THOUSANDS of LOC boilerplate :(
 function renderData(demoData) {
   demoData.forEach(function renderRecord(applicationRecord) {
@@ -124,10 +139,22 @@ function renderData(demoData) {
     listingsEntryDetailInfoTitleCompanyElem.appendChild(document.createTextNode(applicationRecord.company));
     listingsEntryDetailInfoTitleElem.appendChild(listingsEntryDetailInfoTitleCompanyElem);
 
-    var listingsEntryDetailInfoTitleSalaryElem = document.createElement('span');
-    listingsEntryDetailInfoTitleSalaryElem.classList.add('listings-entry-detail-info-title-salary');
-    listingsEntryDetailInfoTitleSalaryElem.appendChild(document.createTextNode(applicationRecord.salary));
-    listingsEntryDetailInfoTitleElem.appendChild(listingsEntryDetailInfoTitleSalaryElem);
+    if (applicationRecord.date) {
+      var listingsEntryDetailInfoTitleDateElem = document.createElement('span');
+      listingsEntryDetailInfoTitleDateElem.classList.add('listings-entry-detail-info-title-date');
+      listingsEntryDetailInfoTitleDateElem.appendChild(document.createTextNode(applicationRecord.date));
+      listingsEntryDetailInfoTitleElem.appendChild(listingsEntryDetailInfoTitleDateElem);
+    }
+
+    if (applicationRecord.salary) {
+      var listingsEntryDetailInfoSalaryElem = document.createElement('div');
+      listingsEntryDetailInfoSalaryElem.classList.add('listings-entry-detail-info-salary');
+      listingsEntryDetailInfoSalaryElem.dataset.id = applicationRecord.id;
+      listingsEntryDetailInfoSalaryElem.appendChild(document.createTextNode(applicationRecord.salary));
+      listingsEntryDetailInfoSalaryElem.contentEditable = true;
+      listingsEntryDetailInfoSalaryElem.onkeydown = changeSalaryListen;
+      listingsEntryDetailInfoElem.appendChild(listingsEntryDetailInfoSalaryElem);
+    }
 
     var listingsEntryDetailInfoStageElem = document.createElement('div');
     listingsEntryDetailInfoStageElem.classList.add('listings-entry-detail-info-stage');
@@ -268,6 +295,11 @@ function addApplication() {
   var newSalary = document.getElementById('add-salary').value;
   var newStage = document.getElementById('add-stage').value;
   var newLink = document.getElementById('add-link').value;
+
+  if (!newRole || !newCompany || !newLink) {
+    return;
+  }
+
   var newId = getId();
 
   var newData = getData();
