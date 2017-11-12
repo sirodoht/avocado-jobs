@@ -104,7 +104,7 @@ function changeSalaryListen(event) {
   })
 }
 
-// I don't like this code, I need to use a lib, which means THOUSANDS of LOC boilerplate :(
+// Do not read this code!
 function renderData(demoData) {
   demoData.forEach(function renderRecord(applicationRecord) {
     var listingsElem = document.getElementsByClassName('listings')[0];
@@ -218,9 +218,9 @@ function renderData(demoData) {
     listingsEntryControlRmElem.classList.add('listings-entry-control-rm');
     listingsEntryControlRmElem.title = 'Remove job application';
     listingsEntryControlRmElem.dataset.id = applicationRecord.id;
-    listingsEntryControlRmElem.onclick = removeApplication;
 
     var svgXIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svgXIcon.onclick = removeApplication;
     svgXIcon.setAttribute('width', '24');
     svgXIcon.setAttribute('height', '24');
     svgXIcon.setAttribute('viewBox', '0 0 24 24');
