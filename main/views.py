@@ -58,13 +58,17 @@ def applications(request):
 
 
 @login_required
-def applications_delete(request, listing_id):
-    if request.method == 'POST':
-        given_listing = Application.objects.get(id=listing_id)
-        Application.objects.get(user=request.user, listing=given_listing).delete()
-        return HttpResponse(status=200)
-    else:
-        return HttpResponse(status=405)
+def applications_delete(request, application_id):
+    if request.method == 'DELETE':
+        application = Application.objects.get(id=application_id)
+        if application.user != request.user:
+            return JsonResponse(status=401, data={
+                'status': 'false',
+                'message': 'Unauthorized',
+            })
+        else:
+            application.delete()
+            return JsonResponse({})
 
 
 def get_login(request):
