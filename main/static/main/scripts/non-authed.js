@@ -69,12 +69,12 @@ function removeApplication(event) {
     return;
   }
 
-  var idForDeletion = parseInt(event.target.dataset.id);
+  var idForDeletion = parseInt(event.target.parentElement.dataset.id);
   var newData = getData();
   newData.forEach(function findRecord(record, index) {
     if (record.id === idForDeletion) {
       newData.splice(index, 1);
-      event.target.parentNode.parentNode.remove();
+      event.target.parentNode.parentNode.parentNode.remove();
       setNewData(newData);
     }
   })
