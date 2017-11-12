@@ -27,7 +27,7 @@
         </p>
 
         <p>
-            The link will expire in a few hours, but you will stay logged in
+            The link will expire in half an hour, but you will stay logged in
             until you choose to log out. However, be careful not to share it,
             as it will allow anyone to log in to your account.
         </p>
@@ -40,14 +40,5 @@
             <input type="submit" value="Send link">
             <input type="hidden" name="next" value="{{ next }}">
         </form>
-
-        {% if messages %}
-            <p class="alert">
-                {% for message in messages %}
-                    {{ message }}
-                    <br>
-                {% endfor %}
-            </p>
-        {% endif %}
     </div>
 {% endblock %}
