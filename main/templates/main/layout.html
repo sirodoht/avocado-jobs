@@ -32,7 +32,7 @@
 
     <title>Avocado Jobs | Keep track of your job applications</title>
 
-    <link rel="stylesheet" href="{% static '/main/style.css' %}">
+    <link rel="stylesheet" href="{% static '/main/styles/main.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700|Source+Sans+Pro:400,700" rel="stylesheet">
 </head>
 <body>
@@ -64,10 +64,10 @@
     </footer>
 
     {% if user.is_authenticated %}
-        <script src="{% static '/main/superagent.min.js' %}"></script>
-        <script src="{% static '/main/authed.js' %}"></script>
+        <script src="{% static '/main/scripts/superagent.min.js' %}"></script>
+        <script src="{% static '/main/scripts/authed.js' %}"></script>
     {% else %}
-        <script src="{% static '/main/non-authed.js' %}"></script>
+        <script src="{% static '/main/scripts/non-authed.js' %}"></script>
     {% endif %}
 </body>
 </html>

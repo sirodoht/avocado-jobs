@@ -25,8 +25,14 @@ def applications(request):
     if request.method == 'POST':
         body = request.body.decode('utf-8')
         data = json.loads(body)
-        given_listing = Application.objects.get(id=data['listing_id'])
-        Application.objects.create(user=request.user, listing=given_listing, stage='INITIAL')
+        Application.objects.create(
+            user=request.user,
+            role=data['role'],
+            company=data['company'],
+            salary=data['salary'],
+            link=data['link'],
+            stage=data['stage'],
+        )
         return HttpResponse(status=200)
     elif request.method == 'PATCH':
         body = request.body.decode('utf-8')
