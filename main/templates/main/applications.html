@@ -67,24 +67,25 @@
                                 <span class="listings-entry-detail-info-title-company">{{ application.company }}</span>
                                 <span class="listings-entry-detail-info-title-date" title="Date applied">{{ application.date_applied|date:"M j" }}</span>
                             </a>
-                            <div class="listings-entry-detail-info-salary" contenteditable="true" title="Salary">{{ application.salary }}</div>
+                            <div class="listings-entry-detail-info-salary" id="here" data-id="{{ application.id }}" contenteditable="true" title="Salary">{{ application.salary }}</div>
                             <div class="listings-entry-detail-info-stage" data-id="{{ application.id }}" title="Current interview stage">
                                 <select name="stage" class="submission-stage">
-                                    <option {% if application.stage == 'INITIAL' %}selected{% endif %} value="initial">No initial response yet</option>
-                                    <option {% if application.stage == 'NEED' %}selected{% endif %} value="need">I need to respond</option>
-                                    <option {% if application.stage == 'AWAIT' %}selected{% endif %} value="await">Awaiting response</option>
-                                    <option {% if application.stage == 'SCHEDULED' %}selected{% endif %} value="scheduled">Interview scheduled</option>
-                                    <option {% if application.stage == 'OFFER' %}selected{% endif %} value="offer">Got offer</option>
-                                    <option {% if application.stage == 'DECLINED' %}selected{% endif %} value="declined">Declined</option>
-                                    <option {% if application.stage == 'REJECTED' %}selected{% endif %} value="rejected">Got Rejected</option>
+                                    <option {% if application.stage == 'initial' %}selected{% endif %} value="initial">No initial response yet</option>
+                                    <option {% if application.stage == 'need' %}selected{% endif %} value="need">I need to respond</option>
+                                    <option {% if application.stage == 'await' %}selected{% endif %} value="await">Awaiting response</option>
+                                    <option {% if application.stage == 'scheduled' %}selected{% endif %} value="scheduled">Interview scheduled</option>
+                                    <option {% if application.stage == 'offer' %}selected{% endif %} value="offer">Got offer</option>
+                                    <option {% if application.stage == 'declined' %}selected{% endif %} value="declined">Declined</option>
+                                    <option {% if application.stage == 'rejected' %}selected{% endif %} value="rejected">Got Rejected</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="listings-entry-control">
-                        <div class="listings-entry-control-rm" title="Remove job application" data-id="{{ application.id }}" onclick="removeApplication(event)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round">
-                                <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+                        <div class="listings-entry-control-rm" title="Remove job application" data-id="{{ application.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" onclick="removeApplication(event)">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
                             </svg>
                         </div>
                     </div>
@@ -104,5 +105,9 @@
                 <div class="reset-content" title="Reset demo data to their initial values" onclick="resetApplications()">Reset demo data</div>
             </div>
         {% endif %}
+    </div>
+
+    <div class="container-content-spinner">
+        <div class="spinner" id="loading" title="Saving..."></div>
     </div>
 {% endblock %}
