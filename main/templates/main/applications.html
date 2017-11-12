@@ -25,6 +25,7 @@
                         <option value="declined">Declined</option>
                         <option value="rejected">Got Rejected</option>
                     </select>
+                    <input type="date" id="add-date" value="{{ today|date:"Y-m-d" }}">
                 </div>
                 <div class="container-content-add-content-body-row">
                     <input type="text" name="link" id="add-link" placeholder="https://careers.avocadojobs.com/frontend-dev-8dbgf8">
@@ -60,12 +61,13 @@
                 <div class="listings-entry">
                     <div class="listings-entry-detail">
                         <div class="listings-entry-detail-info">
-                            <a class="listings-entry-detail-info-title" href="{{ application.url }">
-                                <strong>{{ application.role_title }}</strong>
+                            <a class="listings-entry-detail-info-title" href="{{ application.link }}">
+                                <strong>{{ application.role }}</strong>
                                 <span class="muted">at</span>
-                                <span class="listings-entry-detail-info-title-company">{{ application.company_name }}</span>
-                                <span class="listings-entry-detail-info-title-salary">{{ application.salary }}</span>
+                                <span class="listings-entry-detail-info-title-company">{{ application.company }}</span>
+                                <span class="listings-entry-detail-info-title-date">{{ application.date_applied|date:"M j" }}</span>
                             </a>
+                            <div class="listings-entry-detail-info-salary" contenteditable="true">{{ application.salary }}</div>
                             <div class="listings-entry-detail-info-stage" data-id="{{ application.id }}">
                                 <select name="stage" class="submission-stage">
                                     <option {% if application.stage == 'INITIAL' %}selected{% endif %} value="initial">No initial response yet</option>
