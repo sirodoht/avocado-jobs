@@ -818,3 +818,30 @@ button {
   padding-right: 8px;
   font-size: 24px;
 }
+
+#loading {
+  display: none;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: fixed;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #83bf33;
+  border-bottom-color: #83bf33;
+  animation: spinner .8s ease infinite;
+}
