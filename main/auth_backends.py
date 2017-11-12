@@ -30,5 +30,5 @@ class EmailTokenBackend:
 
         User = get_user_model()
 
-        user, created = User.objects.get_or_create(email=data['e'])
+        user, created = User.objects.get_or_create(email=data['e'], username=data['e'])
         return user
