@@ -246,24 +246,10 @@ function renderData(demoData) {
 
 }
 
-renderData(getData());
-
-
 function cleanupListings() {
   var listingsElem = document.getElementsByClassName('listings')[0];
   while (listingsElem.hasChildNodes()) {
     listingsElem.removeChild(listingsElem.lastChild);
-  }
-}
-
-function showAddApplication() {
-  var headerNormalDisplay = document.getElementById('header-normal').style.display;
-  if (headerNormalDisplay !== 'none') {
-    document.getElementById('header-normal').style.display = 'none';
-    document.getElementById('header-add').style.display = 'block';
-  } else {
-    document.getElementById('header-normal').style.display = 'block';
-    document.getElementById('header-add').style.display = 'none';
   }
 }
 
@@ -317,5 +303,44 @@ function addApplication() {
   setNewData(newData);
 
   cleanupListings();
+  renderData(getData());
+}
+
+function toggleAddForm(event) {
+  if (document.location.pathname === '/') {
+    if (document.location.hash === '') {
+      document.getElementById('header-normal').style.display = 'none';
+      document.getElementById('header-add').style.display = 'block';
+      history.pushState('add', document.title, window.location.pathname + '#add');
+    } else if (document.location.hash === '#add') {
+      document.getElementById('header-normal').style.display = 'block';
+      document.getElementById('header-add').style.display = 'none';
+      history.pushState('index', document.title, window.location.pathname);
+    }
+  } else {
+    document.location.replace('/#add');
+  }
+}
+
+function listenHash() {
+  if (document.location.pathname === '/') {
+    if (document.location.hash === '') {
+      document.getElementById('header-normal').style.display = 'block';
+      document.getElementById('header-add').style.display = 'none';
+    } else if (document.location.hash === '#add') {
+      document.getElementById('header-normal').style.display = 'none';
+      document.getElementById('header-add').style.display = 'block';
+    }
+  }
+}
+
+// init hash and history manipulation for add form
+listenHash();
+window.addEventListener('hashchange', function () {
+  listenHash();
+})
+
+// init rendering on index
+if (document.location.pathname === '/') {
   renderData(getData());
 }
