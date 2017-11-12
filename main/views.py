@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.core.signing import Signer
@@ -19,15 +19,17 @@ from avocado import settings
 
 
 def index(request):
-    applications_list = Application.objects.all()
-    applications_list = []
     today = datetime.datetime.now()
+    applications_list = []
+    if (request.user.is_authenticated):
+        applications_list = Application.objects.filter(user=request.user).order_by('-id')
     return render(request, 'main/applications.html', {
-        'applications_list': applications_list,
         'today': today,
+        'applications_list': applications_list,
     })
 
 
+@login_required
 def applications(request):
     if request.method == 'POST':
         body = request.body.decode('utf-8')
@@ -37,24 +39,29 @@ def applications(request):
             role=data['role'],
             company=data['company'],
             salary=data['salary'],
+            date_applied=data['date'],
             link=data['link'],
             stage=data['stage'],
         )
-        return HttpResponse(status=200)
+        return JsonResponse({})
     elif request.method == 'PATCH':
         body = request.body.decode('utf-8')
         data = json.loads(body)
-        given_listing = Application.objects.get(id=data['listing_id'])
-        new_stage = data['stage'].upper()
-        Application.objects.filter(user=request.user, listing=given_listing).update(stage=new_stage)
-        return HttpResponse(status=200)
-    elif request.method == 'GET':  # for frontpage js
-        application_listings_values_qs = Application.objects.filter(users__id=request.user.id).values_list('id')
-        application_listings_values_list = list(application_listings_values_qs)
-        application_listings_values = [listing_id for listings_tuple in application_listings_values_list for listing_id in listings_tuple]
-        return JsonResponse({
-            'applications': list(application_listings_values)
-        })
+        newValues = {}
+        if 'salary' in data:
+            newValues['salary'] = data['salary']
+        if 'stage' in data:
+            newValues['stage'] = data['stage'].lower()
+        applicationId = int(data['id'])
+
+        if Application.objects.get(id=applicationId).user != request.user:
+            return JsonResponse(status=401, data={
+                'status': 'false',
+                'message': 'Unauthorized',
+            })
+
+        Application.objects.filter(user=request.user, id=applicationId).update(**newValues)
+        return JsonResponse({})
 
 
 @login_required
