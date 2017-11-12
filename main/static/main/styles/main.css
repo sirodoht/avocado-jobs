@@ -346,6 +346,7 @@ li {
 
 input[type="text"],
 input[type="url"],
+input[type="date"],
 input[type="email"] {
   display: inline-block;
   width: 50%;
@@ -358,6 +359,7 @@ input[type="email"] {
 
 input[type="text"]:focus,
 input[type="url"]:focus,
+input[type="date"]:focus,
 input[type="email"]:focus {
   border: 3px solid #5a8323;
   outline: none;
@@ -365,6 +367,7 @@ input[type="email"]:focus {
 
 input[type="text"][disabled],
 input[type="url"][disabled],
+input[type="date"][disabled],
 input[type="email"][disabled] {
   background-color: #eee;
   cursor: not-allowed;
@@ -421,6 +424,7 @@ select {
 button {
   cursor: pointer;
   border: none;
+  font-family: "Source Sans Pro", "Helvetica", sans-serif;
   text-decoration: none;
   outline: 0;
 }
@@ -462,7 +466,7 @@ button {
 .btn-negative {
   background: #83bf33;
   color: #fff;
-  border: 2px solid #fff;
+  border: 3px solid #ffffff8c;
   border-radius: 0;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -473,8 +477,7 @@ button {
 }
 
 .btn-negative:hover {
-  background: #f2982c;
-  border-color: transparent;
+  border-color: #fff;
 }
 
 .nav {
@@ -536,20 +539,18 @@ button {
 }
 
 .nav-links-btn {
-  background: #83bf33;
+  background: #f2982c;
   color: #fff;
-  border: 2px solid #fff;
-  border-radius: 0;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  border-radius: 1px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   padding-left: 10px;
   padding-right: 10px;
   transition: 0.1s ease-in;
 }
 
 .nav-links-btn:hover {
-  background: #f2982c;
-  border-color: transparent;
+  background: #ec7e07;
 }
 
 .alert {
@@ -559,7 +560,7 @@ button {
 }
 
 .container {
-  max-width: 780px;
+  max-width: 880px;
   margin: auto;
   padding-left: 10px;
   padding-right: 10px;
@@ -570,7 +571,7 @@ button {
 }
 
 .container-content-header-content {
-  max-width: 780px;
+  max-width: 880px;
   margin-left: auto;
   margin-right: auto;
   padding-top: 70px;
@@ -597,7 +598,7 @@ button {
   margin-right: auto;
   padding-left: 10px;
   padding-right: 10px;
-  max-width: 780px;
+  max-width: 880px;
 }
 
 .container-content-body {
@@ -667,7 +668,7 @@ button {
   font-family: "Roboto Slab";
 }
 
-.listings-entry-detail-info-title-salary {
+.listings-entry-detail-info-title-date {
   margin-left: 10px;
   font-size: 16px;
   color: #fff;
@@ -679,6 +680,26 @@ button {
   border-radius: 1px;
   position: relative;
   top: -1px;
+}
+
+.listings-entry-detail-info-salary {
+  height: 26px;
+  box-sizing: border-box;
+  position: relative;
+  top: 5px;
+  font-size: 16px;
+  color: #888;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-right: 10px;
+  border-radius: 1px;
+  border: 1px solid transparent;
+  transition: border 0.1s ease-in;
+  outline: 0;
+}
+
+.listings-entry-detail-info-salary:hover {
+  border: 1px solid #aaa;
 }
 
 .listings-entry-detail-info-tags {
@@ -754,7 +775,7 @@ button {
 }
 
 .container-content-add-content {
-  max-width: 780px;
+  max-width: 880px;
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 30px;
@@ -780,6 +801,11 @@ button {
 #add-stage {
   height: 33px;
   border: none;
+  margin-left: 10px;
+}
+
+#add-date {
+  width: 22%;
   margin-left: 10px;
 }
 
