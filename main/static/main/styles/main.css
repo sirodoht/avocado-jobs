@@ -256,12 +256,12 @@ hr {
 }
 
 a {
-  color: #83bf33;
+  color: #f2982c;
 }
 
 a:hover {
   color: #fff;
-  background: #83bf33;
+  background: #f2982c;
   text-decoration: none;
 }
 
@@ -313,6 +313,7 @@ footer {
 
 .footer-content {
   border-top: 1px solid #ddd;
+  color: #888;
   font-size: 14px;
   max-width: 480px;
   margin-left: auto;
@@ -495,6 +496,17 @@ button {
   text-decoration: none;
 }
 
+.nav-header-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.nav-header-brand {
+  display: inline-block;
+  vertical-align: super;
+  margin-left: 5px;
+}
+
 .nav-links {
   font-size: 16px;
   padding-top: 5px;
@@ -646,6 +658,17 @@ button {
   font-family: "Roboto Slab";
 }
 
+.listings-entry-detail-info-title-salary {
+  margin-left: 10px;
+  font-size: 16px;
+  color: #fff;
+  background: #f2982c;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
 .listings-entry-detail-info-tags {
   text-align: right;
 }
@@ -688,7 +711,7 @@ button {
 
 .listings-entry-control-rm:hover {
   color: #fff;
-  background: #83bf33;
+  background: #f2982c;
 }
 
 .reset {
@@ -700,11 +723,11 @@ button {
   display: inline-block;
   cursor: pointer;
   font-size: 16px;
-  color: #83bf33;
+  color: #f2982c;
 }
 
 .reset-content:hover {
-  background: #83bf33;
+  background: #f2982c;
   color: #fff;
 }
 
