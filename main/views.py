@@ -114,7 +114,7 @@ def email_login_link(request, email):
 
     # Send the link by email.
     send_mail(
-        'Hi! This is your login link for Avocado Jobs',
+        'Login link for Avocado Jobs',
         render_to_string('main/token_auth_email.txt', {'current_site': current_site, 'data': data}, request=request),
         settings.DEFAULT_FROM_EMAIL,
         [email],
