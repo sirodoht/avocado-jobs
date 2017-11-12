@@ -43,6 +43,15 @@
     </div>
 
     <div class="container-content-body">
+        {% if messages %}
+            <p class="alert">
+                {% for message in messages %}
+                    {{ message }}
+                    <br>
+                {% endfor %}
+            </p>
+        {% endif %}
+
         <div class="listings">
             {% if user.is_authenticated %}
                 {% csrf_token %}
