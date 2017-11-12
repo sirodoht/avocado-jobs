@@ -142,6 +142,7 @@ function renderData(demoData) {
     if (applicationRecord.date) {
       var listingsEntryDetailInfoTitleDateElem = document.createElement('span');
       listingsEntryDetailInfoTitleDateElem.classList.add('listings-entry-detail-info-title-date');
+      listingsEntryDetailInfoTitleDateElem.title = 'Date applied';
       listingsEntryDetailInfoTitleDateElem.appendChild(document.createTextNode(applicationRecord.date));
       listingsEntryDetailInfoTitleElem.appendChild(listingsEntryDetailInfoTitleDateElem);
     }
@@ -153,12 +154,14 @@ function renderData(demoData) {
       listingsEntryDetailInfoSalaryElem.appendChild(document.createTextNode(applicationRecord.salary));
       listingsEntryDetailInfoSalaryElem.contentEditable = true;
       listingsEntryDetailInfoSalaryElem.onkeydown = changeSalaryListen;
+      listingsEntryDetailInfoSalaryElem.title = 'Salary';
       listingsEntryDetailInfoElem.appendChild(listingsEntryDetailInfoSalaryElem);
     }
 
     var listingsEntryDetailInfoStageElem = document.createElement('div');
     listingsEntryDetailInfoStageElem.classList.add('listings-entry-detail-info-stage');
     listingsEntryDetailInfoStageElem.dataset.id = applicationRecord.id;
+    listingsEntryDetailInfoStageElem.title = 'Current interview stage';
     listingsEntryDetailInfoElem.appendChild(listingsEntryDetailInfoStageElem);
 
     var listingsEntryDetailInfoStageSelectElem = document.createElement('select');
@@ -213,7 +216,7 @@ function renderData(demoData) {
 
     var listingsEntryControlRmElem = document.createElement('div');
     listingsEntryControlRmElem.classList.add('listings-entry-control-rm');
-    listingsEntryControlRmElem.title = 'Remove listing from applications';
+    listingsEntryControlRmElem.title = 'Remove job application';
     listingsEntryControlRmElem.dataset.id = applicationRecord.id;
     listingsEntryControlRmElem.onclick = removeApplication;
 

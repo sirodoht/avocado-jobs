@@ -38,7 +38,7 @@
     </div>
 
     <div class="container-content-header" id="header-normal">
-        <div class="container-content-header-content">
+        <div class="container-content-header-content" title="Say goodbye to the dreaded spreadsheet">
             <h1>Keep track of your job applications</h1>
         </div>
     </div>
@@ -65,10 +65,10 @@
                                 <strong>{{ application.role }}</strong>
                                 <span class="muted">at</span>
                                 <span class="listings-entry-detail-info-title-company">{{ application.company }}</span>
-                                <span class="listings-entry-detail-info-title-date">{{ application.date_applied|date:"M j" }}</span>
+                                <span class="listings-entry-detail-info-title-date" title="Date applied">{{ application.date_applied|date:"M j" }}</span>
                             </a>
-                            <div class="listings-entry-detail-info-salary" contenteditable="true">{{ application.salary }}</div>
-                            <div class="listings-entry-detail-info-stage" data-id="{{ application.id }}">
+                            <div class="listings-entry-detail-info-salary" contenteditable="true" title="Salary">{{ application.salary }}</div>
+                            <div class="listings-entry-detail-info-stage" data-id="{{ application.id }}" title="Current interview stage">
                                 <select name="stage" class="submission-stage">
                                     <option {% if application.stage == 'INITIAL' %}selected{% endif %} value="initial">No initial response yet</option>
                                     <option {% if application.stage == 'NEED' %}selected{% endif %} value="need">I need to respond</option>
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     <div class="listings-entry-control">
-                        <div class="listings-entry-control-rm" title="Remove listing from applications" data-id="{{ application.id }}" onclick="removeApplication(event)">
+                        <div class="listings-entry-control-rm" title="Remove job application" data-id="{{ application.id }}" onclick="removeApplication(event)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round">
                                 <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
                             </svg>
