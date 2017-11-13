@@ -37,8 +37,6 @@ function removeApplication(event) {
     return;
   }
 
-  showLoading();
-
   var inputElems = document.querySelectorAll('input');
   var csrfToken = getCsrf();
 
@@ -46,7 +44,6 @@ function removeApplication(event) {
   superagent.del('/applications/' + idForDeletion + '/')
     .set('X-CSRFToken', csrfToken)
     .end(function (err, res) {
-      hideLoading();
       if (err) {
         console.log('Error at deletion:', err);
       } else {
@@ -113,6 +110,13 @@ function initApplicationStage() {
   for (i = 0; i < salaryDivElems.length; i++) {
     salaryDivElems[i].addEventListener('keyup', changeSalaryListen);
     salaryDivElems[i].addEventListener('onblur', changeSalaryListen);
+  }
+
+  // add event listeners for delete
+  var listingsEntryControlRmElems = document.getElementsByClassName('listings-entry-control-rm');
+  var i = 0;
+  for (i = 0; i < listingsEntryControlRmElems.length; i++) {
+    listingsEntryControlRmElems[i].childNodes[1].onclick = removeApplication;
   }
 }
 
