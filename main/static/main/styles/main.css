@@ -553,6 +553,32 @@ button {
   background: #ec7e07;
 }
 
+.nav-links-arrow {
+  text-align: center;
+  font-family: "Roboto Slab", sans-serif;
+  position: absolute;
+  right: 120px;
+  padding-top: 10px;
+}
+
+.nav-links-arrow > img {
+  height: 60px;
+  margin: auto;
+}
+
+#tutorial-arrow {
+  display: none;
+}
+
+#tutorial-text-1 {
+  display: none;
+}
+
+#tutorial-text-2 {
+  margin-top: 100px;
+  display: none;
+}
+
 .alert {
   background: #83bf33;
   color: #fff;
@@ -764,6 +790,18 @@ button {
 }
 
 .reset-content:hover {
+  background: #f2982c;
+  color: #fff;
+}
+
+.reset-tutorial {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 16px;
+  color: #f2982c;
+}
+
+.reset-tutorial:hover {
   background: #f2982c;
   color: #fff;
 }
