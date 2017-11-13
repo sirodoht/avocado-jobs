@@ -2,6 +2,7 @@ import time
 import json
 import base64
 import datetime
+import analytics
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -15,10 +16,14 @@ from django.core.signing import Signer
 
 from .models import Application
 from .forms import EmailForm
+from .helpers import get_client_ip
 from avocado import settings
 
 
 def index(request):
+    analytics.page(get_client_ip(request), 'Non Authed', 'Index', {
+        'url': request.get_full_path(),
+    })
     today = datetime.datetime.now()
     applications_list = []
     if (request.user.is_authenticated):
