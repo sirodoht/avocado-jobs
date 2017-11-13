@@ -124,6 +124,10 @@ function addApplication() {
   var newDate = document.getElementById('add-date');
   var newLink = document.getElementById('add-link');
 
+  if (!newRole.value || !newCompany.value) {
+    return;
+  }
+
   var csrfToken = getCsrf();
   superagent.post('/applications/')
     .send({
