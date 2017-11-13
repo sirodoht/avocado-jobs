@@ -159,7 +159,8 @@ function renderData(demoData) {
       listingsEntryDetailInfoSalaryElem.dataset.id = applicationRecord.id;
       listingsEntryDetailInfoSalaryElem.appendChild(document.createTextNode(applicationRecord.salary));
       listingsEntryDetailInfoSalaryElem.contentEditable = true;
-      listingsEntryDetailInfoSalaryElem.onkeydown = changeSalaryListen;
+      listingsEntryDetailInfoSalaryElem.onkeyup = changeSalaryListen;
+      listingsEntryDetailInfoSalaryElem.onblur = changeSalaryListen;
       listingsEntryDetailInfoSalaryElem.title = 'Salary';
       listingsEntryDetailInfoElem.appendChild(listingsEntryDetailInfoSalaryElem);
     }
