@@ -560,6 +560,11 @@ button {
   right: 120px;
   padding-top: 10px;
 }
+@media (max-width: 1250px) {
+  .nav-links-arrow {
+    display: none;
+  }
+}
 
 .nav-links-arrow > img {
   height: 60px;
