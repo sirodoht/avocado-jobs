@@ -81,6 +81,12 @@ function removeApplication(event) {
 }
 
 function changeStageListen(event) {
+  // tutorial
+  if (localStorage.avocadoTutorialStep2 !== 'done') {
+    document.getElementById('tutorial-text-2').style.display = 'none';
+    localStorage.avocadoTutorialStep2 = 'done';
+  }
+
   var applicationId = parseInt(event.target.parentElement.dataset.id);
   var newStage = event.target.value;
   var newData = getData();
@@ -312,6 +318,17 @@ function toggleAddForm(event) {
       document.getElementById('header-normal').style.display = 'none';
       document.getElementById('header-add').style.display = 'block';
       history.pushState('add', document.title, window.location.pathname + '#add');
+
+      // tutorial
+      if (localStorage.avocadoTutorialStep1 !== 'done') {
+        document.getElementById('tutorial-arrow').style.display = 'none';
+        document.getElementById('tutorial-text-1').style.display = 'none';
+        localStorage.avocadoTutorialStep1 = 'done';
+      }
+      if (localStorage.avocadoTutorialStep2 !== 'done') {
+        document.getElementById('tutorial-text-2').style.display = 'block';
+      }
+
     } else if (document.location.hash === '#add') {
       document.getElementById('header-normal').style.display = 'block';
       document.getElementById('header-add').style.display = 'none';
@@ -334,6 +351,19 @@ function listenHash() {
   }
 }
 
+function resetTutorial() {
+  delete localStorage.avocadoTutorialStep1;
+  delete localStorage.avocadoTutorialStep2;
+  window.location.reload();
+}
+
+function initTutorial() {
+  if (localStorage.avocadoTutorialStep1 !== 'done') {
+    document.getElementById('tutorial-arrow').style.display = 'block';
+    document.getElementById('tutorial-text-1').style.display = 'block';
+  }
+}
+
 // init hash and history manipulation for add form
 listenHash();
 window.addEventListener('hashchange', function () {
@@ -344,3 +374,6 @@ window.addEventListener('hashchange', function () {
 if (document.location.pathname === '/') {
   renderData(getData());
 }
+
+// init tutorial
+initTutorial();
