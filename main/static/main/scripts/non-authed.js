@@ -4,7 +4,7 @@ var demoData = [{
     company: 'Avocado Jobs',
     stage: 'scheduled',
     salary: '$100k',
-    link: 'https://careers.avocadojobs.com/frontend-dev-8basd8',
+    link: 'https://stackoverflow.com/jobs?demo-job-link',
     date: 'Oct 10',
   },
   {
@@ -13,7 +13,7 @@ var demoData = [{
     company: 'Acme Corporation',
     stage: 'need',
     salary: '$80k',
-    link: 'https://careers.acme.corporation/backend-dev-jd975d',
+    link: 'https://jobs.github.com/?demo-job-link',
     date: 'Oct 22',
   },
   {
@@ -22,7 +22,7 @@ var demoData = [{
     company: 'E Corp',
     stage: 'initial',
     salary: '$135k',
-    link: 'https://careers.e.corp/security-eng-5as7dn',
+    link: 'https://remoteok.io/?demo-job-link',
     date: 'Nov 2',
   },
 ];
