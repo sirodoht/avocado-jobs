@@ -57,6 +57,7 @@
             {% if user.is_authenticated %}
                 {% csrf_token %}
             {% endif %}
+
             {% for application in applications_list %}
                 <div class="listings-entry">
                     <div class="listings-entry-detail">
@@ -102,6 +103,8 @@
         </div>
         {% if not user.is_authenticated %}
             <div class="reset">
+                <div class="reset-tutorial" title="Start over the small tutorial" onclick="resetTutorial()">Reset intro</div>
+                /
                 <div class="reset-content" title="Reset demo data to their initial values" onclick="resetApplications()">Reset demo data</div>
             </div>
         {% endif %}
