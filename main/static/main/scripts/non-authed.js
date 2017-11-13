@@ -183,7 +183,7 @@ function renderData(demoData) {
       },
       {
         value: 'need',
-        text: 'I need to response',
+        text: 'I need to respond',
       },
       {
         value: 'await',
