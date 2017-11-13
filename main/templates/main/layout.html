@@ -44,7 +44,26 @@
             </a>
         </div>
         <div class="nav-links">
-            <button onclick="toggleAddForm(event)" class="nav-links-btn">Add application</button>
+            <button onclick="toggleAddForm(event)" class="nav-links-btn" id="tutorial-trigger">Add application</button>
+            {% if not user.is_authenticated %}
+                <div class="nav-links-arrow" id="tutorial-content">
+                    <img src="{% static '/main/images/arrow-up.png' %}" alt="arrow up" id="tutorial-arrow">
+                    <div class="nav-links-arrow-text" id="tutorial-text-1">
+                        START HERE
+                        <br>
+                        Add a new application
+                    </div>
+                    <div class="nav-links-arrow-text" id="tutorial-text-2">
+                        You can change the
+                        <br>
+                        interview stage and
+                        <br>
+                        salary by clicking
+                        <br>
+                        on them
+                    </div>
+                </div>
+            {% endif %}
 
             {% if user.is_authenticated %}
                 <a href="{% url 'main:logout' %}">Log out</a>
