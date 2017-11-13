@@ -291,7 +291,7 @@ function addApplication() {
   var newStage = document.getElementById('add-stage').value;
   var newLink = document.getElementById('add-link').value;
 
-  if (!newRole || !newCompany || !newLink) {
+  if (!newRole || !newCompany) {
     return;
   }
 
