@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.core.signing import Signer
@@ -81,6 +81,8 @@ def applications_delete(request, application_id):
         else:
             application.delete()
             return JsonResponse({})
+    else:
+        return HttpResponse(status=404)
 
 
 def get_login(request):
