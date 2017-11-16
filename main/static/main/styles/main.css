@@ -783,6 +783,8 @@ button {
 
 .listings-entry-detail-info-salary {
   height: 26px;
+  max-width: 200px;
+  overflow: hidden;
   box-sizing: border-box;
   font-size: 16px;
   color: #888;
