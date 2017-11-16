@@ -744,6 +744,7 @@ button {
   display: flex;
   flex-grow: 1;
   flex-basis: 0;
+  flex-direction: column;
   height: 26px;
   box-sizing: border-box;
   font-size: 16px;
