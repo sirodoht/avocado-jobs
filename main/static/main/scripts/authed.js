@@ -96,6 +96,28 @@ function changeSalaryListen(event) {
     });
 }
 
+function changeNotesListen(event) {
+  var csrfToken = getCsrf();
+  var applicationId = event.target.dataset.id;
+  var newNotes = event.target.innerText;
+
+  showLoading();
+
+  superagent.patch('/applications/')
+    .send({
+      'id': applicationId,
+      'notes': newNotes,
+    })
+    .set('X-CSRFToken', csrfToken)
+    .end(function superagentEndCallback(err, res) {
+      hideLoading();
+      if (err) {
+        console.log('Failed to update application notes. Error:', err);
+        throw err;
+      }
+    });
+}
+
 function initApplicationStage() {
   // add event listeners to select elems
   var stageSelectElems = document.getElementsByClassName('submission-stage');
@@ -117,6 +139,14 @@ function initApplicationStage() {
   var i = 0;
   for (i = 0; i < listingsEntryControlRmElems.length; i++) {
     listingsEntryControlRmElems[i].childNodes[1].onclick = removeApplication;
+  }
+
+  // add event listeners for notes
+  var listingsEntryDetailNotesElems = document.getElementsByClassName('listings-entry-detail-info-notes');
+  var i = 0;
+  for (i = 0; i < listingsEntryDetailNotesElems.length; i++) {
+    listingsEntryDetailNotesElems[i].addEventListener('keyup', changeNotesListen);
+    listingsEntryDetailNotesElems[i].addEventListener('onblur', changeNotesListen);
   }
 }
 
@@ -187,6 +217,17 @@ function listenHash() {
   }
 }
 
+function initAnnounce() {
+  if (window.localStorage.avocadoAnnounce1 !== 'done') {
+    var announceElem = document.getElementById('announce');
+    announceElem.style.display = 'block';
+    announceElem.addEventListener('click', function () {
+      announceElem.style.display = 'none';
+      window.localStorage.avocadoAnnounce1 = 'done';
+    });
+  }
+}
+
 // init main app
 initApplicationStage()
 
@@ -195,3 +236,6 @@ listenHash();
 window.addEventListener('hashchange', function () {
   listenHash();
 })
+
+// init announce
+initAnnounce();

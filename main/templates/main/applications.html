@@ -62,13 +62,19 @@
                 <div class="listings-entry">
                     <div class="listings-entry-detail">
                         <div class="listings-entry-detail-info">
-                            <a class="listings-entry-detail-info-title" href="{{ application.link }}">
+                            <a class="listings-entry-detail-info-title" href="{{ application.link }}" target="_blank">
                                 <strong>{{ application.role }}</strong>
                                 <span class="muted">at</span>
                                 <span class="listings-entry-detail-info-title-company">{{ application.company }}</span>
-                                <span class="listings-entry-detail-info-title-date" title="Date applied">{{ application.date_applied|date:"M j" }}</span>
+                                <span class="listings-entry-detail-info-title-date" title="Date applied">
+                                    <div class="listings-entry-detail-info-title-date-body">
+                                        {{ application.date_applied|date:"M j" }}
+                                    </div>
+                                </span>
                             </a>
-                            <div class="listings-entry-detail-info-salary" id="here" data-id="{{ application.id }}" contenteditable="true" title="Salary">{{ application.salary }}</div>
+                            <div class="listings-entry-detail-info-notes" data-id="{{ application.id }}" contenteditable="true" title="Notes">{{ application.notes|default_if_none:"Notes" }}</div>
+                            <div class="listings-entry-detail-info-spacer"></div>
+                            <div class="listings-entry-detail-info-salary" data-id="{{ application.id }}" contenteditable="true" title="Salary">{{ application.salary }}</div>
                             <div class="listings-entry-detail-info-stage" data-id="{{ application.id }}" title="Current interview stage">
                                 <select name="stage" class="submission-stage">
                                     <option {% if application.stage == 'initial' %}selected{% endif %} value="initial">No initial response yet</option>

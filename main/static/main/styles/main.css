@@ -595,6 +595,31 @@ button {
   display: none;
 }
 
+#tutorial-text-3 {
+  margin-top: 100px;
+  display: none;
+}
+
+#announce {
+  display: none;
+  cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  color: #83bf33;
+  font-size: 16px;
+  margin-left: 20px;
+  margin-top: 30px;
+  border: 2px dashed #83bf33;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#announce:hover {
+  opacity: 0.5;
+}
+
 .alert {
   background: #83bf33;
   color: #fff;
@@ -672,7 +697,7 @@ button {
 
 .listings-entry-detail-info {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
@@ -685,8 +710,7 @@ button {
 }
 
 .listings-entry-detail-info-title {
-  flex-grow: 1;
-  flex-shrink: 0;
+  display: flex;
   text-decoration: none;
   color: #333;
   font-size: 17px;
@@ -694,6 +718,7 @@ button {
   margin-top: 5px;
   margin-bottom: 5px;
   margin-right: 5px;
+  max-width: 450px;
 }
 @media (min-width: 768px) {
   .listings-entry-detail-info-title {
@@ -706,11 +731,28 @@ button {
   color: inherit;
 }
 
-.listings-entry-detail-info-title-company {
-  font-family: "Roboto Slab";
+.listings-entry-detail-info-title > strong {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.listings-entry-detail-info-title-date {
+.listings-entry-detail-info-title > span.muted {
+  display: inline-block;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.listings-entry-detail-info-title-company {
+  font-family: "Roboto Slab";
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.listings-entry-detail-info-title-date-body {
   margin-left: 10px;
   font-size: 16px;
   color: #fff;
@@ -720,20 +762,61 @@ button {
   padding-top: 3px;
   padding-bottom: 3px;
   border-radius: 1px;
-  position: relative;
-  top: -1px;
+  white-space: nowrap;
 }
 
-.listings-entry-detail-info-salary {
+.listings-entry-detail-info-notes {
+  display: flex;
+  flex-grow: 1;
+  flex-basis: 0;
+  flex-direction: column;
   height: 26px;
   box-sizing: border-box;
-  position: relative;
-  top: 5px;
   font-size: 16px;
   color: #888;
   padding-left: 6px;
   padding-right: 6px;
+  margin-top: 5px;
   margin-right: 10px;
+  border-radius: 1px;
+  border: 1px solid transparent;
+  transition: border 0.15s ease-in-out;
+  overflow-y: scroll;
+  outline: 0;
+}
+@media (max-width: 768px) {
+  .listings-entry-detail-info-notes {
+    display: none;
+  }
+}
+
+.listings-entry-detail-info-notes:hover {
+  height: auto;
+  background: #efefef;
+  border-color: #aaa;
+}
+
+.listings-entry-detail-info-spacer {
+  display: none;
+}
+@media (max-width: 768px) {
+  .listings-entry-detail-info-spacer {
+    display: flex;
+    flex-grow: 1;
+  }
+}
+
+.listings-entry-detail-info-salary {
+  height: 26px;
+  max-width: 200px;
+  overflow: hidden;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #888;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-top: 5px;
+  margin-right: 8px;
   border-radius: 1px;
   border: 1px solid transparent;
   transition: border 0.1s ease-in;
@@ -765,7 +848,7 @@ button {
 }
 
 .listings-entry-detail-info-stage {
-  line-height: 1.7;
+  margin-top: 1px;
 }
 
 .listings-entry-detail-info-stage > select {

@@ -85,6 +85,7 @@ function changeStageListen(event) {
   if (localStorage.avocadoTutorialStep2 !== 'done') {
     document.getElementById('tutorial-text-2').style.display = 'none';
     localStorage.avocadoTutorialStep2 = 'done';
+    document.getElementById('tutorial-text-3').style.display = 'block';
   }
 
   var applicationId = parseInt(event.target.parentElement.dataset.id);
@@ -149,9 +150,17 @@ function renderData(demoData) {
       var listingsEntryDetailInfoTitleDateElem = document.createElement('span');
       listingsEntryDetailInfoTitleDateElem.classList.add('listings-entry-detail-info-title-date');
       listingsEntryDetailInfoTitleDateElem.title = 'Date applied';
-      listingsEntryDetailInfoTitleDateElem.appendChild(document.createTextNode(applicationRecord.date));
+      var listingsEntryDetailInfoTitleDateBodyElem = document.createElement('div');
+      listingsEntryDetailInfoTitleDateBodyElem.classList.add('listings-entry-detail-info-title-date-body');
+      listingsEntryDetailInfoTitleDateBodyElem.appendChild(document.createTextNode(applicationRecord.date));
+      listingsEntryDetailInfoTitleDateElem.appendChild(listingsEntryDetailInfoTitleDateBodyElem);
       listingsEntryDetailInfoTitleElem.appendChild(listingsEntryDetailInfoTitleDateElem);
     }
+
+    var listingsEntryDetailInfoNotesElem = document.createElement('div');
+    listingsEntryDetailInfoNotesElem.classList.add('listings-entry-detail-info-notes');
+    listingsEntryDetailInfoNotesElem.style.borderColor = 'transparent';
+    listingsEntryDetailInfoElem.appendChild(listingsEntryDetailInfoNotesElem);
 
     if (applicationRecord.salary) {
       var listingsEntryDetailInfoSalaryElem = document.createElement('div');
@@ -365,6 +374,17 @@ function initTutorial() {
   }
 }
 
+function initAnnounce() {
+  if (window.localStorage.avocadoAnnounce1 !== 'done') {
+    var announceElem = document.getElementById('announce');
+    announceElem.style.display = 'block';
+    announceElem.addEventListener('click', function () {
+      announceElem.style.display = 'none';
+      window.localStorage.avocadoAnnounce1 = 'done';
+    });
+  }
+}
+
 // init hash and history manipulation for add form
 listenHash();
 window.addEventListener('hashchange', function () {
@@ -378,3 +398,6 @@ if (document.location.pathname === '/') {
 
 // init tutorial
 initTutorial();
+
+// init announce
+initAnnounce();
