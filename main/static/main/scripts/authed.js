@@ -217,6 +217,17 @@ function listenHash() {
   }
 }
 
+function initAnnounce() {
+  if (window.localStorage.avocadoAnnounce1 !== 'done') {
+    var announceElem = document.getElementById('announce');
+    announceElem.style.display = 'block';
+    announceElem.addEventListener('click', function () {
+      announceElem.style.display = 'none';
+      window.localStorage.avocadoAnnounce1 = 'done';
+    });
+  }
+}
+
 // init main app
 initApplicationStage()
 
@@ -225,3 +236,6 @@ listenHash();
 window.addEventListener('hashchange', function () {
   listenHash();
 })
+
+// init announce
+initAnnounce();
