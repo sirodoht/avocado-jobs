@@ -365,6 +365,17 @@ function initTutorial() {
   }
 }
 
+function initAnnounce() {
+  if (window.localStorage.avocadoAnnounce1 !== 'done') {
+    var announceElem = document.getElementById('announce');
+    announceElem.style.display = 'block';
+    announceElem.addEventListener('click', function () {
+      announceElem.style.display = 'none';
+      window.localStorage.avocadoAnnounce1 = 'done';
+    });
+  }
+}
+
 // init hash and history manipulation for add form
 listenHash();
 window.addEventListener('hashchange', function () {
@@ -378,3 +389,6 @@ if (document.location.pathname === '/') {
 
 // init tutorial
 initTutorial();
+
+// init announce
+initAnnounce();
