@@ -17,6 +17,7 @@ class Application(models.Model):
     company = models.CharField(max_length=200)
     link = models.CharField(max_length=400, null=True, blank=True)
     salary = models.CharField(max_length=100, null=True, blank=True)
+    notes = models.TextField(null=True, blank=True)
 
     INITIAL = 'initial'
     NEED = 'need'
