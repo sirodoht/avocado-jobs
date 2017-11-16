@@ -595,6 +595,31 @@ button {
   display: none;
 }
 
+#tutorial-text-3 {
+  margin-top: 100px;
+  display: none;
+}
+
+#announce {
+  display: none;
+  cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  color: #83bf33;
+  font-size: 16px;
+  margin-left: 20px;
+  margin-top: 30px;
+  border: 2px dashed #83bf33;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#announce:hover {
+  opacity: 0.5;
+}
+
 .alert {
   background: #83bf33;
   color: #fff;
