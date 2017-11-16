@@ -55,6 +55,8 @@ def applications(request):
         newValues = {}
         if 'salary' in data:
             newValues['salary'] = data['salary']
+        if 'notes' in data:
+            newValues['notes'] = data['notes']
         if 'stage' in data:
             newValues['stage'] = data['stage'].lower()
         applicationId = int(data['id'])
