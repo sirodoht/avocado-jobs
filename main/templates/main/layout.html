@@ -102,6 +102,7 @@
     {% if user.is_authenticated %}
         <script src="{% static '/main/scripts/superagent.min.js' %}"></script>
         <script src="{% static '/main/scripts/authed.js' %}"></script>
+        <script src="{% static '/main/scripts/bundle.js' %}"></script>
     {% else %}
         <script src="{% static '/main/scripts/non-authed.js' %}"></script>
     {% endif %}
