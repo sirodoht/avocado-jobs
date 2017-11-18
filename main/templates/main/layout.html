@@ -34,77 +34,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Source+Sans+Pro" rel="stylesheet">
 </head>
 <body>
-    <div class="nav">
-        <div class="nav-header">
-            <a href="/" class="nav-header-link" title="From the toast">
-                <img class="nav-header-link-icon" src="{% static '/main/android-chrome-192x192.png' %}" alt="logo">
-                <div class="nav-header-link-brand">Avocado Jobs</div>
-            </a>
-        </div>
-        <div class="nav-links">
-            <button onclick="toggleAddForm(event)" class="nav-links-btn" id="tutorial-trigger">Add application</button>
-            {% if not user.is_authenticated %}
-                <div class="nav-links-arrow" id="tutorial-content">
-                    <img src="{% static '/main/images/arrow-up.png' %}" alt="arrow up" id="tutorial-arrow">
-                    <div class="nav-links-arrow-text" id="tutorial-text-1">
-                        START HERE
-                        <br>
-                        Add a new application
-                    </div>
-                    <div class="nav-links-arrow-text" id="tutorial-text-2">
-                        You can change the
-                        <br>
-                        interview stage and
-                        <br>
-                        salary by clicking
-                        <br>
-                        on them
-                    </div>
-                    <div class="nav-links-arrow-text" id="tutorial-text-3">
-                        Login to save your
-                        <br>
-                        data and also take
-                        <br>
-                        advantage of notes!
-                    </div>
-                </div>
-            {% endif %}
 
-            {% if user.is_authenticated %}
-                <a href="{% url 'main:logout' %}">Log out</a>
+    <script src="{% static '/main/scripts/bundle.js' %}"></script>
 
-                <!-- This is for js to check. Also it must be last because of first-child styling. -->
-                <div class="hidden" id="user-authed"></div>
-            {% else %}
-                <a href="{% url 'main:login' %}" title="Log in to keep your data in the cloud and access them from everywhere">Log in / Sign up</a>
-            {% endif %}
-        </div>
-    </div>
-
-    <div id="announce">
-        Latest: <br>
-        Notes per application <br>
-        are live &nbsp; 🎉
-    </div>
-
-    {% block content %}
-    {% endblock %}
-
-    <footer>
-        <div class="footer-content">
-            <p class="footer-content-para">
-                Avocado Jobs.
-                <a href="mailto:hi@avocadojobs.com" title="Say hi!" target="_blank">Email</a>
-                or <a href="https://twitter.com/AvocadoJobs" title="Or maybe hello?" target="_blank">tweet</a> at us.
-        </div>
-    </footer>
-
-    {% if user.is_authenticated %}
-        <script src="{% static '/main/scripts/superagent.min.js' %}"></script>
-        <script src="{% static '/main/scripts/authed.js' %}"></script>
-        <script src="{% static '/main/scripts/bundle.js' %}"></script>
-    {% else %}
-        <script src="{% static '/main/scripts/non-authed.js' %}"></script>
-    {% endif %}
 </body>
 </html>
