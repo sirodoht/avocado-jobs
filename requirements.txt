@@ -4,20 +4,16 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-analytics-python==1.2.8
+analytics-python==1.2.9
 argon2-cffi==16.3.0
-bleach==2.1.1
 certifi==2017.11.5        # via requests
 cffi==1.11.2              # via argon2-cffi
 chardet==3.0.4            # via requests
 dj-database-url==0.4.2
-django-ckeditor==5.3.1
-django-js-asset==0.1.1    # via django-ckeditor
-django==1.11.7
-faker==0.8.6
+django==2.0
+faker==0.8.7
 flake8==3.5.0
 gunicorn==19.7.1
-html5lib==1.0b10          # via bleach
 idna==2.6                 # via requests
 mccabe==0.6.1             # via flake8
 psycopg2==2.7.3.2
@@ -29,8 +25,7 @@ pytz==2017.3              # via django
 raven==6.3.0
 requests==2.18.4          # via analytics-python
 shortuuid==0.5.0
-six==1.11.0               # via analytics-python, argon2-cffi, bleach, faker, html5lib, python-dateutil
-text-unidecode==1.0       # via faker
+six==1.11.0               # via analytics-python, argon2-cffi, faker, python-dateutil
+text-unidecode==1.1       # via faker
 urllib3==1.22             # via requests
-webencodings==0.5.1       # via html5lib
 whitenoise==3.3.1
