@@ -11,7 +11,7 @@ class Avo extends Component {
       <div class="app">
         <div class="nav">
           <div class="nav-header">
-            <a href="/" class="nav-header-link" title="From the toast">
+            <a href="/" class="nav-header-link">
                 <img class="nav-header-link-icon" src="/staticfiles/main/android-chrome-192x192.png" alt="logo" />
                 <div class="nav-header-link-brand">Avocado Jobs</div>
             </a>
@@ -23,11 +23,11 @@ class Avo extends Component {
           </div>
         </div>
 
-        <div class="container-content-header">
+        {/* <div class="container-content-header">
           <div class="container-content-header-content">
             <h1>Keep track of your job applications</h1>
           </div>
-        </div>
+        </div> */}
 
         <New />
 
