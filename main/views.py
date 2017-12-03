@@ -28,7 +28,7 @@ def index(request):
     applications_list = []
     if (request.user.is_authenticated):
         applications_list = Application.objects.filter(user=request.user).order_by('-id')
-    return render(request, 'main/applications.html', {
+    return render(request, 'main/layout.html', {
         'today': today,
         'applications_list': applications_list,
     })
@@ -39,15 +39,25 @@ def applications(request):
     if request.method == 'POST':
         body = request.body.decode('utf-8')
         data = json.loads(body)
-        Application.objects.create(
+        if 'role' not in data or 'company' not in data:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request',
+            })
+        new_application = Application.objects.create(
             user=request.user,
             role=data['role'],
             company=data['company'],
-            salary=data['salary'],
-            date_applied=data['date'],
-            link=data['link'],
-            stage=data['stage'],
         )
+        if 'salary' in data:
+            new_application.salary = data['salary']
+        if 'date' in data:
+            new_application.date_applied = data['date']
+        if 'link' in data:
+            new_application.link = data['link']
+        if 'stage' in data:
+            new_application.stage = data['stage']
+        new_application.save()
         return JsonResponse({})
     elif request.method == 'PATCH':
         body = request.body.decode('utf-8')
