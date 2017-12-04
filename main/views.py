@@ -79,6 +79,14 @@ def applications(request):
 
         Application.objects.filter(user=request.user, id=applicationId).update(**newValues)
         return JsonResponse({})
+    elif request.method == 'GET':
+        applications = Application.objects.filter(user=request.user).values('id', 'role', 'company', 'link', 'stage', 'salary', 'notes', 'date_applied')
+        applications_list = list(applications)
+        for item in applications_list:
+            item['date'] = item.pop('date_applied')
+        return JsonResponse(applications_list, safe=False)
+    else:
+        redirect('main:index')
 
 
 @login_required
