@@ -1,6 +1,7 @@
 import { h, render, Component } from 'preact';
-import { getCsrf } from './util';
 import axios from 'axios';
+
+import { getCsrf } from './util';
 
 
 export default class New extends Component {
@@ -36,16 +37,6 @@ export default class New extends Component {
     // get date manually because preact makes native date picker unusable
     const newDate = document.getElementById('add-date').value;
 
-    var newJob = {
-      role: this.state.role,
-      company: this.state.company,
-      salary: this.state.salary,
-      stage: this.state.stage,
-      date: newDate,
-      link: this.state.link,
-    };
-    console.log('just posted:', newJob);
-
     axios.post('/applications/', {
         role: this.state.role,
         company: this.state.company,
@@ -58,10 +49,7 @@ export default class New extends Component {
           'X-CSRFToken': getCsrf(),
         }
       })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
+      .catch((error) => {
         console.log('Failed to create new application. Error:', err);
         throw err;
       });
