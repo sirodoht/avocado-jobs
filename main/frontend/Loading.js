@@ -1,6 +1,5 @@
 import { h, render, Component } from 'preact';
 
-
 export default class New extends Component {
   render() {
     return (

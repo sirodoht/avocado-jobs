@@ -1,7 +1,6 @@
 import time
 import json
 import base64
-import datetime
 import analytics
 
 from django.shortcuts import render, redirect
@@ -24,14 +23,7 @@ def index(request):
     analytics.page(get_client_ip(request), 'Non Authed', 'Index', {
         'url': request.get_full_path(),
     })
-    today = datetime.datetime.now()
-    applications_list = []
-    if (request.user.is_authenticated):
-        applications_list = Application.objects.filter(user=request.user).order_by('-id')
-    return render(request, 'main/layout.html', {
-        'today': today,
-        'applications_list': applications_list,
-    })
+    return render(request, 'main/layout.html')
 
 
 @login_required
@@ -79,6 +71,14 @@ def applications(request):
 
         Application.objects.filter(user=request.user, id=applicationId).update(**newValues)
         return JsonResponse({})
+    elif request.method == 'GET':
+        applications = Application.objects.filter(user=request.user).values('id', 'role', 'company', 'link', 'stage', 'salary', 'notes', 'date_applied')
+        applications_list = list(applications)
+        for item in applications_list:
+            item['date'] = item.pop('date_applied')
+        return JsonResponse(applications_list, safe=False)
+    else:
+        redirect('main:index')
 
 
 @login_required
