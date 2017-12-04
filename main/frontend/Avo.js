@@ -4,7 +4,6 @@ import New from './New';
 import List from './List';
 import Loading from './Loading';
 
-
 class Avo extends Component {
   render() {
     return (
