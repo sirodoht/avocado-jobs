@@ -1,3 +1,5 @@
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = {
   entry: './main/frontend/Avo.js',
   output: {
@@ -12,4 +14,5 @@ module.exports = {
       }
     ]
   },
+  // plugins: [new BundleAnalyzerPlugin()],
 };
