@@ -12,13 +12,16 @@ export default class List extends Component {
   }
 
   componentDidMount() {
+    document.getElementById('loading').style.display = 'block';
     axios.get('/applications/')
       .then((res) => {
+        document.getElementById('loading').style.display = 'none';
         this.setState({
           applications: res.data,
         })
       })
       .catch((error) => {
+        document.getElementById('loading').style.display = 'none';
         console.log('Failed to fetch user applications. Error:', err);
         throw err;
       });
