@@ -765,8 +765,12 @@ button {
   white-space: nowrap;
 }
 
-.listings-entry-detail-info-notes {
+input[type="text"].listings-entry-detail-info-notes {
   display: flex;
+  width: auto;
+  line-height: 25.6px;
+  margin-bottom: auto;
+  padding: 0;
   flex-grow: 1;
   flex-basis: 0;
   flex-direction: column;
@@ -785,12 +789,12 @@ button {
   outline: 0;
 }
 @media (max-width: 768px) {
-  .listings-entry-detail-info-notes {
+  input[type="text"].listings-entry-detail-info-notes {
     display: none;
   }
 }
 
-.listings-entry-detail-info-notes:hover {
+input[type="text"].listings-entry-detail-info-notes:hover {
   height: auto;
   background: #efefef;
   border-color: #aaa;
@@ -806,7 +810,7 @@ button {
   }
 }
 
-.listings-entry-detail-info-salary {
+input[type="text"].listings-entry-detail-info-salary {
   height: 26px;
   max-width: 200px;
   overflow: hidden;
@@ -823,7 +827,7 @@ button {
   outline: 0;
 }
 
-.listings-entry-detail-info-salary:hover {
+input[type="text"].listings-entry-detail-info-salary:hover {
   border: 1px solid #aaa;
 }
 
