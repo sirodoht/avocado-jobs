@@ -53,7 +53,22 @@ def applications(request):
         return JsonResponse({})
     elif request.method == 'PATCH':
         body = request.body.decode('utf-8')
-        data = json.loads(body)
+        try:
+            data = json.loads(body)
+        except ValueError:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request. Invalid JSON.',
+            })
+
+        if 'id' not in data:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request. No id defined.',
+            })
+
+        applicationId = int(data['id'])
+
         newValues = {}
         if 'salary' in data:
             newValues['salary'] = data['salary']
@@ -61,7 +76,6 @@ def applications(request):
             newValues['notes'] = data['notes']
         if 'stage' in data:
             newValues['stage'] = data['stage'].lower()
-        applicationId = int(data['id'])
 
         if Application.objects.get(id=applicationId).user != request.user:
             return JsonResponse(status=401, data={
