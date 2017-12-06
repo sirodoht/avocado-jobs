@@ -1,6 +1,53 @@
 import { h, render, Component } from 'preact';
+import axios from 'axios';
+
+import { getCsrf } from './util';
 
 export default class ListItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: this.props.key,
+      stage: this.props.data.stage,
+      notes: this.props.data.notes,
+      salary: this.props.data.salary,
+    }
+    this.timeout = null;
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState({
+      [name]: value,
+      }, () => {
+        if (this.timeout) {
+          clearTimeout(this.timeout);
+        }
+        this.timeout = setTimeout(() => {
+          document.getElementById('loading').style.display = 'block';
+          axios.patch('/applications/', {
+            id: this.state.id,
+            [name]: value,
+          }, {
+            headers: {
+              'X-CSRFToken': getCsrf(),
+            }
+          })
+          .then(() => {
+            document.getElementById('loading').style.display = 'none';
+          })
+          .catch((error) => {
+            document.getElementById('loading').style.display = 'none';
+            console.log('Failed to create new application. Error:', err);
+            throw err;
+          });
+        }, 500);
+      });
+  }
+
   render() {
     return (
       <div class="listings-entry">
@@ -16,11 +63,13 @@ export default class ListItem extends Component {
                 </div>
               </span>
             </a>
-            <div class="listings-entry-detail-info-notes" contenteditable="true" title="Notes">{this.props.data.notes}</div>
+            <input type="text" name="notes" class="listings-entry-detail-info-notes"
+              title="Notes" onKeyDown={this.handleChange} value={this.state.notes} />
             <div class="listings-entry-detail-info-spacer"></div>
-            <div class="listings-entry-detail-info-salary" contenteditable="true" title="Salary">{this.props.data.salary}</div>
+            <input type="text" name="salary" class="listings-entry-detail-info-salary"
+              title="Salary" onKeyDown={this.handleChange} value={this.state.salary} />
             <div class="listings-entry-detail-info-stage" title="Current interview stage">
-              <select name="stage" class="submission-stage" value={this.props.data.stage}>
+              <select name="stage" class="submission-stage" value={this.state.stage} onChange={this.handleChange}>
                 <option value="initial">No initial response yet</option>
                 <option value="need">I need to respond</option>
                 <option value="await">Awaiting response</option>
