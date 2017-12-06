@@ -15,9 +15,14 @@ export default class ListItem extends Component {
     this.timeout = null;
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleChange(event) {
+    window.onbeforeunload = function confirmExit() {
+      return 'Some changes you have made have not been saved. Are you sure you want to leave?';
+    }
+
     const name = event.target.name;
     const value = event.target.value;
     this.setState({
@@ -37,15 +42,25 @@ export default class ListItem extends Component {
             }
           })
           .then(() => {
+            window.onbeforeunload = null;
             document.getElementById('loading').style.display = 'none';
           })
           .catch((error) => {
+            window.onbeforeunload = null;
             document.getElementById('loading').style.display = 'none';
-            console.log('Failed to create new application. Error:', err);
+            console.log('Failed to edit application. Error:', err);
             throw err;
           });
         }, 500);
       });
+  }
+
+  handleDelete(event) {
+    if (!window.confirm('Are you sure you want to remove this application?')) {
+      return;
+    }
+
+    this.props.onDelete(this.state.id);
   }
 
   render() {
@@ -82,7 +97,7 @@ export default class ListItem extends Component {
           </div>
         </div>
         <div class="listings-entry-control">
-          <div class="listings-entry-control-rm" title="Remove job application" data-id="{{ id }}">
+          <div class="listings-entry-control-rm" title="Remove job application" onClick={this.handleDelete}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
