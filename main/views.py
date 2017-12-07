@@ -112,6 +112,8 @@ def applications_delete(request, application_id):
 
 
 def get_login(request):
+    if request.user.is_authenticated:
+        return redirect('main:index')
     return render(request, 'main/login.html', {
         'next': request.GET.get('next'),
     })
