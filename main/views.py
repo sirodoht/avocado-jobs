@@ -86,7 +86,7 @@ def applications(request):
         Application.objects.filter(user=request.user, id=applicationId).update(**newValues)
         return JsonResponse({})
     elif request.method == 'GET':
-        applications = Application.objects.filter(user=request.user).order_by('-date_applied', 'id').values('id', 'role', 'company', 'link', 'stage', 'salary', 'notes', 'date_applied')
+        applications = Application.objects.filter(user=request.user).order_by('-date_applied', '-id').values('id', 'role', 'company', 'link', 'stage', 'salary', 'notes', 'date_applied')
         applications_list = list(applications)
         for item in applications_list:
             item['date'] = item.pop('date_applied')
