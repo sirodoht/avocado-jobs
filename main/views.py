@@ -94,7 +94,7 @@ def get_login(request):
 
 
 def token_post(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         messages.error(request, 'You are already logged in.')
         return redirect(settings.LOGIN_REDIRECT_URL)
 
