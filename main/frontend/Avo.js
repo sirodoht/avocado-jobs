@@ -5,6 +5,41 @@ import List from './List';
 import Loading from './Loading';
 
 class Avo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      addFormSection: false,
+    }
+
+    this.toggleAddForm = this.toggleAddForm.bind(this);
+  }
+
+  toggleAddForm() {
+    if (document.location.pathname === '/') {
+      if (document.location.hash === '') {
+        history.pushState('add', document.title, window.location.pathname + '#add');
+      } else if (document.location.hash === '#add') {
+        history.pushState('index', document.title, window.location.pathname);
+      }
+    } else {
+      document.location.replace('/#add');
+    }
+
+    this.setState((prevState) => {
+      return {
+        addFormSection: !prevState.addFormSection,
+      }
+    });
+  }
+
+  componentDidMount() {
+    if (document.location.pathname === '/' && document.location.hash === '#add') {
+      this.setState({
+        addFormSection: true,
+      });
+    }
+  }
+
   render() {
     return (
       <div class="app">
@@ -16,19 +51,23 @@ class Avo extends Component {
             </a>
           </div>
           <div class="nav-links">
-            <button onclick="toggleAddForm(event)" class="nav-links-btn" id="tutorial-trigger">Add application</button>
-            <a href="{% url 'main:login' %}" title="Log in to keep your data in the cloud and access them from everywhere">Log in / Sign up</a>
-            <a href="{% url 'main:logout' %}">Log out</a>
+            <button onClick={this.toggleAddForm} class="nav-links-btn" id="tutorial-trigger">Add application</button>
+            <a href="/login" title="Log in to keep your data in the cloud and access them from everywhere">Log in / Sign up</a>
+            <a href="/logout">Log out</a>
           </div>
         </div>
 
-        {/* <div class="container-content-header">
-          <div class="container-content-header-content">
-            <h1>Keep track of your job applications</h1>
+        {this.state.addFormSection ||
+          <div class="container-content-header">
+            <div class="container-content-header-content">
+              <h1>Keep track of your job applications</h1>
+            </div>
           </div>
-        </div> */}
+        }
 
-        <New />
+        {this.state.addFormSection &&
+          <New />
+        }
 
         <List />
 
