@@ -118,7 +118,7 @@ def get_login(request):
 
 
 def token_post(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         messages.error(request, 'You are already logged in.')
         return redirect(settings.LOGIN_REDIRECT_URL)
 
@@ -154,7 +154,7 @@ def email_login_link(request, email):
         't': int(time.time()),
         'e': email,
     }
-    data = Signer().sign(base64.b64encode(json.dumps(data).encode('utf8')))
+    data = Signer().sign(base64.b64encode(json.dumps(data).encode('utf8')).decode('utf8'))
 
     # Send the link by email.
     send_mail(
