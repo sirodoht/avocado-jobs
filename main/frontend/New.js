@@ -49,6 +49,9 @@ export default class New extends Component {
           'X-CSRFToken': getCsrf(),
         }
       })
+      .then(() => {
+        document.location.reload();
+      })
       .catch((error) => {
         console.log('Failed to create new application. Error:', err);
         throw err;
