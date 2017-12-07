@@ -35,9 +35,26 @@
 </head>
 <body>
 
-    {% csrf_token %}
+    {% if request.path == '/' %}
+        {% csrf_token %}
+        <script src="{% static '/main/scripts/bundle.js' %}"></script>
+    {% else %}
+        <div class="nav">
+            <div class="nav-header">
+                <a href="/" class="nav-header-link" title="From the toast">
+                    <img class="nav-header-link-icon" src="{% static '/main/android-chrome-192x192.png' %}" alt="logo">
+                    <div class="nav-header-link-brand">Avocado Jobs</div>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="/#add" class="nav-links-btn">Here</a>
+                <a href="{% url 'main:login' %}" title="Log in to keep your data in the cloud and access them from everywhere">Log in / Sign up</a>
+            </div>
+        </div>
 
-    <script src="{% static '/main/scripts/bundle.js' %}"></script>
+        {% block content %}
+        {% endblock %}
+    {% endif %}
 
 </body>
 </html>
