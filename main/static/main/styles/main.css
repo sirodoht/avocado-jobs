@@ -326,7 +326,7 @@ footer {
   text-align: center;
 }
 
-.footer-content {
+.footer-body {
   border-top: 1px solid #ddd;
   color: #888;
   font-size: 14px;
@@ -335,9 +335,18 @@ footer {
   margin-right: auto;
 }
 
-.footer-content-para {
+.footer-body-content {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+footer a {
+  color: #83bf33;
+}
+
+footer a:hover {
+  background: #83bf33;
+  color: #fff;
 }
 
 ::placeholder {

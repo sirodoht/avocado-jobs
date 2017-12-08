@@ -81,8 +81,8 @@ class Avo extends Component {
         </div>
 
         {this.state.authed &&
-          <div class="container-content-header">
-            <div class="container-content-header-content">
+          <div class="header">
+            <div class="header-copy">
               <h1>Keep track of your job applications</h1>
             </div>
           </div>
@@ -97,8 +97,8 @@ class Avo extends Component {
         <Loading />
 
         <footer>
-          <div class="footer-content">
-            <div class="footer-content-para">
+          <div class="footer-body">
+            <div class="footer-body-content">
               Avocado Jobs.&nbsp;
               <a href="mailto:hi@avocadojobs.com" title="Say hi!" target="_blank">Email</a>&nbsp;
               or <a href="https://twitter.com/AvocadoJobs" title="Or maybe hello?" target="_blank">tweet</a> at us.
