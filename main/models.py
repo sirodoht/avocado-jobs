@@ -28,7 +28,7 @@ class Application(models.Model):
     DECLINED = 'declined'
     REJECTED = 'rejected'
     STAGE_CHOICES = (
-        (INITIAL, 'To Do'),
+        (TODO, 'To Do'),
         (INITIAL, 'No initial response yet'),
         (NEED, 'I need to respond'),
         (AWAIT, 'Awaiting response'),
