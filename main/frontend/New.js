@@ -60,14 +60,14 @@ export default class New extends Component {
 
   render() {
     return (
-      <div class="container-content-add">
-        <div class="container-content-add-content">
-          <div class="container-content-add-content-title">
+      <div class="header">
+        <div class="header-add">
+          <div class="header-add-title">
             Add new job application
           </div>
-          <div class="container-content-add-content-body">
+          <div class="header-add-body">
             <form onSubmit={this.handleSubmit}>
-              <div class="container-content-add-content-body-row">
+              <div class="header-add-body-row">
                 <input
                   type="text" name="role" id="add-role" placeholder="Frontend Developer"
                   value={this.state.role} onChange={this.handleChange} />
@@ -75,7 +75,7 @@ export default class New extends Component {
                 <input type="text" name="company" id="add-company" placeholder="Avocado Jobs, Inc."
                   value={this.state.company} onChange={this.handleChange} />
               </div>
-              <div class="container-content-add-content-body-row">
+              <div class="header-add-body-row">
                 <input type="text" name="salary" id="add-salary" placeholder="$100k"
                   value={this.state.salary} onChange={this.handleChange} />
                 <select name="stage" id="add-stage" value={this.state.stage} onChange={this.handleChange}>
@@ -89,11 +89,11 @@ export default class New extends Component {
                 </select>
                 <input type="date" id="add-date" value={this.today} />
               </div>
-              <div class="container-content-add-content-body-row">
+              <div class="header-add-body-row">
                 <input type="text" name="link" id="add-link" placeholder="https://careers.avocadojobs.com/frontend-dev-8dbgf8"
                   value={this.state.link} onChange={this.handleChange} />
               </div>
-              <div class="container-content-add-content-body-row">
+              <div class="header-add-body-row">
                 <button type="submit" class="btn-negative">Save</button>
               </div>
             </form>
