@@ -12,13 +12,14 @@ def generate_uuid():
 
 class Application(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date_applied = models.DateField(default=timezone.now)
+    date_applied = models.DateField(default=timezone.now, null=True, blank=True)
     role = models.CharField(max_length=200)
     company = models.CharField(max_length=200)
     link = models.CharField(max_length=400, null=True, blank=True)
     salary = models.CharField(max_length=100, null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
 
+    TODO = 'todo'
     INITIAL = 'initial'
     NEED = 'need'
     AWAIT = 'await'
@@ -27,6 +28,7 @@ class Application(models.Model):
     DECLINED = 'declined'
     REJECTED = 'rejected'
     STAGE_CHOICES = (
+        (INITIAL, 'To Do'),
         (INITIAL, 'No initial response yet'),
         (NEED, 'I need to respond'),
         (AWAIT, 'Awaiting response'),
