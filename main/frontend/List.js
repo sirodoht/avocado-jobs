@@ -14,6 +14,7 @@ export default class List extends Component {
 
     this.onDelete = this.onDelete.bind(this);
     this.activateFilter = this.activateFilter.bind(this);
+    this.sortBy = this.sortBy.bind(this);
   }
 
   componentDidMount() {
@@ -88,6 +89,30 @@ export default class List extends Component {
     });
   }
 
+  sortBy(event) {
+    const sortField = event.target.dataset.id;
+    this.setState((prevState) => {
+      const newApplications = prevState.applications.slice();
+      newApplications.sort((a, b) => {
+        if (a[sortField] < b[sortField]) {
+          return -1;
+        }
+        if (a[sortField] > b[sortField]) {
+          return 1;
+        }
+
+        // a must be equal to b
+        return 0;
+      });
+
+      console.log('newApplications:', newApplications);
+
+      return {
+        applications: newApplications,
+      }
+    });
+  }
+
   render() {
     return (
       <div class="list">
@@ -104,6 +129,14 @@ export default class List extends Component {
           <div onClick={this.activateFilter} data-id="offer" class="list-filters-item">Got offer</div>
           <div onClick={this.activateFilter} data-id="declined" class="list-filters-item">Declined</div>
           <div onClick={this.activateFilter} data-id="rejected" class="list-filters-item">Got rejected</div>
+        </div>
+        <div class="list-sort">
+          <div class="list-sort-title">Sort by:</div>
+          <div onClick={this.sortBy} data-id="role" class="list-sort-item">Role</div>
+          <div onClick={this.sortBy} data-id="company" class="list-sort-item">Company</div>
+          <div onClick={this.sortBy} data-id="date" class="list-sort-item">Date</div>
+          <div onClick={this.sortBy} data-id="salary" class="list-sort-item">Salary</div>
+          <div onClick={this.sortBy} data-id="stage" class="list-sort-item">Stage</div>
         </div>
         <div class="list-body">
           {this.state.applications.map((item) => (
