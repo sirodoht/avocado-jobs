@@ -68,11 +68,6 @@ export default class List extends Component {
             <ListItem key={item.id} data={item} onDelete={this.onDelete} />
           ))}
         </div>
-        <div class="reset">
-          <div class="reset-tutorial" title="Start over the small tutorial" onclick="resetTutorial()">Reset intro</div>
-          /
-          <div class="reset-content" title="Reset demo data to their initial values" onclick="resetApplications()">Reset demo data</div>
-        </div>
       </div>
     );
   }
