@@ -79,6 +79,7 @@ export default class New extends Component {
                 <input type="text" name="salary" id="add-salary" placeholder="$100k"
                   value={this.state.salary} onChange={this.handleChange} />
                 <select name="stage" id="add-stage" value={this.state.stage} onChange={this.handleChange}>
+                  <option value="todo">To Do</option>
                   <option value="initial">No initial response yet</option>
                   <option value="need">I need to respond</option>
                   <option value="await">Awaiting response</option>
