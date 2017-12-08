@@ -51,7 +51,7 @@ export default class ListItem extends Component {
             console.log('Failed to edit application. Error:', err);
             throw err;
           });
-        }, 500);
+        }, 300);
       });
   }
 
