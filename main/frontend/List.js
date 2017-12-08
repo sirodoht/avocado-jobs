@@ -62,8 +62,11 @@ export default class List extends Component {
 
   render() {
     return (
-      <div class="container-content-body">
-        <div class="listings">
+      <div class="list">
+        <div class="list-title">
+          Hi, this is Eva, the local AI here on Avocado. Feel free to ask me anything.
+        </div>
+        <div class="list-body">
           {this.state.applications.map((item) => (
             <ListItem key={item.id} data={item} onDelete={this.onDelete} />
           ))}
