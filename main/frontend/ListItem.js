@@ -65,25 +65,22 @@ export default class ListItem extends Component {
 
   render() {
     return (
-      <div class="listings-entry">
-        <div class="listings-entry-detail">
-          <div class="listings-entry-detail-info">
-            <a class="listings-entry-detail-info-title" href={this.props.data.link} target="_blank">
+      <div class="list-body-entry">
+        <div class="list-body-entry-detail">
+          <div class="list-body-entry-detail-info">
+            <a class="list-body-entry-detail-info-title" href={this.props.data.link} target="_blank">
               <strong>{this.props.data.role}</strong>
               <span class="muted">at</span>
-              <span class="listings-entry-detail-info-title-company">{this.props.data.company}</span>
-              <span class="listings-entry-detail-info-title-date" title="Date applied">
-                <div class="listings-entry-detail-info-title-date-body">
+              <span class="list-body-entry-detail-info-title-company">{this.props.data.company}</span>
+              <span class="list-body-entry-detail-info-title-date" title="Date applied">
+                <div class="list-body-entry-detail-info-title-date-body">
                   {this.props.data.date}
                 </div>
               </span>
             </a>
-            <input type="text" name="notes" class="listings-entry-detail-info-notes"
-              title="Notes" onKeyDown={this.handleChange} value={this.state.notes} />
-            <div class="listings-entry-detail-info-spacer"></div>
-            <input type="text" name="salary" class="listings-entry-detail-info-salary"
-              title="Salary" onKeyDown={this.handleChange} value={this.state.salary} />
-            <div class="listings-entry-detail-info-stage" title="Current interview stage">
+            <input type="text" name="salary" class="list-body-entry-detail-info-salary"
+              title="Salary" onInput={this.handleChange} value={this.state.salary} />
+            <div class="list-body-entry-detail-info-stage" title="Current interview stage">
               <select name="stage" class="submission-stage" value={this.state.stage} onChange={this.handleChange}>
                 <option value="initial">No initial response yet</option>
                 <option value="need">I need to respond</option>
@@ -96,8 +93,8 @@ export default class ListItem extends Component {
             </div>
           </div>
         </div>
-        <div class="listings-entry-control">
-          <div class="listings-entry-control-rm" title="Remove job application" onClick={this.handleDelete}>
+        <div class="list-body-entry-control">
+          <div class="list-body-entry-control-rm" title="Remove job application" onClick={this.handleDelete}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
