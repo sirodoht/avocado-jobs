@@ -1,13 +1,13 @@
 {% extends 'main/layout.html' %}
 
 {% block content %}
-    <div class="container-content-header">
-        <div class="container-content-header-content">
+    <div class="header">
+        <div class="header-copy">
             <h1>Log in</h1>
         </div>
     </div>
 
-    <div class="container-content-body">
+    <div class="login">
         {% if next %}
             {% if user.is_authenticated %}
                 <p>
