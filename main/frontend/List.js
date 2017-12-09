@@ -10,6 +10,7 @@ export default class List extends Component {
     this.state = {
       applications: [],
       filters: [],
+      sortOptions: this.getSortOptions(),
     };
 
     this.onDelete = this.onDelete.bind(this);
@@ -25,7 +26,10 @@ export default class List extends Component {
         document.getElementById('loading').style.display = 'none';
         this.setState({
           applications: res.data,
-        })
+        }, () => {
+          const sortOptions = this.state.sortOptions;
+          this.sortBy(null, sortOptions);
+        });
       })
       .catch((err) => {
         document.getElementById('loading').style.display = 'none';
@@ -89,28 +93,74 @@ export default class List extends Component {
     });
   }
 
-  sortBy(event) {
-    const sortField = event.target.dataset.id;
+  getSortOptions() {
+    const sortOptions = window.localStorage.getItem('avocadoSortOptions');
+    return sortOptions;
+  }
+
+  sortBy(event, sortOptions) {
+    const newSortField = sortOptions ? sortOptions.split(':')[0] : event.target.dataset.id;
     this.setState((prevState) => {
       const newApplications = prevState.applications.slice();
-      newApplications.sort((a, b) => {
-        if (a[sortField] < b[sortField]) {
-          return -1;
+      let [ sortField, sortOrder ] = prevState.sortOptions.split(':');
+      let newSortOrder = 'ASC';
+      if (sortField === newSortField) {
+        if (sortOrder === 'ASC') {
+          newSortOrder = 'DESC';
+        } else {
+          newSortOrder = 'ASC';
         }
-        if (a[sortField] > b[sortField]) {
-          return 1;
+      }
+
+      // override if sortOptions is given
+      newSortOrder = sortOptions ? sortOptions.split(':')[1] : newSortOrder;
+
+      const newSortOptions = `${newSortField}:${newSortOrder}`;
+      window.localStorage.setItem('avocadoSortOptions', newSortOptions);
+      newApplications.sort((a, b) => {
+        let aRegex = null;
+        let bRegex = null;
+        let aField = a[newSortField] ? a[newSortField].toLowerCase() : '';
+        let bField = b[newSortField] ? b[newSortField].toLowerCase() : '';
+        if (newSortField === 'salary') {
+          aRegex = a[newSortField] ? a[newSortField].match(/\d+/) : null;
+          bRegex = b[newSortField] ? b[newSortField].match(/\d+/) : null;
+          aField = aRegex ? parseInt(aRegex[0]) : null;
+          bField = bRegex ? parseInt(bRegex[0]) : null;
+        }
+        if (aField < bField) {
+          if (newSortOrder === 'ASC') {
+            return -1;
+          } else {
+            return 1;
+          }
+        }
+        if (aField > bField) {
+          if (newSortOrder === 'ASC') {
+            return 1;
+          } else {
+            return -1;
+          }
         }
 
         // a must be equal to b
         return 0;
       });
 
-      console.log('newApplications:', newApplications);
-
       return {
+        sortOptions: newSortOptions,
         applications: newApplications,
       }
     });
+  }
+
+  getSortClasses(field) {
+    let sortField = this.state.sortOptions.split(':')[0];
+    if (sortField === field) {
+      return 'list-sort-item list-sort-item-active';
+    } else {
+      return 'list-sort-item';
+    }
   }
 
   render() {
@@ -132,11 +182,11 @@ export default class List extends Component {
         </div>
         <div class="list-sort">
           <div class="list-sort-title">Sort by:</div>
-          <div onClick={this.sortBy} data-id="role" class="list-sort-item">Role</div>
-          <div onClick={this.sortBy} data-id="company" class="list-sort-item">Company</div>
-          <div onClick={this.sortBy} data-id="date" class="list-sort-item">Date</div>
-          <div onClick={this.sortBy} data-id="salary" class="list-sort-item">Salary</div>
-          <div onClick={this.sortBy} data-id="stage" class="list-sort-item">Stage</div>
+          <div onClick={this.sortBy} data-id="role" class={this.getSortClasses('role')}>Role</div>
+          <div onClick={this.sortBy} data-id="company" class={this.getSortClasses('company')}>Company</div>
+          <div onClick={this.sortBy} data-id="date" class={this.getSortClasses('date')}>Date</div>
+          <div onClick={this.sortBy} data-id="salary" class={this.getSortClasses('salary')}>Salary</div>
+          <div onClick={this.sortBy} data-id="stage" class={this.getSortClasses('stage')}>Stage</div>
         </div>
         <div class="list-body">
           {this.state.applications.map((item) => (
