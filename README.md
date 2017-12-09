@@ -49,20 +49,3 @@ webpack -p  # for production build
 ```
 python manage.py test
 ```
-
-
-## Quotes
-
-* Hey awesome engineer, these companies below might be interested...
-* Did you know it takes the average software engineer two months to find a new job?
-* Software is eating the world they say; who's the chef?
-* These comments are have been generated using AGI.
-* We're gonna build a framework!
-* Hi! Did you know that you can always negotiate for a higher salary? Here's is how he did it.
-* Maybe buy some Bitcoins instead of applying today?
-* Btw, you can donate to Avocado Jobs using your Monero!
-* You give REST a bad name, it falls apart and we take the blame
-* Your API is a hall of fame; you give REST a bad name.
-* Your applications.
-* My applications.
-* Hi, this is Eva, the local AI here on Avocado. Feel free to ask me anything.
