@@ -801,12 +801,12 @@ button {
 }
 
 .list-sort-item-active {
+  background: #eee;
   color: #666;
-  border: 1px solid #666;
 }
 
 .list-sort-item:hover {
-  background: #eee;
+  background: #ddd;
   color: #666;
 }
 
