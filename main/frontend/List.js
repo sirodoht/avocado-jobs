@@ -94,7 +94,7 @@ export default class List extends Component {
   }
 
   getSortOptions() {
-    const sortOptions = window.localStorage.getItem('avocadoSortOptions');
+    const sortOptions = window.localStorage.getItem('avocadoSortOptions') || 'date:DESC';
     return sortOptions;
   }
 
