@@ -808,7 +808,6 @@ button {
 .list-body-entry {
   display: block;
   border-bottom: 1px solid #ddd;
-  transition: all 0.2s ease-in;
 }
 
 .list-body-entry-line {
@@ -864,7 +863,11 @@ button {
 
 .list-body-entry-line-detail-info-title-arrow {
   color: #888;
-  margin-right: 3px;
+  margin-right: 6px;
+}
+
+.list-body-entry-line-detail-info-title-arrow.active {
+  transform: rotate(90deg);
 }
 
 .list-body-entry-line-detail-info-title > strong {
@@ -982,12 +985,7 @@ button {
 }
 
 .list-body-entry-drop {
-  display: block;
-  padding-left: 20px;
-}
-
-.list-body-entry-drop-link {
-  /* margin-top: 7px; */
+  padding-left: 24px;
 }
 
 .list-body-entry-drop-link-icon {
