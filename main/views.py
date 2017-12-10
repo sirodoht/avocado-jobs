@@ -172,3 +172,7 @@ def get_logout(request):
     logout(request)
     messages.success(request, 'You have been logged out.')
     return redirect(settings.LOGOUT_REDIRECT_URL)
+
+
+def about(request):
+    return render(request, 'main/about.html')
