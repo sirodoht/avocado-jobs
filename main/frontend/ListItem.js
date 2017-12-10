@@ -11,11 +11,13 @@ export default class ListItem extends Component {
       stage: this.props.data.stage,
       notes: this.props.data.notes,
       salary: this.props.data.salary,
+      dropVisible: false,
     }
     this.timeout = null;
 
     this.handleChange = this.handleChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.toggleDropSection = this.toggleDropSection.bind(this);
   }
 
   handleChange(event) {
@@ -63,6 +65,14 @@ export default class ListItem extends Component {
     this.props.onDelete(this.state.id);
   }
 
+  toggleDropSection() {
+    this.setState((prevState) => {
+      return {
+        dropVisible: !prevState.dropVisible,
+      }
+    });
+  }
+
   render() {
     return (
       <div>
@@ -71,8 +81,8 @@ export default class ListItem extends Component {
             <div class="list-body-entry-line">
               <div class="list-body-entry-line-detail">
                 <div class="list-body-entry-line-detail-info">
-                  <div class="list-body-entry-line-detail-info-title">
-                    <div class="list-body-entry-line-detail-info-title-arrow">
+                  <div class="list-body-entry-line-detail-info-title" onClick={this.toggleDropSection}>
+                    <div class={`list-body-entry-line-detail-info-title-arrow ${this.state.dropVisible ? 'active' : ''}`}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 27.36 44.95" fill="currentColor">
                         <path d="M0 40l4.95 4.95 22.41-22.47L4.95 0 0 4.95l17.54 17.53L0 40z"/>
                       </svg>
@@ -111,21 +121,25 @@ export default class ListItem extends Component {
                 </div>
               </div>
             </div>
-            <div class="list-body-entry-drop">
-              <div class="list-body-entry-drop-link">
-                <a href={this.props.data.link}>
-                  {this.props.data.link}
-                </a>
-                <div class="list-body-entry-drop-link-icon" title="Opens external link">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="15" height="15">
-                    <path d="M16 11v6a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6M13 1h6v6M8 12L19 1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                  </svg>
+            {this.state.dropVisible &&
+              <div class="list-body-entry-drop">
+                <div class="list-body-entry-drop-link">
+                  <a href={this.props.data.link} target="_blank">
+                    {this.props.data.link}
+                  </a>
+                  {this.props.data.link &&
+                    <div class="list-body-entry-drop-link-icon" title="Opens external link">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="15" height="15">
+                        <path d="M16 11v6a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6M13 1h6v6M8 12L19 1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                      </svg>
+                    </div>
+                  }
                 </div>
+                <textarea rows="5" cols="70">
+                  {this.state.notes}
+                </textarea>
               </div>
-              <textarea rows="4" cols="70">
-                {this.state.notes}
-              </textarea>
-            </div>
+            }
           </div>
         }
       </div>
