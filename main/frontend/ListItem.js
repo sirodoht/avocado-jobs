@@ -68,41 +68,63 @@ export default class ListItem extends Component {
       <div>
         {this.props.visible ||
           <div class="list-body-entry">
-            <div class="list-body-entry-detail">
-              <div class="list-body-entry-detail-info">
-                <a class="list-body-entry-detail-info-title" href={this.props.data.link} target="_blank">
-                  <strong>{this.props.data.role}</strong>
-                  <span class="muted">at</span>
-                  <span class="list-body-entry-detail-info-title-company">{this.props.data.company}</span>
-                  <span class="list-body-entry-detail-info-title-date" title="Date applied">
-                    <div class="list-body-entry-detail-info-title-date-body">
-                      {this.props.data.date}
+            <div class="list-body-entry-line">
+              <div class="list-body-entry-line-detail">
+                <div class="list-body-entry-line-detail-info">
+                  <div class="list-body-entry-line-detail-info-title">
+                    <div class="list-body-entry-line-detail-info-title-arrow">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 27.36 44.95" fill="currentColor">
+                        <path d="M0 40l4.95 4.95 22.41-22.47L4.95 0 0 4.95l17.54 17.53L0 40z"/>
+                      </svg>
                     </div>
-                  </span>
-                </a>
-                <input type="text" name="salary" class="list-body-entry-detail-info-salary"
-                  title="Salary" onInput={this.handleChange} value={this.state.salary} />
-                <div class="list-body-entry-detail-info-stage" title="Current interview stage">
-                  <select name="stage" class="submission-stage" value={this.state.stage} onChange={this.handleChange}>
-                    <option value="todo">To Do</option>
-                    <option value="initial">No initial response yet</option>
-                    <option value="need">I need to respond</option>
-                    <option value="await">Awaiting response</option>
-                    <option value="scheduled">Interview scheduled</option>
-                    <option value="offer">Got offer</option>
-                    <option value="declined">Declined</option>
-                    <option value="rejected">Got Rejected</option>
-                  </select>
+                    <strong>{this.props.data.role}</strong>
+                    <span class="list-body-entry-line-detail-info-title-muted">at</span>
+                    <span class="list-body-entry-line-detail-info-title-company">{this.props.data.company}</span>
+                    <span class="list-body-entry-line-detail-info-title-date" title="Date applied">
+                      <div class="list-body-entry-line-detail-info-title-date-body">
+                        {this.props.data.date}
+                      </div>
+                    </span>
+                  </div>
+                  <input type="text" name="salary" class="list-body-entry-line-detail-info-salary"
+                    title="Salary" onInput={this.handleChange} value={this.state.salary} />
+                  <div class="list-body-entry-line-detail-info-stage" title="Current interview stage">
+                    <select name="stage" class="submission-stage" value={this.state.stage} onChange={this.handleChange}>
+                      <option value="todo">To Do</option>
+                      <option value="initial">No initial response yet</option>
+                      <option value="need">I need to respond</option>
+                      <option value="await">Awaiting response</option>
+                      <option value="scheduled">Interview scheduled</option>
+                      <option value="offer">Got offer</option>
+                      <option value="declined">Declined</option>
+                      <option value="rejected">Got Rejected</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="list-body-entry-line-control">
+                <div class="list-body-entry-line-control-rm" title="Remove job application" onClick={this.handleDelete}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
                 </div>
               </div>
             </div>
-            <div class="list-body-entry-control">
-              <div class="list-body-entry-control-rm" title="Remove job application" onClick={this.handleDelete}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
+            <div class="list-body-entry-drop">
+              <div class="list-body-entry-drop-link">
+                <a href={this.props.data.link}>
+                  {this.props.data.link}
+                </a>
+                <div class="list-body-entry-drop-link-icon" title="Opens external link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="15" height="15">
+                    <path d="M16 11v6a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6M13 1h6v6M8 12L19 1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                  </svg>
+                </div>
               </div>
+              <textarea rows="4" cols="70">
+                {this.state.notes}
+              </textarea>
             </div>
           </div>
         }
