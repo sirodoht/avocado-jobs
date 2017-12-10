@@ -99,9 +99,9 @@ class Avo extends Component {
         <footer>
           <div class="footer-body">
             <div class="footer-body-content">
-              Avocado Jobs.&nbsp;
-              <a href="mailto:hi@avocadojobs.com" title="Say hi!" target="_blank">Email</a>&nbsp;
-              or <a href="https://twitter.com/AvocadoJobs" title="Or maybe hello?" target="_blank">tweet</a> at us.
+              <a href="/about/" title="About">About</a>
+              &nbsp;| <a href="mailto:hi@avocadojobs.com" title="Say hi!" target="_blank">Contact</a>
+              &nbsp;| <a href="https://twitter.com/AvocadoJobs" title="Or maybe hello?" target="_blank">Tweet</a>
             </div>
           </div>
         </footer>
