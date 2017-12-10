@@ -380,19 +380,6 @@ footer a:hover {
   animation: spinner .8s ease infinite;
 }
 
-textarea {
-  display: inline-block;
-  color: #333;
-  line-height: 1.7;
-  padding-left: 9px;
-  border: 3px solid #83bf33;
-}
-
-textarea:focus {
-  border: 3px solid #5a8323;
-  outline: none;
-}
-
 button {
   cursor: pointer;
   border: none;
@@ -526,6 +513,21 @@ button {
   display: inline-block;
   vertical-align: super;
   margin-left: 5px;
+}
+
+.nav-center {
+  display: flex;
+  flex-grow: 1;
+  color: #fff;
+  font-size: 26px;
+  font-family: "Roboto Slab", sans-serif;
+  user-select: none;
+  padding-top: 5px;
+}
+@media (max-width: 768px) {
+  .nav-center {
+    display: none;
+  }
 }
 
 .nav-links {
@@ -712,25 +714,12 @@ button {
   padding-right: 20px;
 }
 
-.list-title {
-  border-bottom: 1px solid #ccc;
-  color: #333;
-  font-size: 26px;
-  font-family: "Roboto Slab", sans-serif;
-  line-height: 1.4;
-  padding-bottom: 10px;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  width: 110%;
-  position: relative;
-  left: -5%;
-}
-
 .list-filters {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-bottom: 30px;
+  margin-top: 30px;
+  margin-bottom: 15px;
 }
 
 .list-filters-title {
@@ -773,6 +762,7 @@ button {
 .list-sort {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 30px;
   margin-bottom: 30px;
 }
 
@@ -816,21 +806,26 @@ button {
 }
 
 .list-body-entry {
-  display: flex;
+  display: block;
   border-bottom: 1px solid #ddd;
+  transition: all 0.2s ease-in;
+}
+
+.list-body-entry-line {
+  display: flex;
   overflow: scroll;
 }
 
-.list-body-entry:hover {
+.list-body-entry-line:hover {
   background: #efefef;
   color: #333;
 }
 
-.list-body-entry-detail {
+.list-body-entry-line-detail {
   flex: 1;
 }
 
-.list-body-entry-detail-info {
+.list-body-entry-line-detail-info {
   display: flex;
   flex-wrap: nowrap;
   padding-top: 5px;
@@ -839,15 +834,15 @@ button {
   padding-right: 5px;
 }
 
-.list-body-entry-detail-info:hover {
+.list-body-entry-line-detail-info:hover {
   background: #efefef;
   color: #333;
 }
 
-.list-body-entry-detail-info-title {
+.list-body-entry-line-detail-info-title {
   display: flex;
   flex-grow: 1;
-  text-decoration: none;
+  cursor: pointer;
   color: #333;
   font-size: 17px;
   line-height: 1.3;
@@ -857,30 +852,34 @@ button {
   max-width: 650px;
 }
 @media (min-width: 768px) {
-  .list-body-entry-detail-info-title {
+  .list-body-entry-line-detail-info-title {
     font-size: 20px;
   }
 }
 
-.list-body-entry-detail-info-title:hover {
+.list-body-entry-line-detail-info-title:hover {
   background: inherit;
   color: inherit;
 }
 
-.list-body-entry-detail-info-title > strong {
+.list-body-entry-line-detail-info-title-arrow {
+  color: #888;
+  margin-right: 3px;
+}
+
+.list-body-entry-line-detail-info-title > strong {
   display: inline-block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.list-body-entry-detail-info-title > span.muted {
-  display: inline-block;
+.list-body-entry-line-detail-info-title-muted {
   margin-left: 6px;
   margin-right: 6px;
 }
 
-.list-body-entry-detail-info-title-company {
+.list-body-entry-line-detail-info-title-company {
   font-family: "Roboto Slab", sans-serif;
   display: inline-block;
   white-space: nowrap;
@@ -888,7 +887,7 @@ button {
   text-overflow: ellipsis;
 }
 
-.list-body-entry-detail-info-title-date-body {
+.list-body-entry-line-detail-info-title-date-body {
   margin-left: 10px;
   font-size: 16px;
   color: #fff;
@@ -901,7 +900,7 @@ button {
   white-space: nowrap;
 }
 
-.list-body-entry input[type="text"].list-body-entry-detail-info-salary {
+.list-body-entry-line input[type="text"].list-body-entry-line-detail-info-salary {
   display: flex;
   flex-grow: 1;
   width: 50px;
@@ -921,20 +920,20 @@ button {
   outline: 0;
 }
 
-.list-body-entry input[type="text"].list-body-entry-detail-info-salary:hover {
+.list-body-entry-line input[type="text"].list-body-entry-line-detail-info-salary:hover {
   border-bottom: 2px solid #f2982c;
   background-color: #fff;
 }
 
-.list-body-entry:hover input[type="text"].list-body-entry-detail-info-salary {
+.list-body-entry-line:hover input[type="text"].list-body-entry-line-detail-info-salary {
   background-color: #eee;
 }
 
-.list-body-entry-detail-info-tags {
+.list-body-entry-line-detail-info-tags {
   text-align: right;
 }
 
-.list-body-entry-detail-info-tags-single {
+.list-body-entry-line-detail-info-tags-single {
   display: inline-block;
   font-size: 12px;
   text-transform: uppercase;
@@ -950,23 +949,23 @@ button {
   }
 }
 
-.list-body-entry-detail-info-stage {
+.list-body-entry-line-detail-info-stage {
   margin-top: 1px;
 }
 
-.list-body-entry-detail-info-stage > select {
+.list-body-entry-line-detail-info-stage > select {
   color: #333;
   border: 1px solid #ddd;
   font-size: 16px;
   outline: none;
 }
 
-.list-body-entry-control {
+.list-body-entry-line-control {
   margin-right: 10px;
   margin-top: 1px;
 }
 
-.list-body-entry-control-rm {
+.list-body-entry-line-control-rm {
   display: inline-flex;
   cursor: pointer;
   width: 14px;
@@ -976,10 +975,41 @@ button {
   color: #555;
 }
 
-.list-body-entry-control-rm:hover {
+.list-body-entry-line-control-rm:hover {
   color: #fff;
   background: #f2982c;
   border-radius: 1px;
+}
+
+.list-body-entry-drop {
+  display: block;
+  padding-left: 20px;
+}
+
+.list-body-entry-drop-link {
+  /* margin-top: 7px; */
+}
+
+.list-body-entry-drop-link-icon {
+  display: inline-block;
+  margin-left: 7px;
+  color: #555;
+}
+
+textarea {
+  display: inline-block;
+  color: #888;
+  font-size: 16px;
+  line-height: 1.2;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  padding-left: 5px;
+  border: 1px solid #ddd;
+}
+
+textarea:focus {
+  border: 1px solid #bbb;
+  outline: none;
 }
 
 /* login */
@@ -1025,4 +1055,15 @@ button {
 
 .login input[type="submit"]:hover {
   background: #75ab2e;
+}
+
+/* about */
+.about {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
