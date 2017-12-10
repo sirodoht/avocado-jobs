@@ -69,6 +69,11 @@ class Avo extends Component {
                 <div class="nav-header-link-brand">Avocado Jobs</div>
             </a>
           </div>
+          {this.state.addFormSection ||
+            <div class="nav-center">
+              Hi.
+            </div>
+          }
           <div class="nav-links">
             <button onClick={this.toggleAddForm} class="nav-links-btn">Add application</button>
             {this.state.authed &&
