@@ -166,9 +166,6 @@ export default class List extends Component {
   render() {
     return (
       <div class="list">
-        <div class="list-title">
-          Hi, this is Eva, the local AI here on Avocado. Feel free to ask me anything.
-        </div>
         <div class="list-filters">
           <div class="list-filters-title">Filters:</div>
           <div onClick={this.activateFilter} data-id="todo" class="list-filters-item">To Do</div>
