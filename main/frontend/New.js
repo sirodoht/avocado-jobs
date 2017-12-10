@@ -76,7 +76,7 @@ export default class New extends Component {
                   value={this.state.company} onChange={this.handleChange} />
               </div>
               <div class="header-add-body-row">
-                <input type="text" name="salary" id="add-salary" placeholder="$100k"
+                <input type="text" name="salary" id="add-salary" placeholder="$100k - $120k"
                   value={this.state.salary} onChange={this.handleChange} />
                 <select name="stage" id="add-stage" value={this.state.stage} onChange={this.handleChange}>
                   <option value="todo">To Do</option>
