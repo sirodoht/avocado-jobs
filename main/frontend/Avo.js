@@ -10,7 +10,6 @@ class Avo extends Component {
     super(props);
     this.state = {
       addFormSection: false,
-      authed: false,
     }
 
     this.toggleAddForm = this.toggleAddForm.bind(this);
@@ -34,29 +33,12 @@ class Avo extends Component {
     });
   }
 
-  checkAuth() {
-    axios.get('/applications/')
-      .then((res, err) => {
-        if (res.headers['content-type'] === 'text/html; charset=utf-8') {
-          this.setState({
-            authed: true,
-          })
-        }
-      })
-      .catch((err) => {
-        console.log('Authentication check failed. Error:', err);
-        throw err;
-      })
-  }
-
   componentDidMount() {
     if (document.location.pathname === '/' && document.location.hash === '#add') {
       this.setState({
         addFormSection: true,
       });
     }
-
-    this.checkAuth();
   }
 
   render() {
@@ -76,22 +58,9 @@ class Avo extends Component {
           }
           <div class="nav-links">
             <button onClick={this.toggleAddForm} class="nav-links-btn">Add application</button>
-            {this.state.authed &&
-              <a href="/login" title="Log in to keep your data in the cloud and access them from everywhere">Log in / Sign up</a>
-            }
-            {this.state.authed ||
-              <a href="/logout">Log out</a>
-            }
+            <a href="/logout/">Log out</a>
           </div>
         </div>
-
-        {this.state.authed &&
-          <div class="header">
-            <div class="header-copy">
-              <h1>Keep track of your job applications</h1>
-            </div>
-          </div>
-        }
 
         {this.state.addFormSection &&
           <New />
