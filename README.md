@@ -1,6 +1,6 @@
 # avocado-jobs
 
-Job board web application, built with Django.
+Job application tracker for developers, built with Django and Preact.
 
 
 ## Setup
@@ -12,6 +12,7 @@ Create virtualenv, enable it and then install requirements:
 virtualenv -p python3 venv
 source venv/bin/activate
 pip install -r requirements.txt
+npm install
 ```
 
 > Note: This project uses [pip-tools](https://github.com/jazzband/pip-tools) for dependencies management.
