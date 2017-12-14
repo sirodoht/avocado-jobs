@@ -968,7 +968,7 @@ button {
   margin-top: 1px;
 }
 
-.list-body-entry-line-control-rm {
+.list-body-entry-line-control-remove {
   display: inline-flex;
   cursor: pointer;
   width: 14px;
@@ -978,7 +978,23 @@ button {
   color: #555;
 }
 
-.list-body-entry-line-control-rm:hover {
+.list-body-entry-line-control-remove:hover {
+  color: #fff;
+  background: #f2982c;
+  border-radius: 1px;
+}
+
+.list-body-entry-line-control-settings {
+  display: inline-flex;
+  cursor: pointer;
+  width: 14px;
+  margin-top: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #555;
+}
+
+.list-body-entry-line-control-settings:hover {
   color: #fff;
   background: #f2982c;
   border-radius: 1px;
@@ -1064,4 +1080,72 @@ textarea:focus {
   padding-bottom: 30px;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+/* modal */
+.modal {
+  /* display: none; */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  overflow: scroll;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.modal-content {
+  width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+  background: #fff;
+  padding-top: 15px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.modal-content-title {
+  border-bottom: 1px solid #ddd;
+  font-size: 28px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.modal-content-item {
+  margin-bottom: 10px;
+}
+
+.modal-content-item > label {
+  font-size: 16px;
+}
+
+.modal-content-item > input {
+  display: block;
+  width: 100%;
+  outline: 0;
+  line-height: 1.5;
+  color: #333;
+  padding-left: 5px;
+}
+
+.modal-content-controls {
+  display: flex;
+}
+
+.modal-content-controls > .btn-cancel {
+  display: flex;
+  flex-grow: 1;
+  margin-left: 20px;
+  margin-top: 20px;
+  color: #888;
+  font-size: 16px;
+}
+
+.modal-content-controls > .btn-danger {
+  margin-left: auto;
+  color: #ea2323;
+  font-size: 16px;
+  margin-top: 20px;
 }
