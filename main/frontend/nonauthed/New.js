@@ -1,4 +1,4 @@
-import { h, render, Component } from 'preact';
+import { h, Component } from 'preact';
 
 export default class New extends Component {
   constructor(props) {
@@ -30,28 +30,6 @@ export default class New extends Component {
       return;
     }
 
-    // get date manually because preact makes native date picker unusable
-    const newDate = document.getElementById('add-date').value;
-
-    axios.post('/applications/', {
-        role: this.state.role,
-        company: this.state.company,
-        salary: this.state.salary,
-        stage: this.state.stage,
-        date: newDate,
-        link: this.state.link,
-      }, {
-        headers: {
-          'X-CSRFToken': getCsrf(),
-        }
-      })
-      .then(() => {
-        document.location.reload();
-      })
-      .catch((error) => {
-        console.log('Failed to create new application. Error:', err);
-        throw err;
-      });
   }
 
   render() {

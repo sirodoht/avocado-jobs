@@ -1,5 +1,4 @@
 import { h, render, Component } from 'preact';
-import axios from 'axios';
 
 import New from './New';
 import List from './List';
@@ -10,7 +9,7 @@ class Avo extends Component {
     super(props);
     this.state = {
       addFormSection: false,
-    }
+    };
 
     this.toggleAddForm = this.toggleAddForm.bind(this);
   }
@@ -29,7 +28,7 @@ class Avo extends Component {
     this.setState((prevState) => {
       return {
         addFormSection: !prevState.addFormSection,
-      }
+      };
     });
   }
 
@@ -74,8 +73,8 @@ class Avo extends Component {
           <div class="footer-body">
             <div class="footer-body-content">
               <a href="/about/" title="About">About</a>
-              &nbsp;| <a href="mailto:hi@avocadojobs.com" title="Say hi!" target="_blank">Contact</a>
-              &nbsp;| <a href="https://twitter.com/AvocadoJobs" title="Or maybe hello?" target="_blank">Tweet</a>
+              &nbsp;| <a href="mailto:hi@avocadojobs.com" title="Say hi!" target="_blank" rel="noopener noreferrer">Contact</a>
+              &nbsp;| <a href="https://twitter.com/AvocadoJobs" title="Or maybe hello?" target="_blank" rel="noopener noreferrer">Tweet</a>
             </div>
           </div>
         </footer>

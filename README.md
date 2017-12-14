@@ -39,8 +39,9 @@ This project uses the [preact](https://github.com/developit/preact) library for 
 and [webpack](https://webpack.js.org/) for bundling.
 
 ```sh
-webpack --env.NODE_ENV=development -w  # for dev
-webpack -p  # for production build
+npm run watch  # for dev
+npm start  # for production build
+npm test  # for linting
 ```
 
 
