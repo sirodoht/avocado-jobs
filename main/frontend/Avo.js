@@ -118,4 +118,4 @@ class Avo extends Component {
 render(<Avo />, document.body);
 
 // enable react dev tools
-// require('preact/debug');
+// require('preact/devtools');
