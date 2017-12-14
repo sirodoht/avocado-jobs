@@ -5,7 +5,8 @@
   "description": "The frontend application of Avocado Jobs.",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "webpack --progress -p"
+    "start": "webpack --progress -p",
+    "watch": "webpack --env.NODE_ENV=development -w"
   },
   "repository": {
     "type": "git",
