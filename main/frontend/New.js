@@ -68,8 +68,7 @@ export default class New extends Component {
           <div class="header-add-body">
             <form onSubmit={this.handleSubmit}>
               <div class="header-add-body-row">
-                <input
-                  type="text" name="role" id="add-role" placeholder="Frontend Developer"
+                <input type="text" name="role" id="add-role" placeholder="Frontend Developer"
                   value={this.state.role} onChange={this.handleChange} />
                 <span>at</span>
                 <input type="text" name="company" id="add-company" placeholder="Avocado Jobs, Inc."
