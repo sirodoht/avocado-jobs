@@ -265,7 +265,7 @@ export default class ListItem extends Component {
                     </div>
                   }
                 </div>
-                <textarea name="notes" rows="5" cols="70" onKeyUp={this.handleChange}>
+                <textarea name="notes" rows="5" cols="70" onKeyUp={this.handleChange} placeholder="Write notes here">
                   {this.state.notes}
                 </textarea>
               </div>
