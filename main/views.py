@@ -23,7 +23,7 @@ def index(request):
     analytics.page(get_client_ip(request), 'Non Authed', 'Index', {
         'url': request.get_full_path(),
     })
-    return render(request, 'main/layout.html')
+    return render(request, 'main/index.html')
 
 
 @login_required
