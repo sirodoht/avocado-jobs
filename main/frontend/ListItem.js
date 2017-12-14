@@ -8,15 +8,26 @@ export default class ListItem extends Component {
     super(props);
     this.state = {
       id: this.props.key,
+      role: this.props.data.role,
+      company: this.props.data.company,
+      date: this.props.data.date,
+      link: this.props.data.link,
       stage: this.props.data.stage,
       notes: this.props.data.notes,
       salary: this.props.data.salary,
+      updateRole: this.props.data.role,
+      updateCompany: this.props.data.company,
+      updateDate: this.props.data.date,
+      updateLink: this.props.data.link,
       dropVisible: false,
     }
     this.timeout = null;
 
     this.handleChange = this.handleChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleFormChange = this.handleFormChange.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
     this.toggleDropSection = this.toggleDropSection.bind(this);
   }
 
@@ -54,7 +65,7 @@ export default class ListItem extends Component {
             throw err;
           });
         }, 300);
-      });
+    });
   }
 
   handleDelete(event) {
@@ -63,6 +74,42 @@ export default class ListItem extends Component {
     }
 
     this.props.onDelete(this.state.id);
+  }
+
+  handleEdit(event) {
+    // show/hide modal
+  }
+
+  handleFormChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  handleUpdate(event) {
+    event.preventDefault();
+
+    axios.patch('/applications/', {
+      id: this.state.id,
+      role: this.state.updateRole,
+      company: this.state.updateCompany,
+      date: this.state.updateDate,
+      link: this.state.updateLink,
+    }, {
+      headers: {
+        'X-CSRFToken': getCsrf(),
+      }
+    })
+    .then((res, err) => {
+      console.log('err:', err);
+      console.log('res:', res);
+    })
+    .catch((err) => {
+      console.log('Failed to create new application. Error:', err);
+      throw err;
+    });
   }
 
   toggleDropSection() {
@@ -76,6 +123,42 @@ export default class ListItem extends Component {
   render() {
     return (
       <div>
+        {this.state.modalVisible ||
+          <div class="modal">
+            <div class="modal-content">
+              <div class="modal-content-title">
+                Update application
+              </div>
+              <form onSubmit={this.handleUpdate}>
+                <div class="modal-content-item">
+                  <label for="update-role">Role</label>
+                  <input type="text" name="updateRole" id="update-role" placeholder={this.state.updateRole}
+                    value={this.state.updateRole} onChange={this.handleFormChange} />
+                </div>
+                <div class="modal-content-item">
+                  <label for="update-company">Company</label>
+                  <input type="text" name="updateCompany" id="update-company" placeholder={this.state.updateCompany}
+                    value={this.state.updateCompany} onChange={this.handleFormChange} />
+                </div>
+                <div class="modal-content-item">
+                  <label for="update-date">Date</label>
+                  <input type="date" id="update-date" name="updateDate" value={this.state.updateDate}
+                    onChange={this.handleFormChange} />
+                </div>
+                <div class="modal-content-item">
+                  <label for="update-link">Link</label>
+                  <input type="text" name="updateLink" id="update-link" placeholder={this.state.updateLink}
+                    value={this.state.updateLink} onChange={this.handleFormChange} />
+                </div>
+                <div class="modal-content-controls">
+                  <button type="submit" class="btn-primary">Save</button>
+                  <button type="button" class="btn-cancel">Cancel</button>
+                  <button type="button" class="btn-danger">Delete application</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        }
         {this.props.visible ||
           <div class="list-body-entry">
             <div class="list-body-entry-line">
@@ -113,12 +196,21 @@ export default class ListItem extends Component {
                 </div>
               </div>
               <div class="list-body-entry-line-control">
-                <div class="list-body-entry-line-control-rm" title="Remove job application" onClick={this.handleDelete}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </div>
+                {this.state.dropVisible ||
+                  <div class="list-body-entry-line-control-remove" title="Remove job application" onClick={this.handleDelete}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </div>
+                }
+                {this.state.dropVisible &&
+                  <div class="list-body-entry-line-control-settings" title="Edit application" onClick={this.handleEdit}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 86.4" width="24" height="24" fill="currentColor">
+                      <path d="M0 45.9h15.1a13.47 13.47 0 0 0 26.4 0H81v-5.4H41.6a13.47 13.47 0 0 0-26.4 0H0v5.4zm28.3-10.8a8.1 8.1 0 1 1-8.1 8.1 8.07 8.07 0 0 1 8.1-8.1zM39.4 10.8H0v5.4h39.5a13.47 13.47 0 0 0 26.4 0H81v-5.4H65.9a13.53 13.53 0 0 0-26.5 0zm21.4 2.7a8.1 8.1 0 1 1-8.1-8.1 8.07 8.07 0 0 1 8.1 8.1zM65.9 75.6H81v-5.4H65.9a13.47 13.47 0 0 0-26.4 0H0v5.4h39.5a13.47 13.47 0 0 0 26.4 0zm-21.3-2.7a8.1 8.1 0 1 1 8.1 8.1 8.07 8.07 0 0 1-8.1-8.1z"/>
+                    </svg>
+                  </div>
+                }
               </div>
             </div>
             {this.state.dropVisible &&
@@ -135,7 +227,7 @@ export default class ListItem extends Component {
                     </div>
                   }
                 </div>
-                <textarea rows="5" cols="70">
+                <textarea rows="5" cols="70" onChange={this.handleChange}>
                   {this.state.notes}
                 </textarea>
               </div>
