@@ -1,4 +1,4 @@
-import { h, render, Component } from 'preact';
+import { h, Component } from 'preact';
 import axios from 'axios';
 
 import ListItem from './ListItem';
@@ -69,7 +69,6 @@ export default class List extends Component {
 
   activateFilter(event) {
     const filterId = event.target.dataset.id;
-    const newFilters = this.state.filters.slice();
 
     this.setState((prevState) => {
       const newFilters = prevState.filters.slice();

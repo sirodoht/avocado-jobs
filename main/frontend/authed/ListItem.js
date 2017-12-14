@@ -1,4 +1,4 @@
-import { h, render, Component } from 'preact';
+import { h, Component } from 'preact';
 import axios from 'axios';
 
 import { getCsrf } from './util';
@@ -34,11 +34,10 @@ export default class ListItem extends Component {
 
   componentDidMount() {
     document.addEventListener('keyup', (event) => {
-      if (event.keyCode === 27) {
-        this.setState((prevState) => {
-          return {
-            modalVisible: false,
-          }
+      const escapeKeyCode = 27;
+      if (event.keyCode === escapeKeyCode) {
+        this.setState({
+          modalVisible: false,
         });
       }
     });
@@ -84,7 +83,7 @@ export default class ListItem extends Component {
             window.onbeforeunload = null;
             document.getElementById('loading').style.display = 'none';
           })
-          .catch((error) => {
+          .catch((err) => {
             window.onbeforeunload = null;
             document.getElementById('loading').style.display = 'none';
             console.log('Failed to edit application. Error:', err);
@@ -94,7 +93,7 @@ export default class ListItem extends Component {
     });
   }
 
-  handleDelete(event) {
+  handleDelete() {
     if (!window.confirm('Are you sure you want to remove this application?')) {
       return;
     }

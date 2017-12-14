@@ -1,5 +1,4 @@
 import { h, render, Component } from 'preact';
-import axios from 'axios';
 
 import New from './New';
 import List from './List';
