@@ -60,7 +60,7 @@ export default class List extends Component {
 
   onDelete(listingId) {
     this.setState((prevState) => {
-      const newApplications = prevState.applications.slice()
+      const newApplications = prevState.applications.slice();
       for (let i = 0; i <= newApplications.length; i++) {
         if (newApplications[i].id === listingId) {
           newApplications.splice(i, 1);
@@ -94,7 +94,7 @@ export default class List extends Component {
 
       return {
         filters: newFilters,
-      }
+      };
     });
   }
 
@@ -107,7 +107,7 @@ export default class List extends Component {
     const newSortField = sortOptions ? sortOptions.split(':')[0] : event.target.dataset.id;
     this.setState((prevState) => {
       const newApplications = prevState.applications.slice();
-      let [ sortField, sortOrder ] = prevState.sortOptions.split(':');
+      const [ sortField, sortOrder ] = prevState.sortOptions.split(':');
       let newSortOrder = 'ASC';
       if (sortField === newSortField) {
         if (sortOrder === 'ASC') {
@@ -155,12 +155,12 @@ export default class List extends Component {
       return {
         sortOptions: newSortOptions,
         applications: newApplications,
-      }
+      };
     });
   }
 
   getSortClasses(field) {
-    let sortField = this.state.sortOptions.split(':')[0];
+    const sortField = this.state.sortOptions.split(':')[0];
     if (sortField === field) {
       return 'list-sort-item list-sort-item-active';
     } else {

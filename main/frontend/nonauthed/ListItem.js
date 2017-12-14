@@ -18,7 +18,7 @@ export default class ListItem extends Component {
       updateLink: this.props.data.link,
       dropVisible: false,
       modalVisible: false,
-    }
+    };
     this.timeout = null;
 
     this.handleChange = this.handleChange.bind(this);
@@ -55,7 +55,7 @@ export default class ListItem extends Component {
   handleChange(event) {
     window.onbeforeunload = function confirmExit() {
       return 'Some changes you have made have not been saved. Are you sure you want to leave?';
-    }
+    };
 
     const name = event.target.name;
     const value = event.target.value;
@@ -76,7 +76,7 @@ export default class ListItem extends Component {
     this.setState((prevState) => {
       return {
         modalVisible: !prevState.modalVisible,
-      }
+      };
     });
   }
 
@@ -94,7 +94,7 @@ export default class ListItem extends Component {
     this.setState((prevState) => {
       return {
         modalVisible: !prevState.modalVisible,
-      }
+      };
     });
   }
 
@@ -102,7 +102,7 @@ export default class ListItem extends Component {
     this.setState((prevState) => {
       return {
         dropVisible: !prevState.dropVisible,
-      }
+      };
     });
   }
 

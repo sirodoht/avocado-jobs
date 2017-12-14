@@ -8,7 +8,7 @@ class Avo extends Component {
     super(props);
     this.state = {
       addFormSection: false,
-    }
+    };
 
     this.toggleAddForm = this.toggleAddForm.bind(this);
   }
@@ -27,7 +27,7 @@ class Avo extends Component {
     this.setState((prevState) => {
       return {
         addFormSection: !prevState.addFormSection,
-      }
+      };
     });
   }
 
