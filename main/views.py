@@ -146,7 +146,7 @@ def token_post(request):
         form = EmailForm(request.POST)
         if form.is_valid():
             email_login_link(request, form.cleaned_data['email'])
-            messages.success(request, 'Login email sent! Please check your inbox and click on the login link.')
+            messages.success(request, 'Login email sent! Please check your inbox and click on the link.')
         else:
             messages.error(request, 'The email address was invalid. Please check the address and try again.')
     else:
