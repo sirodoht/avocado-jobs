@@ -70,6 +70,14 @@ def applications(request):
         applicationId = int(data['id'])
 
         newValues = {}
+        if 'role' in data:
+            newValues['role'] = data['role']
+        if 'company' in data:
+            newValues['company'] = data['company']
+        if 'date' in data:
+            newValues['date_applied'] = data['date']
+        if 'link' in data:
+            newValues['link'] = data['link']
         if 'salary' in data:
             newValues['salary'] = data['salary']
         if 'notes' in data:
