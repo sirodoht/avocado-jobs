@@ -14,6 +14,14 @@ class Avo extends Component {
     this.toggleAddForm = this.toggleAddForm.bind(this);
   }
 
+  componentDidMount() {
+    if (document.location.pathname === '/' && document.location.hash === '#add') {
+      this.setState({
+        addFormSection: true,
+      });
+    }
+  }
+
   toggleAddForm() {
     if (document.location.pathname === '/') {
       if (document.location.hash === '') {
@@ -30,14 +38,6 @@ class Avo extends Component {
         addFormSection: !prevState.addFormSection,
       };
     });
-  }
-
-  componentDidMount() {
-    if (document.location.pathname === '/' && document.location.hash === '#add') {
-      this.setState({
-        addFormSection: true,
-      });
-    }
   }
 
   render() {
