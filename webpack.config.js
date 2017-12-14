@@ -1,9 +1,12 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-  entry: './main/frontend/Avo.js',
+  entry: {
+    authed: './main/frontend/authed/Avo.js',
+    nonauthed: './main/frontend/nonauthed/Avo.js',
+  },
   output: {
-    filename: './main/static/main/scripts/bundle.js',
+    filename: './main/static/main/scripts/bundle-[name].js',
   },
   module: {
     rules: [
