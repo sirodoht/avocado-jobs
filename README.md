@@ -25,8 +25,9 @@ Then, migrate your database:
 python manage.py migrate
 ```
 
-Finally, run the Django server:
+Finally, compile the frontend  and the run the Django server
 ```
+npm start
 python manage.py runserver
 ```
 
