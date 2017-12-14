@@ -4,4 +4,5 @@ db.sqlite3
 secrets.txt
 .vscode/
 node_modules/
-main/static/main/scripts/bundle.js
+main/static/main/scripts/bundle-authed.js
+main/static/main/scripts/bundle-nonauthed.js
