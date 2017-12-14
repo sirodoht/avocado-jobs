@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import { getCsrf } from './util';
 
-
 export default class New extends Component {
   constructor(props) {
     super(props);
