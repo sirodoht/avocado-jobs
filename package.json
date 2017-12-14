@@ -6,7 +6,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "start": "webpack --progress -p",
-    "watch": "webpack --env.NODE_ENV=development -w"
+    "watch": "webpack --env.NODE_ENV=development -w",
+    "test": "eslint --ignore-path .gitignore \"**/*.js\""
   },
   "repository": {
     "type": "git",
