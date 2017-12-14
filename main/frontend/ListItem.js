@@ -20,15 +20,41 @@ export default class ListItem extends Component {
       updateDate: this.props.data.date,
       updateLink: this.props.data.link,
       dropVisible: false,
+      modalVisible: false,
     }
     this.timeout = null;
 
     this.handleChange = this.handleChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
     this.handleFormChange = this.handleFormChange.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.toggleDropSection = this.toggleDropSection.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('keyup', (event) => {
+      if (event.keyCode === 27) {
+        this.setState((prevState) => {
+          return {
+            modalVisible: false,
+          }
+        });
+      }
+    });
+  }
+
+  componentDidUpdate() {
+    if (this.state.modalVisible) {
+      const modal = document.getElementById(this.state.id);
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          this.setState({
+            modalVisible: false,
+          });
+        }
+      });
+    }
   }
 
   handleChange(event) {
@@ -76,8 +102,12 @@ export default class ListItem extends Component {
     this.props.onDelete(this.state.id);
   }
 
-  handleEdit(event) {
-    // show/hide modal
+  toggleEdit() {
+    this.setState((prevState) => {
+      return {
+        modalVisible: !prevState.modalVisible,
+      }
+    });
   }
 
   handleFormChange(event) {
@@ -103,11 +133,19 @@ export default class ListItem extends Component {
       }
     })
     .then((res, err) => {
-      console.log('err:', err);
-      console.log('res:', res);
+      if (err) {
+        console.log('Failed to update application. Error:', err);
+        throw err;
+      } else {
+        this.setState((prevState) => {
+          return {
+            modalVisible: !prevState.modalVisible,
+          }
+        });
+      }
     })
     .catch((err) => {
-      console.log('Failed to create new application. Error:', err);
+      console.log('Failed to update application. Error:', err);
       throw err;
     });
   }
@@ -123,8 +161,8 @@ export default class ListItem extends Component {
   render() {
     return (
       <div>
-        {this.state.modalVisible ||
-          <div class="modal">
+        {this.state.modalVisible &&
+          <div class="modal" id={this.state.id}>
             <div class="modal-content">
               <div class="modal-content-title">
                 Update application
@@ -152,8 +190,8 @@ export default class ListItem extends Component {
                 </div>
                 <div class="modal-content-controls">
                   <button type="submit" class="btn-primary">Save</button>
-                  <button type="button" class="btn-cancel">Cancel</button>
-                  <button type="button" class="btn-danger">Delete application</button>
+                  <button type="button" class="btn-cancel" onClick={this.toggleEdit}>Cancel</button>
+                  <button type="button" class="btn-danger" onClick={this.handleDelete}>Delete application</button>
                 </div>
               </form>
             </div>
@@ -205,7 +243,7 @@ export default class ListItem extends Component {
                   </div>
                 }
                 {this.state.dropVisible &&
-                  <div class="list-body-entry-line-control-settings" title="Edit application" onClick={this.handleEdit}>
+                  <div class="list-body-entry-line-control-settings" title="Edit application" onClick={this.toggleEdit}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81 86.4" width="24" height="24" fill="currentColor">
                       <path d="M0 45.9h15.1a13.47 13.47 0 0 0 26.4 0H81v-5.4H41.6a13.47 13.47 0 0 0-26.4 0H0v5.4zm28.3-10.8a8.1 8.1 0 1 1-8.1 8.1 8.07 8.07 0 0 1 8.1-8.1zM39.4 10.8H0v5.4h39.5a13.47 13.47 0 0 0 26.4 0H81v-5.4H65.9a13.53 13.53 0 0 0-26.5 0zm21.4 2.7a8.1 8.1 0 1 1-8.1-8.1 8.07 8.07 0 0 1 8.1 8.1zM65.9 75.6H81v-5.4H65.9a13.47 13.47 0 0 0-26.4 0H0v5.4h39.5a13.47 13.47 0 0 0 26.4 0zm-21.3-2.7a8.1 8.1 0 1 1 8.1 8.1 8.07 8.07 0 0 1-8.1-8.1z"/>
                     </svg>
@@ -227,7 +265,7 @@ export default class ListItem extends Component {
                     </div>
                   }
                 </div>
-                <textarea rows="5" cols="70" onChange={this.handleChange}>
+                <textarea name="notes" rows="5" cols="70" onKeyUp={this.handleChange}>
                   {this.state.notes}
                 </textarea>
               </div>
