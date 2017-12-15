@@ -4,32 +4,6 @@ export default class New extends Component {
   constructor(props) {
     super(props);
     this.today = (new Date()).toISOString().substring(0, 10);
-    this.state = {
-      role: '',
-      company: '',
-      stage: 'initial',
-      date: '',
-      link: '',
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    // role and company are required
-    if (!this.state.role || !this.state.company) {
-      return;
-    }
-
   }
 
   render() {
@@ -40,18 +14,18 @@ export default class New extends Component {
             Add new job application
           </div>
           <div class="header-add-body">
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.props.handleNewSubmit}>
               <div class="header-add-body-row">
-                <input type="text" name="role" id="add-role" placeholder="Frontend Developer"
-                  value={this.state.role} onChange={this.handleChange} />
+                <input type="text" name="newRole" id="add-role" placeholder="Frontend Developer"
+                  value={this.props.state.newRole} onChange={this.props.handleNewChange} />
                 <span>at</span>
-                <input type="text" name="company" id="add-company" placeholder="Avocado Jobs, Inc."
-                  value={this.state.company} onChange={this.handleChange} />
+                <input type="text" name="newCompany" id="add-company" placeholder="Avocado Jobs, Inc."
+                  value={this.props.state.newCompany} onChange={this.props.handleNewChange} />
               </div>
               <div class="header-add-body-row">
-                <input type="text" name="salary" id="add-salary" placeholder="$100k - $120k"
-                  value={this.state.salary} onChange={this.handleChange} />
-                <select name="stage" id="add-stage" value={this.state.stage} onChange={this.handleChange}>
+                <input type="text" name="newSalary" id="add-salary" placeholder="$100k - $120k"
+                  value={this.props.state.newSalary} onChange={this.props.handleNewChange} />
+                <select name="newStage" id="add-stage" value={this.props.state.newStage} onChange={this.props.handleNewChange}>
                   <option value="todo">To Do</option>
                   <option value="initial">No initial response yet</option>
                   <option value="need">I need to respond</option>
@@ -61,11 +35,11 @@ export default class New extends Component {
                   <option value="declined">Declined</option>
                   <option value="rejected">Got Rejected</option>
                 </select>
-                <input type="date" id="add-date" name="date" value={this.today} onChange={this.handleChange} />
+                <input type="date" id="add-date" name="newDate" value={this.today} onChange={this.props.handleNewChange} />
               </div>
               <div class="header-add-body-row">
-                <input type="text" name="link" id="add-link" placeholder="https://careers.avocadojobs.com/frontend-dev-8dbgf8"
-                  value={this.state.link} onChange={this.handleChange} />
+                <input type="text" name="newLink" id="add-link" placeholder="https://careers.avocadojobs.com/frontend-dev-8dbgf8"
+                  value={this.props.state.newLink} onChange={this.props.handleNewChange} />
               </div>
               <div class="header-add-body-row">
                 <button type="submit" class="btn-negative">Save</button>

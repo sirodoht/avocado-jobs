@@ -1,0 +1,32 @@
+export default [
+  {
+    id: 1,
+    role: 'Frontend Developer',
+    company: 'Avocado Jobs',
+    stage: 'scheduled',
+    salary: '$100k',
+    link: 'https://stackoverflow.com/jobs?demo-job-link',
+    notes: 'React.js',
+    date: '2017-11-10',
+  },
+  {
+    id: 2,
+    role: 'Backend Engineeer',
+    company: 'Acme Corporation',
+    stage: 'need',
+    salary: '$80k',
+    link: 'https://jobs.github.com/?demo-job-link',
+    notes: 'Recommendation from Wile E.\nSeries A $2m',
+    date: '2017-11-02',
+  },
+  {
+    id: 3,
+    role: 'Security Engineer',
+    company: 'E Corp',
+    stage: 'initial',
+    salary: '$135k',
+    link: 'https://remoteok.io/?demo-job-link',
+    notes: 'Blockchain tech',
+    date: '2017-12-12',
+  },
+];
