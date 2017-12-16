@@ -217,7 +217,7 @@ class Avo extends Component {
           </div>
           <div class="nav-links">
             <button onClick={this.toggleAddForm} class="nav-links-btn">Add application</button>
-            <a href="/logout/">Log out</a>
+            <a href="/login/">Log in / Sign up</a>
           </div>
         </div>
 

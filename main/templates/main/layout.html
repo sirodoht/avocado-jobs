@@ -55,7 +55,11 @@
             </div>
             <div class="nav-links">
                 <a href="/#add" class="nav-links-btn-nonjs">Add application</button>
-                <a href="/login/" class="nav-links-a-nonjs">Log in / Sign up</a>
+                {% if user.is_authenticated %}
+                    <a href="/logout/" class="nav-links-a-nonjs">Log out</a>
+                {% else %}
+                    <a href="/login/" class="nav-links-a-nonjs">Log in / Sign up</a>
+                {% endif %}
             </div>
         </div>
 
