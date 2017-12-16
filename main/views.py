@@ -137,7 +137,7 @@ def token_post(request):
         user = authenticate(token=request.GET['d'])
         if user is not None:
             login(request, user)
-            messages.success(request, 'Login successful.')
+            # messages.success(request, 'Login successful.')
             return redirect(settings.LOGIN_REDIRECT_URL)
         else:
             messages.error(request, 'The login link was invalid or has expired. Please try to log in again.')
@@ -178,7 +178,6 @@ def email_login_link(request, email):
 @login_required
 def get_logout(request):
     logout(request)
-    messages.success(request, 'You have been logged out.')
     return redirect(settings.LOGOUT_REDIRECT_URL)
 
 
