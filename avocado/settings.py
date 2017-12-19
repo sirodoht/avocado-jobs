@@ -81,8 +81,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'avocado.wsgi.application'
 
 LOGIN_URL = '/login'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/?login=true'
+LOGOUT_REDIRECT_URL = '/?logout=true'
 
 AUTH_TOKEN_DURATION = 30 * 60  # in sec
 DEFAULT_FROM_EMAIL = 'hi@avocadojobs.com'
