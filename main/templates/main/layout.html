@@ -32,6 +32,10 @@
 
     <link rel="stylesheet" href="{% static '/main/styles/main.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Source+Sans+Pro" rel="stylesheet">
+
+    {% if not user.is_authenticated %}
+        <link href="https://fonts.googleapis.com/css?family=Kalam|Patrick+Hand" rel="stylesheet">
+    {% endif %}
 </head>
 <body>
 
