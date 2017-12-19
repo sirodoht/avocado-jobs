@@ -49,7 +49,13 @@ def applications(request):
             new_application.link = data['link']
         if 'stage' in data:
             new_application.stage = data['stage']
-        new_application.save()
+        try:
+            new_application.save()
+        except:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request. Invalid data.',
+            })
         return JsonResponse({})
     elif request.method == 'PATCH':
         body = request.body.decode('utf-8')
