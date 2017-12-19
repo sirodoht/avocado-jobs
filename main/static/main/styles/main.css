@@ -1202,3 +1202,89 @@ textarea:focus {
   font-size: 16px;
   margin-top: 20px;
 }
+
+/* tutorial */
+.arrow-1 {
+  float: right;
+  margin-right: 100px;
+  user-select: none;
+}
+@media (max-width: 768px) {
+  .arrow-1 {
+    display: none;
+  }
+}
+
+.arrow-1 > svg {
+  transform: rotate(-70deg);
+}
+
+.arrow-1-text {
+  text-align: center;
+  margin-left: -30px;
+  color: #fff;
+  font-family: "Patrick Hand", cursive;
+}
+
+.arrow-2 {
+  position: relative;
+  user-select: none;
+}
+@media (max-width: 768px) {
+  .arrow-2 {
+    display: none;
+  }
+}
+
+.arrow-2-content {
+  position: absolute;
+  left: 470px;
+  top: -155px;
+}
+
+.arrow-2-content > svg {
+  transform: rotate(-90deg);
+}
+
+.arrow-2-content-text {
+  position: absolute;
+  top: 94px;
+  left: 156px;
+  width: 110px;
+  color: #fc5a5c;
+  font-family: "Patrick Hand", cursive;
+}
+
+.arrow-3 {
+  user-select: none;
+  float: right;
+}
+@media (max-width: 768px) {
+  .arrow-3 {
+    display: none;
+  }
+}
+
+.arrow-3-arrow {
+  margin-left: 100px;
+}
+
+.arrow-3-text {
+  color: #fff;
+  font-family: "Patrick Hand", cursive;
+  text-align: center;
+  margin-right: 40px;
+}
+
+.demo-seal {
+  position: relative;
+  float: right;
+}
+
+.demo-seal > img {
+  width: 50px;
+  position: absolute;
+  right: 0;
+  top: -60px;
+  transform: rotate(5deg);
+}
