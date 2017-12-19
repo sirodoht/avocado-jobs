@@ -344,6 +344,31 @@ footer {
   margin-bottom: 20px;
 }
 
+.footer-body-content-help {
+  position: relative;
+}
+
+.footer-body-content-help-content {
+  position: absolute;
+  width: 400px;
+  bottom: 7px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: left;
+  line-height: 1.3;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 7px;
+}
+
+.footer-body-content-help-content > p {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
 footer a {
   color: #83bf33;
 }
