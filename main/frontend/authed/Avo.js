@@ -9,9 +9,11 @@ class Avo extends Component {
     super(props);
     this.state = {
       addFormSection: false,
+      helpVisible: false,
     };
 
     this.toggleAddForm = this.toggleAddForm.bind(this);
+    this.toggleHelp = this.toggleHelp.bind(this);
   }
 
   componentDidMount() {
@@ -20,6 +22,14 @@ class Avo extends Component {
         addFormSection: true,
       });
     }
+  }
+
+  toggleHelp() {
+    this.setState((prevState) => {
+      return {
+        helpVisible: !prevState.helpVisible,
+      };
+    });
   }
 
   toggleAddForm() {
@@ -72,7 +82,31 @@ class Avo extends Component {
         <footer>
           <div class="footer-body large">
             <div class="footer-body-content">
-              <a href="/about/" title="About">About</a>
+              {this.state.helpVisible &&
+                <div class="footer-body-content-help" id="help">
+                  <div class="footer-body-content-help-content">
+                    <p>Although the 6 nterview stages are fairly self-explanatory here is some more info:</p>
+                    <strong>&bull; To Do</strong>
+                    <p>Listings that you plan to apply to.</p>
+                    <strong>&bull; No initial response yet</strong>
+                    <p>I sent my application and await response.</p>
+                    <strong>&bull; I need to respond</strong>
+                    <p>The company has responded and I need to response back. This option includes responding with a take-home project.</p>
+                    <strong>&bull; Awaiting response</strong>
+                    <p>Currently waiting for company response in order to continue with the next steps.</p>
+                    <strong>&bull; Interview scheduled</strong>
+                    <p>The next phase is a scheduled interview.</p>
+                    <strong>&bull; Got offer</strong>
+                    <p>I have received an offer from the company.</p>
+                    <strong>&bull; Declined</strong>
+                    <p>I have declined the company's offer.</p>
+                    <strong>&bull; Got rejected</strong>
+                    <p>I have been rejected by the company.</p>
+                  </div>
+                </div>
+              }
+              <a href="#help" title="Help" onClick={this.toggleHelp}>Help</a>
+              &nbsp;| <a href="/about/" title="About">About</a>
               &nbsp;| <a href="mailto:hi@avocadojobs.com" title="Say hi!" target="_blank" rel="noopener noreferrer">Contact</a>
               &nbsp;| <a href="https://twitter.com/AvocadoJobs" title="Or maybe hello?" target="_blank" rel="noopener noreferrer">Tweet</a>
             </div>
