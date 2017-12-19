@@ -146,15 +146,15 @@ class Avo extends Component {
       const newSortOptions = `${newSortField}:${newSortOrder}`;
       window.localStorage.setItem('avocadoSortOptions', newSortOptions);
       newApplications.sort((a, b) => {
-        let aRegex = null;
-        let bRegex = null;
         let aField = a[newSortField] ? a[newSortField].toLowerCase() : '';
         let bField = b[newSortField] ? b[newSortField].toLowerCase() : '';
         if (newSortField === 'salary') {
-          aRegex = a[newSortField] ? a[newSortField].match(/\d+/) : null;
-          bRegex = b[newSortField] ? b[newSortField].match(/\d+/) : null;
-          aField = aRegex ? parseInt(aRegex[0]) : null;
-          bField = bRegex ? parseInt(bRegex[0]) : null;
+          if (a[newSortField]) {
+            aField = parseInt(a[newSortField].substring(1, 4));
+          }
+          if (b[newSortField]) {
+            bField = parseInt(b[newSortField].substring(1, 4));
+          }
         }
         if (aField < bField) {
           if (newSortOrder === 'ASC') {
