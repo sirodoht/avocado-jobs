@@ -245,11 +245,10 @@ class Avo extends Component {
   }
 
   hideArrow2() {
-    console.log('this run once');
     localStorage.avocadoTutorialStep2 = 'done';
-    this.setState({
-      arrow2Visible: false,
-    });
+    // this.setState({
+    //   arrow2Visible: false,
+    // });
   }
 
   render() {

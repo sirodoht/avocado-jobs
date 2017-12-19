@@ -35,13 +35,11 @@ export default class ListItem extends Component {
   }
 
   toggleDropSection() {
-    const newDropVisible = !this.state.dropVisible;
-    this.setState({
-      dropVisible: newDropVisible,
-    }, () => {
-      if (localStorage.avocadoTutorialStep2 !== 'done') {
-        this.props.hideArrow2();
-      }
+    this.props.hideArrow2();
+    this.setState((prevState) => {
+      return {
+        dropVisible: !prevState.dropVisible,
+      };
     });
   }
 
