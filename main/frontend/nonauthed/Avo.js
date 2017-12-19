@@ -7,6 +7,9 @@ import demoData from './demo-data';
 class Avo extends Component {
   constructor(props) {
     super(props);
+
+    this.today = (new Date()).toISOString().substring(0, 10);
+
     this.state = {
       addFormSection: false,
       helpVisible: false,
@@ -16,7 +19,7 @@ class Avo extends Component {
       newRole: '',
       newCompany: '',
       newStage: 'initial',
-      newDate: '',
+      newDate: this.today,
       newLink: '',
       arrow1Visible: false,
       arrow2Visible: false,

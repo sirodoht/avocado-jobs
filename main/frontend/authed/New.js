@@ -11,7 +11,7 @@ export default class New extends Component {
       role: '',
       company: '',
       stage: 'initial',
-      date: '',
+      date: this.today,
       link: '',
     };
 
@@ -83,7 +83,7 @@ export default class New extends Component {
                   <option value="declined">Declined</option>
                   <option value="rejected">Got Rejected</option>
                 </select>
-                <input type="date" id="add-date" name="date" value={this.today} onChange={this.handleChange} />
+                <input type="date" id="add-date" name="date" value={this.state.date} onChange={this.handleChange} />
               </div>
               <div class="header-add-body-row">
                 <input type="text" name="link" id="add-link" placeholder="https://careers.avocadojobs.com/frontend-dev-8dbgf8"

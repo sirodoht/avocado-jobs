@@ -1,11 +1,6 @@
 import { h, Component } from 'preact';
 
 export default class New extends Component {
-  constructor(props) {
-    super(props);
-    this.today = (new Date()).toISOString().substring(0, 10);
-  }
-
   render() {
     return (
       <div class="header">
@@ -35,7 +30,7 @@ export default class New extends Component {
                   <option value="declined">Declined</option>
                   <option value="rejected">Got Rejected</option>
                 </select>
-                <input type="date" id="add-date" name="newDate" value={this.today} onChange={this.props.handleNewChange} />
+                <input type="date" id="add-date" name="newDate" value={this.props.state.newDate} onChange={this.props.handleNewChange} />
               </div>
               <div class="header-add-body-row">
                 <input type="text" name="newLink" id="add-link" placeholder="https://careers.avocadojobs.com/frontend-dev-8dbgf8"
