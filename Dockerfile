@@ -7,7 +7,8 @@ RUN pip install -U pip
 ADD requirements.txt /code/
 RUN pip install -Ur /code/requirements.txt
 
-ADD misc/dokku/* /code/
+ADD CHECKS /app/
+ADD * /code/
 
 WORKDIR /code
 COPY . /code/
