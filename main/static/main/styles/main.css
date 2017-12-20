@@ -1280,6 +1280,11 @@ textarea:focus {
   position: relative;
   float: right;
 }
+@media (max-width: 462px) {
+  .demo-seal {
+    display: none;
+  }
+}
 
 .demo-seal > img {
   width: 50px;
