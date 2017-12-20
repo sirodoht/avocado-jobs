@@ -1,7 +1,6 @@
 import time
 import json
 import base64
-import datetime
 import analytics
 
 from django.shortcuts import render, redirect
@@ -24,14 +23,7 @@ def index(request):
     analytics.page(get_client_ip(request), 'Non Authed', 'Index', {
         'url': request.get_full_path(),
     })
-    today = datetime.datetime.now()
-    applications_list = []
-    if (request.user.is_authenticated):
-        applications_list = Application.objects.filter(user=request.user).order_by('-id')
-    return render(request, 'main/applications.html', {
-        'today': today,
-        'applications_list': applications_list,
-    })
+    return render(request, 'main/index.html')
 
 
 @login_required
@@ -39,27 +31,65 @@ def applications(request):
     if request.method == 'POST':
         body = request.body.decode('utf-8')
         data = json.loads(body)
-        Application.objects.create(
+        if 'role' not in data or 'company' not in data:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request',
+            })
+        new_application = Application.objects.create(
             user=request.user,
             role=data['role'],
             company=data['company'],
-            salary=data['salary'],
-            date_applied=data['date'],
-            link=data['link'],
-            stage=data['stage'],
         )
+        if 'salary' in data:
+            new_application.salary = data['salary']
+        if 'date' in data:
+            new_application.date_applied = data['date']
+        if 'link' in data:
+            new_application.link = data['link']
+        if 'stage' in data:
+            new_application.stage = data['stage']
+        try:
+            new_application.save()
+        except:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request. Invalid data.',
+            })
         return JsonResponse({})
     elif request.method == 'PATCH':
         body = request.body.decode('utf-8')
-        data = json.loads(body)
+        try:
+            data = json.loads(body)
+        except ValueError:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request. Invalid JSON.',
+            })
+
+        if 'id' not in data:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request. No id defined.',
+            })
+
+        applicationId = int(data['id'])
+
         newValues = {}
+        if 'role' in data:
+            newValues['role'] = data['role']
+        if 'company' in data:
+            newValues['company'] = data['company']
+        if 'date' in data:
+            newValues['date_applied'] = data['date']
+        if 'link' in data:
+            newValues['link'] = data['link']
         if 'salary' in data:
             newValues['salary'] = data['salary']
         if 'notes' in data:
             newValues['notes'] = data['notes']
         if 'stage' in data:
             newValues['stage'] = data['stage'].lower()
-        applicationId = int(data['id'])
 
         if Application.objects.get(id=applicationId).user != request.user:
             return JsonResponse(status=401, data={
@@ -69,6 +99,14 @@ def applications(request):
 
         Application.objects.filter(user=request.user, id=applicationId).update(**newValues)
         return JsonResponse({})
+    elif request.method == 'GET':
+        applications = Application.objects.filter(user=request.user).order_by('-date_applied', '-id').values('id', 'role', 'company', 'link', 'stage', 'salary', 'notes', 'date_applied')
+        applications_list = list(applications)
+        for item in applications_list:
+            item['date'] = item.pop('date_applied')
+        return JsonResponse(applications_list, safe=False)
+    else:
+        redirect('main:index')
 
 
 @login_required
@@ -88,6 +126,8 @@ def applications_delete(request, application_id):
 
 
 def get_login(request):
+    if request.user.is_authenticated:
+        return redirect('main:index')
     return render(request, 'main/login.html', {
         'next': request.GET.get('next'),
     })
@@ -103,7 +143,7 @@ def token_post(request):
         user = authenticate(token=request.GET['d'])
         if user is not None:
             login(request, user)
-            messages.success(request, 'Login successful.')
+            # messages.success(request, 'Login successful.')
             return redirect(settings.LOGIN_REDIRECT_URL)
         else:
             messages.error(request, 'The login link was invalid or has expired. Please try to log in again.')
@@ -112,7 +152,7 @@ def token_post(request):
         form = EmailForm(request.POST)
         if form.is_valid():
             email_login_link(request, form.cleaned_data['email'])
-            messages.success(request, 'Login email sent! Please check your inbox and click on the login link.')
+            messages.success(request, 'Login email sent! Please check your inbox and click on the link.')
         else:
             messages.error(request, 'The email address was invalid. Please check the address and try again.')
     else:
@@ -144,5 +184,8 @@ def email_login_link(request, email):
 @login_required
 def get_logout(request):
     logout(request)
-    messages.success(request, 'You have been logged out.')
     return redirect(settings.LOGOUT_REDIRECT_URL)
+
+
+def about(request):
+    return render(request, 'main/about.html')

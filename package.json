@@ -1,0 +1,48 @@
+{
+  "name": "avocado-jobs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The frontend application of Avocado Jobs.",
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "webpack --progress -p",
+    "watch": "webpack --env.NODE_ENV=development -w",
+    "test": "eslint --ignore-path .gitignore \"**/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sirodoht/avocado-jobs.git"
+  },
+  "author": "sirodoht",
+  "bugs": {
+    "url": "https://github.com/sirodoht/avocado-jobs/issues"
+  },
+  "homepage": "https://github.com/sirodoht/avocado-jobs#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "axios": "0.17.1",
+    "babel-core": "6.26.0",
+    "babel-loader": "7.1.2",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-react": "6.24.1",
+    "eslint": "4.13.1",
+    "eslint-plugin-react": "7.5.1",
+    "preact": "8.2.6",
+    "webpack": "3.8.1",
+    "webpack-bundle-analyzer": "2.9.1"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ],
+    "plugins": [
+      [
+        "transform-react-jsx",
+        {
+          "pragma": "h"
+        }
+      ]
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}
+    <div class="header">
+        <div class="header-copy">
+            <h1>Keep track of your job applications</h1>
+        </div>
+    </div>
+
+    {% if messages %}
+        <p class="alert">
+            {% for message in messages %}
+                {{ message }}
+                <br>
+            {% endfor %}
+        </p>
+    {% endif %}
+
+{% endblock %}

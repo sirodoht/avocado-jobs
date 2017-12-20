@@ -9,101 +9,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Avocado Jobs is a job application manager for developers.">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/staticfiles/main/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/staticfiles/main/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/staticfiles/main/favicon-16x16.png">
-    <link rel="manifest" href="/staticfiles/main/manifest.json">
-    <link rel="mask-icon" href="/staticfiles/main/safari-pinned-tab.svg" color="#83bf33">
-    <link rel="shortcut icon" href="/staticfiles/main/favicon.ico">
-    <meta name="msapplication-config" content="/staticfiles/main/browserconfig.xml">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://s3-us-west-2.amazonaws.com/avocado-jobs/static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://s3-us-west-2.amazonaws.com/avocado-jobs/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://s3-us-west-2.amazonaws.com/avocado-jobs/static/favicon-16x16.png">
+    <link rel="manifest" href="https://s3-us-west-2.amazonaws.com/avocado-jobs/static/manifest.json">
+    <link rel="mask-icon" href="https://s3-us-west-2.amazonaws.com/avocado-jobs/static/safari-pinned-tab.svg" color="#83bf33">
+    <link rel="shortcut icon" href="https://s3-us-west-2.amazonaws.com/avocado-jobs/static/favicon.ico">
+    <meta name="msapplication-config" content="https://s3-us-west-2.amazonaws.com/avocado-jobs/static/browserconfig.xml">
     <meta name="theme-color" content="#f2982c">
 
     <meta property="og:title" content="Avocado Jobs">
     <meta property="og:description" content="Avocado Jobs is a job application manager for developers.">
     <meta property="og:url" content="https://avocadojobs.com">
-    <meta property="og:image" content="https://avocadojobs.com/staticfiles/main/logo.png">
+    <meta property="og:image" content="https://s3-us-west-2.amazonaws.com/avocado-jobs/static/logo.png">
     <meta property="og:type" content="website">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:creator" content="@sirodoht">
-    <meta name="twitter:image" content="https://avocadojobs.com/staticfiles/main/logo.png">
+    <meta name="twitter:image" content="https://s3-us-west-2.amazonaws.com/avocado-jobs/static/logo.png">
 
     <title>Avocado Jobs | Keep track of your job applications</title>
 
-    <link rel="stylesheet" href="{% static '/main/styles/main.css' %}">
+    <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/avocado-jobs/static/styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Source+Sans+Pro" rel="stylesheet">
+
+    {% if not user.is_authenticated %}
+        <link href="https://fonts.googleapis.com/css?family=Kalam|Patrick+Hand" rel="stylesheet">
+    {% endif %}
 </head>
 <body>
-    <div class="nav">
-        <div class="nav-header">
-            <a href="/" class="nav-header-link" title="From the toast">
-                <img class="nav-header-link-icon" src="{% static '/main/android-chrome-192x192.png' %}" alt="logo">
-                <div class="nav-header-link-brand">Avocado Jobs</div>
-            </a>
-        </div>
-        <div class="nav-links">
-            <button onclick="toggleAddForm(event)" class="nav-links-btn" id="tutorial-trigger">Add application</button>
-            {% if not user.is_authenticated %}
-                <div class="nav-links-arrow" id="tutorial-content">
-                    <img src="{% static '/main/images/arrow-up.png' %}" alt="arrow up" id="tutorial-arrow">
-                    <div class="nav-links-arrow-text" id="tutorial-text-1">
-                        START HERE
-                        <br>
-                        Add a new application
-                    </div>
-                    <div class="nav-links-arrow-text" id="tutorial-text-2">
-                        You can change the
-                        <br>
-                        interview stage and
-                        <br>
-                        salary by clicking
-                        <br>
-                        on them
-                    </div>
-                    <div class="nav-links-arrow-text" id="tutorial-text-3">
-                        Login to save your
-                        <br>
-                        data and also take
-                        <br>
-                        advantage of notes!
-                    </div>
-                </div>
-            {% endif %}
 
-            {% if user.is_authenticated %}
-                <a href="{% url 'main:logout' %}">Log out</a>
+    {% if request.path == '/' %}
 
-                <!-- This is for js to check. Also it must be last because of first-child styling. -->
-                <div class="hidden" id="user-authed"></div>
-            {% else %}
-                <a href="{% url 'main:login' %}" title="Log in to keep your data in the cloud and access them from everywhere">Log in / Sign up</a>
-            {% endif %}
-        </div>
-    </div>
+        {% if user.is_authenticated %}
+            {% csrf_token %}
+            <script src="https://s3-us-west-2.amazonaws.com/avocado-jobs/static/scripts/bundle-authed.js"></script>
+        {% else %}
+            <script src="https://s3-us-west-2.amazonaws.com/avocado-jobs/static/scripts/bundle-nonauthed.js"></script>
+        {% endif %}
 
-    <div id="announce">
-        Latest: <br>
-        Notes per application <br>
-        are live &nbsp; 🎉
-    </div>
-
-    {% block content %}
-    {% endblock %}
-
-    <footer>
-        <div class="footer-content">
-            <p class="footer-content-para">
-                Avocado Jobs.
-                <a href="mailto:hi@avocadojobs.com" title="Say hi!" target="_blank">Email</a>
-                or <a href="https://twitter.com/AvocadoJobs" title="Or maybe hello?" target="_blank">tweet</a> at us.
-        </div>
-    </footer>
-
-    {% if user.is_authenticated %}
-        <script src="{% static '/main/scripts/superagent.min.js' %}"></script>
-        <script src="{% static '/main/scripts/authed.js' %}"></script>
     {% else %}
-        <script src="{% static '/main/scripts/non-authed.js' %}"></script>
+
+        <div class="nav">
+            <div class="nav-header">
+                <a href="/" class="nav-header-link" title="From the toast">
+                    <img class="nav-header-link-icon" src="https://s3-us-west-2.amazonaws.com/avocado-jobs/static/android-chrome-192x192.png" alt="logo">
+                    <div class="nav-header-link-brand">Avocado Jobs</div>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="/#add" class="nav-links-btn-nonjs">Add application</button>
+                {% if user.is_authenticated %}
+                    <a href="/logout/" class="nav-links-a-nonjs">Log out</a>
+                {% else %}
+                    <a href="/login/" class="nav-links-a-nonjs">Log in / Sign up</a>
+                {% endif %}
+            </div>
+        </div>
+
+        {% block content %}
+        {% endblock %}
+
+        <footer>
+            <div class="footer-body">
+                <div class="footer-body-content">
+                    <a href="/about/" title="About">About</a>
+                    &nbsp;| <a href="mailto:hi@avocadojobs.com" title="Say hi!" target="_blank">Contact</a>
+                    &nbsp;| <a href="https://twitter.com/AvocadoJobs" title="Or maybe hello?" target="_blank">Tweet</a>
+                </div>
+            </div>
+        </footer>
     {% endif %}
+
 </body>
 </html>

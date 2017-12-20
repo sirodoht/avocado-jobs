@@ -18,6 +18,9 @@ urlpatterns = [
     # /logout/
     url(r'^logout/$', views.get_logout, name='logout'),
 
+    # /about/
+    url(r'^about/$', views.about, name='about'),
+
     # /applications/
     url(r'^applications/$', views.applications, name='applications'),
 
