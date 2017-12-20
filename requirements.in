@@ -10,3 +10,4 @@ Faker
 analytics-python
 gunicorn
 django-ckeditor
+awscli
