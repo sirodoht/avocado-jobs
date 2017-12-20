@@ -504,7 +504,7 @@ button {
   padding-bottom: 10px;
   padding-left: 20px;
 }
-@media (max-width: 409px) {
+@media (max-width: 462px) {
   .nav {
     text-align: center;
   }
@@ -523,7 +523,7 @@ button {
   position: relative;
   top: 2px;
 }
-@media (max-width: 409px) {
+@media (max-width: 462px) {
   .nav-header-link {
     left: 5px;
   }
@@ -567,7 +567,7 @@ button {
   margin-left: auto;
   margin-right: auto;
 }
-@media (max-width: 409px) {
+@media (max-width: 462px) {
   .nav-links {
     margin-top: 10px;
   }
