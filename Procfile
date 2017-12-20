@@ -1,1 +1,1 @@
-web: gunicorn avocado.wsgi --log-file -
+web: /usr/local/bin/uwsgi --chdir=/code --ini=/code/uwsgi.ini
