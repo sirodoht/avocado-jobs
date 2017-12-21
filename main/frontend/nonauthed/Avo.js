@@ -325,6 +325,7 @@ class Avo extends Component {
               }
               <a href="#help" title="Help" onClick={this.toggleHelp}>Help</a>
               &nbsp;| <a href="/about/" title="About">About</a>
+              &nbsp;| <a href="https://medium.com/avocado-jobs" title="Blog" target="_blank" rel="noopener noreferrer">Blog</a>
               &nbsp;| <a href="mailto:hi@avocadojobs.com" title="Say hi!" target="_blank" rel="noopener noreferrer">Contact</a>
               &nbsp;| <a href="https://twitter.com/AvocadoJobs" title="Or maybe hello?" target="_blank" rel="noopener noreferrer">Tweet</a>
             </div>
