@@ -44,3 +44,18 @@ class Application(models.Model):
 
     def __str__(self):
         return self.user.email + ' - ' + self.role
+
+
+class Analytics(models.Model):
+    querystring = models.CharField(max_length=400, null=True, blank=True)
+    ip = models.GenericIPAddressField(null=True, blank=True)
+
+    def __str__(self):
+        if self.ip and self.querystring:
+            return self.ip + ': ' + self.querystring
+        elif self.ip:
+            return self.ip + ':'
+        elif self.querystring:
+            return '0.0.0.0: ' + self.querystring
+        else:
+            return 'empty'
