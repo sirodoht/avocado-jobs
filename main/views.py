@@ -13,7 +13,7 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.core.signing import Signer
 
-from .models import Application
+from .models import Application, Analytics
 from .forms import EmailForm
 from .helpers import get_client_ip
 from avocado import settings
@@ -23,6 +23,10 @@ def index(request):
     analytics.page(get_client_ip(request), 'Non Authed', 'Index', {
         'url': request.get_full_path(),
     })
+    Analytics.objects.create(
+        querystring=request.GET.urlencode(),
+        ip=get_client_ip(request),
+    )
     return render(request, 'main/index.html')
 
 
