@@ -54,8 +54,8 @@ class Analytics(models.Model):
         if self.ip and self.querystring:
             return self.ip + ': ' + self.querystring
         elif self.ip:
-            return self.ip + ':'
+            return self.ip
         elif self.querystring:
-            return '0.0.0.0: ' + self.querystring
+            return 'none: ' + self.querystring
         else:
             return 'empty'
