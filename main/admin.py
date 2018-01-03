@@ -5,7 +5,11 @@ from django.contrib.auth.admin import UserAdmin
 from .models import Application, Analytics
 
 admin.site.register(Application)
-admin.site.register(Analytics)
+
+class AnalyticsAdmin(admin.ModelAdmin):
+    list_display = ('ip', 'querystring',)
+
+admin.site.register(Analytics, AnalyticsAdmin)
 
 class AvoAdmin(UserAdmin):
     list_display = ('id', 'username', 'date_joined', 'last_login',)
