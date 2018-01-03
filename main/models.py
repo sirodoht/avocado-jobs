@@ -49,6 +49,7 @@ class Application(models.Model):
 class Analytics(models.Model):
     querystring = models.CharField(max_length=400, null=True, blank=True)
     ip = models.GenericIPAddressField(null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         if self.ip and self.querystring:
