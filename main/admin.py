@@ -7,7 +7,7 @@ from .models import Application, Analytics
 admin.site.register(Application)
 
 class AnalyticsAdmin(admin.ModelAdmin):
-    list_display = ('ip', 'querystring',)
+    list_display = ('ip', 'querystring', 'created_at',)
 
 admin.site.register(Analytics, AnalyticsAdmin)
 
