@@ -52,6 +52,7 @@ class Reminder(models.Model):
     date_activation = models.DateTimeField()
     subject = models.CharField(max_length=400)
     body = models.TextField(null=True, blank=True)
+    in_progress = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username + ': ' + self.subject
