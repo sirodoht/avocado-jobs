@@ -166,49 +166,6 @@ def reminders(request):
                 'message': 'Bad Request. Invalid data.',
             })
 
-        try:
-            new_reminder.save()
-        except:
-            return JsonResponse(status=400, data={
-                'status': 'false',
-                'message': 'Bad Request. Invalid data.',
-            })
-        return JsonResponse({})
-    elif request.method == 'PATCH':
-        body = request.body.decode('utf-8')
-        try:
-            data = json.loads(body)
-        except ValueError:
-            return JsonResponse(status=400, data={
-                'status': 'false',
-                'message': 'Bad Request. Invalid JSON.',
-            })
-
-        if 'id' not in data:
-            return JsonResponse(status=400, data={
-                'status': 'false',
-                'message': 'Bad Request. No reminder id defined.',
-            })
-
-        reminderId = int(data['id'])
-
-        newValues = {}
-        if 'subject' in data:
-            newValues['subject'] = data['subject']
-        if 'body' in data:
-            newValues['body'] = data['body']
-        if 'day' in data:
-            newValues['day'] = data['day']
-        if 'hour' in data:
-            newValues['hour'] = data['hour']
-
-        if Reminder.objects.get(id=reminderId).user != request.user:
-            return JsonResponse(status=401, data={
-                'status': 'false',
-                'message': 'Unauthorized',
-            })
-
-        Reminder.objects.filter(user=request.user, id=reminderId).update(**newValues)
         return JsonResponse({})
     elif request.method == 'GET':
         reminders = Reminder.objects.filter(user=request.user).order_by('date_activation').values('id', 'subject', 'body', 'date_activation')
