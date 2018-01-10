@@ -34,6 +34,7 @@ raven==6.4.0
 requests==2.18.4          # via analytics-python
 rsa==3.4.2                # via awscli
 s3transfer==0.1.12        # via awscli
+schedule==0.5.0
 shortuuid==0.5.0
 six==1.11.0               # via analytics-python, argon2-cffi, faker, python-dateutil
 text-unidecode==1.1       # via faker
