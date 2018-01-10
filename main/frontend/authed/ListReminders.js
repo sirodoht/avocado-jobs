@@ -22,15 +22,8 @@ export default class ListReminders extends Component {
       .then((res) => {
         window.onbeforeunload = null;
         document.getElementById('loading').style.display = 'none';
-
-        // data post processing
-        const remindersList = res.data;
-        remindersList.forEach((item) => {
-          item.hour = item.hour.substring(0, 5);
-        });
-
         this.setState({
-          list: remindersList,
+          list: res.data,
         });
       })
       .catch((err) => {
@@ -47,7 +40,7 @@ export default class ListReminders extends Component {
   onHoverOff(event) {
     this.state.list.forEach((item) => {
       if (item.id === parseInt(event.target.dataset.id)) {
-        event.target.innerHTML = `<span>Scheduled for</span> <strong>${item.day}, ${item.hour}</strong>`;
+        event.target.innerHTML = `<span>Scheduled for</span> <strong>${item.date}</strong>`;
       }
     });
   }
@@ -116,7 +109,7 @@ export default class ListReminders extends Component {
               </div>
               <div class="reminders-content-item-date" data-id={item.id} onClick={this.onDelete}
                 onMouseEnter={this.onHoverOn} onMouseLeave={this.onHoverOff}>
-                <span>Scheduled for</span> <strong>{item.day}, {item.hour}</strong>
+                <span>Scheduled for</span> <strong>{item.date}</strong>
               </div>
             </div>
           ))}
