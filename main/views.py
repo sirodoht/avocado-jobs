@@ -158,8 +158,7 @@ def reminders(request):
                 user=request.user,
                 subject=data['subject'],
                 body=data['body'],
-                day=data['day'],
-                hour=data['hour'],
+                date_activation=parse(data['day'] + ' ' + data['hour']),
             )
         except ValidationError:
             return JsonResponse(status=400, data={
@@ -212,8 +211,10 @@ def reminders(request):
         Reminder.objects.filter(user=request.user, id=reminderId).update(**newValues)
         return JsonResponse({})
     elif request.method == 'GET':
-        reminders = Reminder.objects.filter(user=request.user).order_by('day', 'hour').values('id', 'subject', 'body', 'day', 'hour')
+        reminders = Reminder.objects.filter(user=request.user).order_by('date_activation').values('id', 'subject', 'body', 'date_activation')
         reminders_list = list(reminders)
+        for rem in reminders_list:
+            rem['date'] = rem.pop('date_activation').strftime('%Y-%m-%d %H:%M')
         return JsonResponse(reminders_list, safe=False)
     else:
         redirect('main:index')
