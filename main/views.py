@@ -12,8 +12,9 @@ from django.http import HttpResponse, JsonResponse
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.core.signing import Signer
+from django.core.exceptions import ValidationError
 
-from .models import Application, Analytics
+from .models import Application, Analytics, Reminder
 from .forms import EmailForm
 from .helpers import get_client_ip
 from avocado import settings
@@ -124,6 +125,111 @@ def applications_delete(request, application_id):
             })
         else:
             application.delete()
+            return JsonResponse({})
+    else:
+        return HttpResponse(status=404)
+
+
+@login_required
+def reminders(request):
+    if request.method == 'POST':
+        body = request.body.decode('utf-8')
+        try:
+            data = json.loads(body)
+        except ValueError:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request. Invalid JSON.',
+            })
+        required_fields = ['subject', 'body', 'day', 'hour']
+        for field in required_fields:
+            if field not in data:
+                return JsonResponse(status=400, data={
+                    'status': 'false',
+                    'message': 'Bad Request. Missing fields.',
+                })
+
+        # normalize hour in case of only hour without minutes
+        if len(data['hour']) == 1 or len(data['hour']) == 2:
+            data['hour'] += ':00'
+
+        try:
+            new_reminder = Reminder.objects.create(
+                user=request.user,
+                subject=data['subject'],
+                body=data['body'],
+                day=data['day'],
+                hour=data['hour'],
+            )
+        except ValidationError:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request. Invalid data.',
+            })
+
+        try:
+            new_reminder.save()
+        except:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request. Invalid data.',
+            })
+        return JsonResponse({})
+    elif request.method == 'PATCH':
+        body = request.body.decode('utf-8')
+        try:
+            data = json.loads(body)
+        except ValueError:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request. Invalid JSON.',
+            })
+
+        if 'id' not in data:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request. No reminder id defined.',
+            })
+
+        reminderId = int(data['id'])
+
+        newValues = {}
+        if 'subject' in data:
+            newValues['subject'] = data['subject']
+        if 'body' in data:
+            newValues['body'] = data['body']
+        if 'day' in data:
+            newValues['day'] = data['day']
+        if 'hour' in data:
+            newValues['hour'] = data['hour']
+
+        if Reminder.objects.get(id=reminderId).user != request.user:
+            return JsonResponse(status=401, data={
+                'status': 'false',
+                'message': 'Unauthorized',
+            })
+
+        Reminder.objects.filter(user=request.user, id=reminderId).update(**newValues)
+        return JsonResponse({})
+    elif request.method == 'GET':
+        reminders = Reminder.objects.filter(user=request.user).order_by('day', 'hour').values('id', 'subject', 'body', 'day', 'hour')
+        reminders_list = list(reminders)
+        return JsonResponse(reminders_list, safe=False)
+    else:
+        redirect('main:index')
+
+
+@login_required
+def reminders_delete(request, reminder_id):
+    if request.method == 'DELETE':
+        reminder = Reminder.objects.get(id=reminder_id)
+        if reminder.user != request.user:
+            return JsonResponse(status=401, data={
+                'status': 'false',
+                'message': 'Unauthorized',
+            })
+        else:
+            reminder.delete()
             return JsonResponse({})
     else:
         return HttpResponse(status=404)
