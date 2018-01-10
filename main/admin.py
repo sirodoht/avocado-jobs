@@ -25,4 +25,7 @@ admin.site.register(Analytics, AnalyticsAdmin)
 
 
 # Reminders
-admin.site.register(Reminder)
+class ReminderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'date_created', 'date_activation', 'subject',)
+
+admin.site.register(Reminder, ReminderAdmin)
