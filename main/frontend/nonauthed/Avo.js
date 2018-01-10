@@ -297,6 +297,36 @@ class Avo extends Component {
         <List state={this.state} onDelete={this.onDelete} arrow2Visible={this.state.arrow2Visible} hideArrow2={this.hideArrow2}
           activateFilter={this.activateFilter} sortBy={this.sortBy} getSortClasses={this.getSortClasses} />
 
+        <div class="reminders" id="reminders">
+          <div class="reminders-title">
+            Reminders
+          </div>
+          <div class="reminders-content">
+            <div class="demo-seal" style="left: 191px; top: 4px;">
+              <img src="https://assets.avocadojobs.com/images/demo-data.png" alt="demo data" />
+            </div>
+            <div class="reminders-content-item">
+              <div class="reminders-content-item-header">
+                <div class="reminders-content-item-header-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85 85" width="25" fill="#f2982c">
+                    <path d="M47.3 5.1H36.7v5.5H47V9.1h.3c16.5 0 29.9 13.4 29.9 29.9v15.1h4v-15c0-18.8-15.2-34-33.9-34z"/>
+                    <path d="M41.5 13.6c-17.6 0-31.9 14.3-31.9 31.9s14.3 31.9 31.9 31.9 31.9-14.3 31.9-31.9c0-17.7-14.3-31.9-31.9-31.9zm0 36.2c-2.4 0-4.4-2-4.4-4.4s2-4.4 4.4-4.4 4.4 2 4.4 4.4-2 4.4-4.4 4.4z"/>
+                  </svg>
+                </div>
+                <div class="reminders-content-item-header-subject">
+                  Take home project for GSS
+                </div>
+              </div>
+              <div class="reminders-content-item-body">
+                Deadline for GSS coding project in 3 days!
+              </div>
+              <div class="reminders-content-item-date">
+                <span>Scheduled for</span> <strong>2018-02-10, 12:00</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <footer>
           <div class="footer-body large">
             <div class="footer-body-content">
