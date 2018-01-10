@@ -285,9 +285,12 @@ def print_time(threadName, delay, counter):
         counter -= 1
 
 def check_reminders_job():
+    # print('Check for reminders ' + timezone.now().isoformat())
     reminders = Reminder.objects.order_by('-date_activation')[:10]
     for rem in reminders:
-        if rem.date_activation.replace(tzinfo=pytz.timezone('UTC')) <= timezone.now():
+        if not rem.in_progress and rem.date_activation.replace(tzinfo=pytz.timezone('UTC')) <= timezone.now():
+            rem.in_progress = True
+            rem.save()
             send_mail(
                 rem.subject,
                 rem.body,
