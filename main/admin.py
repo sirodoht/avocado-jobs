@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
-from .models import Application, Analytics, Reminder
+from .models import Application, Reminder
 
 
 # Users
@@ -18,10 +18,10 @@ admin.site.register(Application)
 
 
 # Analytics
-class AnalyticsAdmin(admin.ModelAdmin):
-    list_display = ('ip', 'querystring', 'created_at',)
+# class AnalyticsAdmin(admin.ModelAdmin):
+#     list_display = ('ip', 'querystring', 'created_at',)
 
-admin.site.register(Analytics, AnalyticsAdmin)
+# admin.site.register(Analytics, AnalyticsAdmin)
 
 
 # Reminders

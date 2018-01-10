@@ -20,7 +20,7 @@ from django.core.signing import Signer
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
-from .models import Application, Analytics, Reminder
+from .models import Application, Reminder
 from .forms import EmailForm
 from .helpers import get_client_ip
 from avocado import settings
@@ -30,10 +30,10 @@ def index(request):
     analytics.page(get_client_ip(request), 'Non Authed', 'Index', {
         'url': request.get_full_path(),
     })
-    Analytics.objects.create(
-        querystring=request.GET.urlencode(),
-        ip=get_client_ip(request),
-    )
+    # Analytics.objects.create(
+    #     querystring=request.GET.urlencode(),
+    #     ip=get_client_ip(request),
+    # )
     return render(request, 'main/index.html')
 
 
