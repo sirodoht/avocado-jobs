@@ -2,6 +2,10 @@ import time
 import json
 import base64
 import analytics
+import threading
+import pytz
+
+from dateutil.parser import parse
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -13,6 +17,7 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.core.signing import Signer
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 from .models import Application, Analytics, Reminder
 from .forms import EmailForm
@@ -257,3 +262,43 @@ def get_logout(request):
 
 def about(request):
     return render(request, 'main/about.html')
+
+
+# Reminder schedule worker thread
+class ScheduleWorker(threading.Thread):
+    def __init__(self, threadID, name):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
+
+    def run(self):
+        print('Starting ' + self.name)
+        while True:
+            check_reminders_job()
+            time.sleep(60)
+        print('Exiting ' + self.name)
+
+def print_time(threadName, delay, counter):
+    while counter:
+        time.sleep(delay)
+        counter -= 1
+
+def check_reminders_job():
+    reminders = Reminder.objects.order_by('-date_activation')[:10]
+    for rem in reminders:
+        if rem.date_activation.replace(tzinfo=pytz.timezone('UTC')) <= timezone.now():
+            send_mail(
+                rem.subject,
+                rem.body,
+                settings.DEFAULT_FROM_EMAIL,
+                [rem.user.email],
+            )
+            send_mail(
+                'ADMIN CHECK: ' + rem.subject,
+                rem.body,
+                settings.DEFAULT_FROM_EMAIL,
+                ['theodorekeloglou@gmail.com'],
+            )
+            rem.delete()
+
+ScheduleWorker(1, 'Schedule Thread').start()
