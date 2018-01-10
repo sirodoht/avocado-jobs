@@ -60,7 +60,8 @@ export default class NewReminder extends Component {
           </div>
           <div class="header-add-body">
             <p class="header-add-body-para">
-              We will email you when the time has come
+              We will email you when the time has come.
+              <span>Server time is UTC.</span>
             </p>
             <form onSubmit={this.handleSubmit}>
               <div class="header-add-body-row">
