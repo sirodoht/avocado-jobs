@@ -2,6 +2,11 @@ import time
 import json
 import base64
 import analytics
+import threading
+import pytz
+import sys
+
+from dateutil.parser import parse
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -12,8 +17,10 @@ from django.http import HttpResponse, JsonResponse
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.core.signing import Signer
+from django.core.exceptions import ValidationError
+from django.utils import timezone
 
-from .models import Application, Analytics
+from .models import Application, Analytics, Reminder
 from .forms import EmailForm
 from .helpers import get_client_ip
 from avocado import settings
@@ -129,6 +136,69 @@ def applications_delete(request, application_id):
         return HttpResponse(status=404)
 
 
+@login_required
+def reminders(request):
+    if request.method == 'POST':
+        body = request.body.decode('utf-8')
+        try:
+            data = json.loads(body)
+        except ValueError:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request. Invalid JSON.',
+            })
+        required_fields = ['subject', 'body', 'day', 'hour']
+        for field in required_fields:
+            if field not in data:
+                return JsonResponse(status=400, data={
+                    'status': 'false',
+                    'message': 'Bad Request. Missing fields.',
+                })
+
+        # normalize hour in case of only hour without minutes
+        if len(data['hour']) == 1 or len(data['hour']) == 2:
+            data['hour'] += ':00'
+
+        try:
+            new_reminder = Reminder.objects.create(
+                user=request.user,
+                subject=data['subject'],
+                body=data['body'],
+                date_activation=parse(data['day'] + ' ' + data['hour']),
+            )
+        except ValidationError:
+            return JsonResponse(status=400, data={
+                'status': 'false',
+                'message': 'Bad Request. Invalid data.',
+            })
+
+        return JsonResponse({})
+    elif request.method == 'GET':
+        reminders = Reminder.objects.filter(user=request.user).order_by('date_activation').values('id', 'subject', 'body', 'date_activation')
+        reminders_list = list(reminders)
+        for rem in reminders_list:
+            rem['date'] = rem.pop('date_activation').strftime('%Y-%m-%d %H:%M')
+        return JsonResponse(reminders_list, safe=False)
+    else:
+        redirect('main:index')
+
+
+@login_required
+def reminders_delete(request, reminder_id):
+    if request.method == 'DELETE':
+        reminder = Reminder.objects.get(id=reminder_id)
+        if reminder.user != request.user:
+            return JsonResponse(status=401, data={
+                'status': 'false',
+                'message': 'Unauthorized',
+            })
+        else:
+            reminder.delete()
+            return JsonResponse({})
+    else:
+        return HttpResponse(status=404)
+
+
 def get_login(request):
     if request.user.is_authenticated:
         return redirect('main:index')
@@ -193,3 +263,47 @@ def get_logout(request):
 
 def about(request):
     return render(request, 'main/about.html')
+
+
+# Reminder schedule worker thread
+class ScheduleWorker(threading.Thread):
+    def __init__(self, threadID, name):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
+
+    def run(self):
+        print('Starting ' + self.name)
+        while True:
+            check_reminders_job()
+            time.sleep(60)
+        print('Exiting ' + self.name)
+
+def print_time(threadName, delay, counter):
+    while counter:
+        time.sleep(delay)
+        counter -= 1
+
+def check_reminders_job():
+    # print('Check for reminders ' + timezone.now().isoformat())
+    reminders = Reminder.objects.order_by('-date_activation')[:10]
+    for rem in reminders:
+        if not rem.in_progress and rem.date_activation.replace(tzinfo=pytz.timezone('UTC')) <= timezone.now():
+            rem.in_progress = True
+            rem.save()
+            send_mail(
+                rem.subject,
+                rem.body,
+                settings.DEFAULT_FROM_EMAIL,
+                [rem.user.email],
+            )
+            send_mail(
+                'ADMIN CHECK: ' + rem.subject,
+                rem.body,
+                settings.DEFAULT_FROM_EMAIL,
+                ['theodorekeloglou@gmail.com'],
+            )
+            rem.delete()
+
+if sys.argv[0] == 'uwsgi' or sys.argv[1] == 'runserver':
+    ScheduleWorker(1, 'Schedule Thread').start()

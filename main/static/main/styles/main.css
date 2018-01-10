@@ -603,6 +603,23 @@ button {
   background: #ec7e07;
 }
 
+.nav-links-lite {
+  background: #76a735;
+  font-size: 15px;
+  color: #fff;
+  border-radius: 1px;
+  padding-top: 3px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-right: 20px;
+  transition: 0.1s ease-in;
+}
+
+.nav-links-lite:hover {
+  background: #6b9a2c;
+}
+
 .nav-links-btn-nonjs {
   background: #f2982c;
   color: #fff;
@@ -723,6 +740,22 @@ button {
   background: #75ab2e;
 }
 
+.header-add textarea {
+  display: inline-block;
+  width: 40%;
+  color: #333;
+  line-height: 1.2;
+  padding-top: 7px;
+  padding-left: 7px;
+  margin-bottom: 10px;
+  border: 3px solid #83bf33;
+}
+
+.header-add textarea:focus {
+  border: 3px solid #5a8323;
+  outline: none;
+}
+
 .header-add-title {
   font-size: 42px;
   margin-bottom: 20px;
@@ -732,6 +765,18 @@ button {
   padding-left: 8px;
   padding-right: 8px;
   font-size: 24px;
+}
+
+.header-add-body-para {
+  font-size: 24px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.header-add-body-para > span {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 10px;
 }
 
 #add-role {
@@ -759,6 +804,14 @@ button {
 
 #add-link {
   width: 70%;
+}
+
+#add-day {
+  width: 20%;
+}
+
+#add-hour {
+  width: 10%;
 }
 
 .list {
@@ -862,6 +915,22 @@ button {
   display: block;
 }
 
+.list-body-empty {
+  margin-top: 70px;
+  font-style: italic;
+  color: #888;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 70px;
+}
+
+.list-body-empty > code {
+  background: #f2982c;
+  color: #fff;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
 .list-body-entry {
   display: block;
   border-bottom: 1px solid #ddd;
@@ -905,7 +974,7 @@ button {
   margin-top: 5px;
   margin-bottom: 5px;
   margin-right: 5px;
-  max-width: 650px;
+  max-width: 690px;
 }
 @media (min-width: 768px) {
   .list-body-entry-line-detail-info-title {
@@ -964,7 +1033,7 @@ button {
   display: flex;
   flex-grow: 1;
   width: 50px;
-  max-width: 220px;
+  max-width: 180px;
   height: 26px;
   text-align: right;
   overflow: scroll;
@@ -1081,6 +1150,121 @@ textarea {
 textarea:focus {
   border: 1px solid #bbb;
   outline: none;
+}
+
+/* reminders list */
+.reminders {
+  max-width: 1100px;
+  margin: auto;
+  padding-bottom: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.reminders-title {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.reminders-content {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+@media (max-width: 1140px) {
+  .reminders-content {
+    justify-content: space-around;
+  }
+}
+
+.reminders-content-empty {
+  font-style: italic;
+  color: #888;
+}
+
+.reminders-content-item {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+  max-width: 310px;
+  min-width: 290px;
+  flex-shrink: 0;
+}
+
+.reminders-content-item:not(:nth-child(3n)) {
+  margin-right: 22px;
+}
+@media (max-width: 1140px) {
+  .reminders-content-item:not(:nth-child(3n)) {
+    margin-left: 11px;
+    margin-right: 11px;
+  }
+  .reminders-content-item:nth-child(3n) {
+    margin-left: 11px;
+    margin-right: 11px;
+  }
+}
+@media (max-width: 400px) {
+  .reminders-content-item:not(:nth-child(3n)) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .reminders-content-item:nth-child(3n) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.reminders-content-item-header {
+  display: flex;
+}
+
+.reminders-content-item-header-icon {
+  margin-top: 3px;
+  margin-right: 5px;
+}
+
+.reminders-content-item-header-subject {
+  color: #555;
+}
+
+.reminders-content-item-body {
+  border-left: 6px solid #aaa;
+  color: #888;
+  padding-left: 8px;
+  margin-top: 8px;
+  height: 30px;
+  white-space: nowrap;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+}
+
+.reminders-content-item-body:hover {
+  height: auto;
+  white-space: normal;
+}
+
+.reminders-content-item-date {
+  cursor: pointer;
+  text-transform: uppercase;
+  color: #fff;
+  background: #83bf33;
+  margin-top: 14px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 16px;
+  text-align: center;
+  transition: background 0.1s ease-out;
+}
+
+.reminders-content-item-date:hover {
+  background: #f85a42;
+}
+
+.reminders-content-item-date > span {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* login */

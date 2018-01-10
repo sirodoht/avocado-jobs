@@ -46,6 +46,18 @@ class Application(models.Model):
         return self.user.email + ' - ' + self.role
 
 
+class Reminder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_created = models.DateField(default=timezone.now)
+    date_activation = models.DateTimeField()
+    subject = models.CharField(max_length=400)
+    body = models.TextField(null=True, blank=True)
+    in_progress = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username + ': ' + self.subject
+
+
 class Analytics(models.Model):
     querystring = models.CharField(max_length=400, null=True, blank=True)
     ip = models.GenericIPAddressField(null=True, blank=True)

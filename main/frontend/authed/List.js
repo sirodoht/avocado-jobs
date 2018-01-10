@@ -165,26 +165,35 @@ export default class List extends Component {
   render() {
     return (
       <div class="list">
-        <div class="list-filters">
-          <div class="list-filters-title">Filters:</div>
-          <div onClick={this.activateFilter} data-id="todo" class="list-filters-item">To Do</div>
-          <div onClick={this.activateFilter} data-id="initial" class="list-filters-item">No initial response yet</div>
-          <div onClick={this.activateFilter} data-id="need" class="list-filters-item">I need to respond</div>
-          <div onClick={this.activateFilter} data-id="await" class="list-filters-item">Awaiting response</div>
-          <div onClick={this.activateFilter} data-id="scheduled" class="list-filters-item">Interview scheduled</div>
-          <div onClick={this.activateFilter} data-id="offer" class="list-filters-item">Got offer</div>
-          <div onClick={this.activateFilter} data-id="declined" class="list-filters-item">Declined</div>
-          <div onClick={this.activateFilter} data-id="rejected" class="list-filters-item">Got rejected</div>
-        </div>
-        <div class="list-sort">
-          <div class="list-sort-title">Sort by:</div>
-          <div onClick={this.sortBy} data-id="role" class={this.getSortClasses('role')}>Role</div>
-          <div onClick={this.sortBy} data-id="company" class={this.getSortClasses('company')}>Company</div>
-          <div onClick={this.sortBy} data-id="date" class={this.getSortClasses('date')}>Date</div>
-          <div onClick={this.sortBy} data-id="salary" class={this.getSortClasses('salary')}>Salary</div>
-          <div onClick={this.sortBy} data-id="stage" class={this.getSortClasses('stage')}>Stage</div>
-        </div>
+        {this.state.applications.length === 0 ||
+          <div class="list-filters">
+            <div class="list-filters-title">Filters:</div>
+            <div onClick={this.activateFilter} data-id="todo" class="list-filters-item">To Do</div>
+            <div onClick={this.activateFilter} data-id="initial" class="list-filters-item">No initial response yet</div>
+            <div onClick={this.activateFilter} data-id="need" class="list-filters-item">I need to respond</div>
+            <div onClick={this.activateFilter} data-id="await" class="list-filters-item">Awaiting response</div>
+            <div onClick={this.activateFilter} data-id="scheduled" class="list-filters-item">Interview scheduled</div>
+            <div onClick={this.activateFilter} data-id="offer" class="list-filters-item">Got offer</div>
+            <div onClick={this.activateFilter} data-id="declined" class="list-filters-item">Declined</div>
+            <div onClick={this.activateFilter} data-id="rejected" class="list-filters-item">Got rejected</div>
+          </div>
+        }
+        {this.state.applications.length === 0 ||
+          <div class="list-sort">
+            <div class="list-sort-title">Sort by:</div>
+            <div onClick={this.sortBy} data-id="role" class={this.getSortClasses('role')}>Role</div>
+            <div onClick={this.sortBy} data-id="company" class={this.getSortClasses('company')}>Company</div>
+            <div onClick={this.sortBy} data-id="date" class={this.getSortClasses('date')}>Date</div>
+            <div onClick={this.sortBy} data-id="salary" class={this.getSortClasses('salary')}>Salary</div>
+            <div onClick={this.sortBy} data-id="stage" class={this.getSortClasses('stage')}>Stage</div>
+          </div>
+        }
         <div class="list-body">
+          {this.state.applications.length === 0 &&
+            <div class="list-body-empty">
+              You have no applications yet! Click the <code>#f2982c</code> button above to add one.
+            </div>
+          }
           {this.state.applications.map((item) => (
             <ListItem key={item.id} data={item} onDelete={this.onDelete}
               visible={this.state.filters.length !== 0 && this.state.filters.indexOf(item.stage) === -1 ? true : false} />

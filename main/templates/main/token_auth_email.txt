@@ -1,8 +1,10 @@
 Hello,
 
-This email contains your secret avocadojobs.com login link. To log in, just click the link below.
+This email contains your secret avocadojobs.com login link. Click it to continue.
 
-Also, don't share it with anyone unless you want them to access your account.
+You can also share it with anyone you want to access your account.
+
+This link will expire in 30 minutes.
 
 Click to log in:
 

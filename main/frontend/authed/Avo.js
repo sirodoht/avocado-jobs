@@ -2,6 +2,8 @@ import { h, render, Component } from 'preact';
 
 import New from './New';
 import List from './List';
+import NewReminder from './NewReminder';
+import ListReminders from './ListReminders';
 import Loading from './Loading';
 
 class Avo extends Component {
@@ -10,9 +12,11 @@ class Avo extends Component {
     this.state = {
       addFormSection: false,
       helpVisible: false,
+      reminderVisible: false,
     };
 
     this.toggleAddForm = this.toggleAddForm.bind(this);
+    this.toggleReminder = this.toggleReminder.bind(this);
     this.toggleHelp = this.toggleHelp.bind(this);
   }
 
@@ -46,6 +50,16 @@ class Avo extends Component {
     this.setState((prevState) => {
       return {
         addFormSection: !prevState.addFormSection,
+        reminderVisible: false,
+      };
+    });
+  }
+
+  toggleReminder() {
+    this.setState((prevState) => {
+      return {
+        addFormSection: false,
+        reminderVisible: !prevState.reminderVisible,
       };
     });
   }
@@ -60,12 +74,8 @@ class Avo extends Component {
                 <div class="nav-header-link-brand">Avocado Jobs</div>
             </a>
           </div>
-          {this.state.addFormSection ||
-            <div class="nav-center">
-              Hi.
-            </div>
-          }
           <div class="nav-links">
+            <button onClick={this.toggleReminder} class="nav-links-lite">Set reminder</button>
             <button onClick={this.toggleAddForm} class="nav-links-btn">Add application</button>
             <a href="/logout/">Log out</a>
           </div>
@@ -75,9 +85,15 @@ class Avo extends Component {
           <New />
         }
 
+        {this.state.reminderVisible &&
+          <NewReminder />
+        }
+
         <List />
 
         <Loading />
+
+        <ListReminders />
 
         <footer>
           <div class="footer-body large">
