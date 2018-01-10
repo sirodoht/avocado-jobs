@@ -4,6 +4,7 @@ import base64
 import analytics
 import threading
 import pytz
+import sys
 
 from dateutil.parser import parse
 
@@ -301,4 +302,5 @@ def check_reminders_job():
             )
             rem.delete()
 
-ScheduleWorker(1, 'Schedule Thread').start()
+if sys.argv[0] == 'uwsgi' or sys.argv[1] == 'runserver':
+    ScheduleWorker(1, 'Schedule Thread').start()
