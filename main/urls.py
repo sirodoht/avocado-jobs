@@ -26,4 +26,10 @@ urlpatterns = [
 
     # /applications/<application_id>/
     url(r'^applications/(?P<application_id>[^/]*)/$', views.applications_delete, name='applications_delete'),
+
+    # /reminders/
+    url(r'^reminders/$', views.reminders, name='reminders'),
+
+    # /reminders/<reminder_id>/
+    url(r'^reminders/(?P<reminder_id>[^/]*)/$', views.reminders_delete, name='reminders_delete'),
 ]
