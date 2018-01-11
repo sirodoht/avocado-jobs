@@ -30,6 +30,7 @@ def index(request):
     analytics.page(get_client_ip(request), 'Non Authed', 'Index', {
         'url': request.get_full_path(),
     })
+    log_analytic(request)
     return render(request, 'main/index.html')
 
 
@@ -196,6 +197,7 @@ def reminders_delete(request, reminder_id):
 
 
 def get_login(request):
+    log_analytic(request)
     if request.user.is_authenticated:
         return redirect('main:index')
     return render(request, 'main/login.html', {
@@ -253,11 +255,13 @@ def email_login_link(request, email):
 
 @login_required
 def get_logout(request):
+    log_analytic(request)
     logout(request)
     return redirect(settings.LOGOUT_REDIRECT_URL)
 
 
 def about(request):
+    log_analytic(request)
     return render(request, 'main/about.html')
 
 
