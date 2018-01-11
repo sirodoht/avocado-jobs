@@ -11,7 +11,6 @@ from dateutil.parser import parse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse, JsonResponse
@@ -21,9 +20,9 @@ from django.core.signing import Signer
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
-from .models import Application, Reminder, Analytic
+from .models import Application, Reminder
 from .forms import EmailForm
-from .helpers import get_client_ip
+from .helpers import get_client_ip, log_analytic
 from avocado import settings
 
 
@@ -31,13 +30,6 @@ def index(request):
     analytics.page(get_client_ip(request), 'Non Authed', 'Index', {
         'url': request.get_full_path(),
     })
-    new_analytic = Analytic(
-        querystring=request.GET.urlencode(),
-        ip=get_client_ip(request),
-    )
-    if request.user.is_authenticated:
-        new_analytic.user = User.objects.get(id=request.user.id)
-    new_analytic.save()
     return render(request, 'main/index.html')
 
 
