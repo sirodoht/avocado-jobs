@@ -19,7 +19,7 @@ admin.site.register(Application)
 
 # Analytics
 class AnalyticAdmin(admin.ModelAdmin):
-    list_display = ('ip', 'user', 'created_at', 'querystring',)
+    list_display = ('ip', 'user', 'created_at', 'path', 'querystring',)
 
 admin.site.register(Analytic, AnalyticAdmin)
 
