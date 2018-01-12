@@ -158,8 +158,12 @@ USE_TZ = True
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, '../main/static/main/admin/')
-STATIC_URL = 'https://assets.avocadojobs.com/admin/'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
+if DEBUG:
+    STATIC_URL = '/staticfiles/'
+else:
+    STATIC_URL = 'https://assets.avocadojobs.com/'
 
 
 # Email
