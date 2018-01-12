@@ -13,6 +13,8 @@ def get_client_ip(request):
 
 
 def log_analytic(request):
+    if not request.user.is_authenticated:
+        return
     new_analytic = Analytic(
         querystring=request.GET.urlencode(),
         ip=get_client_ip(request),
