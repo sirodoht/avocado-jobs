@@ -260,7 +260,7 @@ class Avo extends Component {
         <div class="nav">
           <div class="nav-header">
             <a href="/" class="nav-header-link">
-              <img class="nav-header-link-icon" src="https://assets.avocadojobs.com/android-chrome-192x192.png" alt="logo" />
+              <img class="nav-header-link-icon" src="https://assets.avocadojobs.com/main/android-chrome-192x192.png" alt="logo" />
               <div class="nav-header-link-brand">Avocado Jobs</div>
             </a>
           </div>
@@ -303,7 +303,7 @@ class Avo extends Component {
           </div>
           <div class="reminders-content">
             <div class="demo-seal" style="left: 191px; top: 4px;">
-              <img src="https://assets.avocadojobs.com/images/demo-data.png" alt="demo data" />
+              <img src="https://assets.avocadojobs.com/main/images/demo-data.png" alt="demo data" />
             </div>
             <div class="reminders-content-item">
               <div class="reminders-content-item-header">
