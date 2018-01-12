@@ -9,7 +9,6 @@ export default class ListReminders extends Component {
     this.state = {
       list: [],
     };
-    this.tempContent = '';
 
     this.onDelete = this.onDelete.bind(this);
     this.onHoverOn = this.onHoverOn.bind(this);
