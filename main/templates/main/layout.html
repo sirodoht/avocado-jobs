@@ -57,6 +57,11 @@
                     <div class="nav-header-link-brand">Avocado Jobs</div>
                 </a>
             </div>
+            <div class="nav-center">
+              <a href="/" class="nav-center-item">My applications</a>
+              <div class="nav-center-separator"></div>
+              <a href="/board" class="nav-center-item {% active 'board' %}">Job Board</a>
+            </div>
             <div class="nav-links">
                 <a href="/#add" class="nav-links-btn-nonjs">Add application</button>
                 {% if user.is_authenticated %}
