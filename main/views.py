@@ -21,7 +21,7 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 from .models import Application, Reminder
-from .forms import EmailForm
+from .forms import EmailForm, ListingForm
 from .helpers import get_client_ip, log_analytic
 from avocado import settings
 
@@ -264,6 +264,27 @@ def about(request):
     log_analytic(request)
     return render(request, 'main/about.html')
 
+
+def board(request):
+    log_analytic(request)
+    return render(request, 'main/board.html')
+
+
+def board_add(request):
+    if request.method == 'GET':
+        log_analytic(request)
+        form = ListingForm()
+        return render(request, 'main/board_add.html', {'form': form})
+    elif request.method == 'POST':
+        form = ListingForm(request.POST)
+        if form.is_valid():
+            new_listing = form.save(commit=False)
+            new_listing.user = request.user
+            new_listing.save()
+            messages.success(request, 'Listing submitted. Thank you!')
+        else:
+            messages.error(request, 'There was an error with the form. Please try again.')
+        return redirect('main:board_add')
 
 # Reminder schedule worker thread
 class ScheduleWorker(threading.Thread):
