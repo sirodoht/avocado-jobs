@@ -4,28 +4,30 @@
 
 {% block content %}
     <div class="header extended">
-        <div class="header-copy extended">
-            <h1>Submit a <span>job</span> listing</h1>
+        <div class="header-copy small">
+            <h1>
+                Post a <span>job</span> for <abbr title="ETH is the cryptocurrency token of the Ethereum platform">0.05 ETH</abbr>/mo.
+            </h1>
         </div>
     </div>
 
-    <div class="board">
-        <div class="board-form">
+    <div class="boardadd">
+        <div class="boardadd-form">
             <form action="{% url 'main:board_add' %}" method="post">
                 {% csrf_token %}
-                <label for="id_role_title">Role title</label>
-                <input type="text" name="role_title" maxlength="50" required id="id_role_title">
-                <label for="id_salary">Salary</label>
-                <input type="text" name="salary" maxlength="40" required id="id_salary">
+                <label for="id_role_title">Role Title</label>
+                <input type="text" name="role_title" maxlength="50" required id="id_role_title" placeholder="Backend engineer">
+                <label for="id_salary">Salary Range</label>
+                <input type="text" name="salary" maxlength="40" required id="id_salary" placeholder="$80k - $100k">
                 <label for="id_location">Location</label>
-                <input type="text" name="location" maxlength="40" required id="id_location">
-                <label for="id_company_title">Company title</label>
-                <input type="text" name="company_title" maxlength="50" required id="id_company_title">
-                <label for="id_company_url">Company url</label>
-                <input type="url" name="company_url" maxlength="200" required id="id_company_url">
-                <label for="id_application_link">Application link</label>
-                <input type="text" name="application_link" maxlength="200" required id="id_application_link">
-                <input type="submit" value="Submit">
+                <input type="text" name="location" maxlength="40" required id="id_location" placeholder="London, UK">
+                <label for="id_company_name">Company Name</label>
+                <input type="text" name="company_name" maxlength="50" required id="id_company_name" placeholder="Avocado, Inc.">
+                <label for="id_company_url">Company URL</label>
+                <input type="url" name="company_url" maxlength="200" required id="id_company_url" placeholder="https://avocadojobs.com/">
+                <label for="id_application_link">Application URL or Email</label>
+                <input type="text" name="application_link" maxlength="200" required id="id_application_link" placeholder="https://avocadojobs.com/careers/jfd8743 OR hr@avocadojobs.com">
+                <input type="submit" value="Continue to payment">
             </form>
         </div>
     </div>
