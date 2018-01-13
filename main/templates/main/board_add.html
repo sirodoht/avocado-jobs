@@ -1,0 +1,32 @@
+{% extends 'main/layout.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="header extended">
+        <div class="header-copy extended">
+            <h1>Submit a <span>job</span> listing</h1>
+        </div>
+    </div>
+
+    <div class="board">
+        <div class="board-form">
+            <form action="{% url 'main:board_add' %}" method="post">
+                {% csrf_token %}
+                <label for="id_role_title">Role title</label>
+                <input type="text" name="role_title" maxlength="50" required id="id_role_title">
+                <label for="id_salary">Salary</label>
+                <input type="text" name="salary" maxlength="40" required id="id_salary">
+                <label for="id_location">Location</label>
+                <input type="text" name="location" maxlength="40" required id="id_location">
+                <label for="id_company_title">Company title</label>
+                <input type="text" name="company_title" maxlength="50" required id="id_company_title">
+                <label for="id_company_url">Company url</label>
+                <input type="url" name="company_url" maxlength="200" required id="id_company_url">
+                <label for="id_application_link">Application link</label>
+                <input type="text" name="application_link" maxlength="200" required id="id_application_link">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+{% endblock %}
