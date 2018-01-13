@@ -20,7 +20,7 @@ from django.core.signing import Signer
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
-from .models import Application, Reminder
+from .models import Application, Reminder, Listing
 from .forms import EmailForm, ListingForm
 from .helpers import get_client_ip, log_analytic
 from avocado import settings
@@ -267,14 +267,17 @@ def about(request):
 
 def board(request):
     log_analytic(request)
-    return render(request, 'main/board.html')
+    listings = Listing.objects.order_by('-created_at')
+    return render(request, 'main/board.html', {
+        'listings': listings,
+    })
 
 
 def board_add(request):
     if request.method == 'GET':
         log_analytic(request)
         form = ListingForm()
-        return render(request, 'main/board_add.html', {'form': form})
+        return render(request, 'main/board_add.html')
     elif request.method == 'POST':
         form = ListingForm(request.POST)
         if form.is_valid():
@@ -285,6 +288,11 @@ def board_add(request):
         else:
             messages.error(request, 'There was an error with the form. Please try again.')
         return redirect('main:board_add')
+
+
+def board_payment(request):
+    return render(request, 'main/board_payment.html')
+
 
 # Reminder schedule worker thread
 class ScheduleWorker(threading.Thread):
