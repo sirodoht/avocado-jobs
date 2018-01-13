@@ -11,4 +11,4 @@ class EmailForm(forms.Form):
 class ListingForm(forms.ModelForm):
     class Meta:
         model = Listing
-        fields = ['role_title', 'company_title', 'company_url', 'location', 'salary', 'application_link']
+        fields = ['role_title', 'company_name', 'company_url', 'location', 'salary', 'application_link']

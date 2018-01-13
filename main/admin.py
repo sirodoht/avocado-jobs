@@ -33,6 +33,6 @@ admin.site.register(Reminder, ReminderAdmin)
 
 # Listings
 class ListingAdmin(admin.ModelAdmin):
-    list_display = ('role_title', 'company_title', 'user', 'created_at',)
+    list_display = ('role_title', 'company_name', 'user', 'created_at',)
 
 admin.site.register(Listing, ListingAdmin)

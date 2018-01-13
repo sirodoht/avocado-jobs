@@ -73,11 +73,12 @@ class Listing(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     role_title = models.CharField(max_length=50)
-    company_title = models.CharField(max_length=50)
+    company_name = models.CharField(max_length=50)
     company_url = models.URLField()
     location = models.CharField(max_length=40)
     salary = models.CharField(max_length=40)
     application_link = models.CharField(max_length=200)
+    enabled = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.role_title + ' at ' + company_title
+        return self.role_title + ' at ' + company_name
