@@ -19,6 +19,9 @@ indent_size = 2
 [*.json]
 indent_size = 2
 
+[*.svg]
+indent_size = 2
+
 [*.{yml,yaml}]
 indent_size = 2
 
