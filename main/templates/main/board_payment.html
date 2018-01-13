@@ -1,0 +1,17 @@
+{% extends 'main/layout.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="header extended">
+        <div class="header-copy small">
+            <h1>
+                Payment in ETH
+            </h1>
+        </div>
+    </div>
+
+    <div class="boardpayment">
+        {% csrf_token %}
+    </div>
+{% endblock %}
