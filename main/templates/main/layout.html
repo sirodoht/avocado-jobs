@@ -64,7 +64,7 @@
               <a href="/board" class="nav-center-item {% active 'board' %}">Job Board</a>
             </div>
             <div class="nav-links">
-                {% if request.path == '/board/add/' or request.path == '/board/'%}
+                {% if 'board' in request.path %}
                     <a href="/board/add" class="nav-links-lite-nonjs">Post job listing for 0.05 ETH</a>
                 {% else %}
                     <a href="/#add" class="nav-links-btn-nonjs">Add application</a>
@@ -81,7 +81,7 @@
         {% endblock %}
 
         <footer>
-            <div class="footer-body">
+            <div class="footer-body {% if request.path == '/board/' %}large{% endif %}">
                 <div class="footer-body-content">
                     <a href="/about/" title="About">About</a>
                     &nbsp;| <a href="https://medium.com/avocado-jobs" title="Blog" target="_blank" rel="noopener noreferrer">Blog</a>
