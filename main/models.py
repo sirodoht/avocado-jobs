@@ -6,8 +6,7 @@ from django.contrib.auth.models import User
 
 
 def generate_uuid():
-    """Generate a UUID for an object."""
-    return shortuuid.ShortUUID("abdcefghjkmnpqrstuvwxyz").random()[:8]
+    return shortuuid.ShortUUID('abdcefghkmnpqrstuvwxyzABDCEFGHKMNPQRSTUVWXYZ23456789').random(length=12)
 
 
 class Application(models.Model):
@@ -70,6 +69,12 @@ class Analytic(models.Model):
 
 
 class Listing(models.Model):
+    id = models.CharField(
+        max_length=50,
+        primary_key=True,
+        default=generate_uuid,
+        editable=False,
+    )
     created_at = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     role_title = models.CharField(max_length=50)
