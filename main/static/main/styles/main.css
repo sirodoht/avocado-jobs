@@ -1587,10 +1587,18 @@ textarea:focus {
 }
 
 .boardpayment-address {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   margin-bottom: 40px;
 }
 
+.boardpayment-address > svg {
+  margin-right: 10px;
+}
+
 .boardpayment-address code {
+  display: inline-block;
   background: #f2982c;
   color: #fff;
   padding: 8px 10px;
