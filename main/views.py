@@ -23,6 +23,7 @@ from django.utils import timezone
 from .models import Application, Reminder, Listing
 from .forms import EmailForm, ListingForm
 from .helpers import get_client_ip, log_analytic
+from .address_ring import get_address, get_payment
 from avocado import settings
 
 
@@ -287,11 +288,34 @@ def board_add(request):
             messages.success(request, 'Listing submitted. Thank you!')
         else:
             messages.error(request, 'There was an error with the form. Please try again.')
-        return redirect('main:board_add')
+        return redirect('main:board_payment', listing_id=new_listing.id)
 
 
-def board_payment(request):
-    return render(request, 'main/board_payment.html')
+def board_payment(request, listing_id):
+    if request.method == 'GET':
+        listing = Listing.objects.get(id=listing_id)
+        error, address = get_address()
+        return render(request, 'main/board_payment.html', {
+            'error': error,
+            'address': address,
+            'listing_id': listing.id,
+            'listing_title': listing.role_title + ' at ' + listing.company_name
+        })
+    elif request.method == 'POST':
+        body = request.body.decode('utf-8')
+        data = json.loads(body)
+        is_verified = get_payment(data['address'])
+        if is_verified:
+            listing = Listing.objects.get(id=listing_id)
+            listing.enabled = True
+            listing.save()
+            return HttpResponse({
+                'verified': 'true',
+            })
+        else:
+            return HttpResponse({
+                'verified': 'false',
+            }, status=202)
 
 
 # Reminder schedule worker thread
