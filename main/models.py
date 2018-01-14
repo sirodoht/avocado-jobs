@@ -83,10 +83,10 @@ class Listing(models.Model):
     location = models.CharField(max_length=40)
     salary = models.CharField(max_length=40)
     application_link = models.CharField(max_length=200)
-    enabled = models.BooleanField(default=False)
+    transaction_hash = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return self.role_title + ' at ' + company_name
+        return self.role_title + ' at ' + self.company_name
 
 
 class Address(models.Model):
