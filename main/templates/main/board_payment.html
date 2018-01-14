@@ -11,7 +11,7 @@
 
     <div class="boardpayment">
         <div class="boardpayment-content">
-            {% if False %}
+            {% if error %}
                 <div class="boardpayment-alert">
                     {{ error|linebreaks }}
                 </div>
@@ -28,7 +28,7 @@
                     Send 0.05 ETH at the following address to pay for your posting.
                     <pre><code>{{ address }}</code></pre>
                 </div>
-                <p>Keep this page open. Once the transaction is verified we will approve your posting for <em>{{ listing_title }}</em>.</p>
+                <p>Keep this page open. Once the transaction gets 6 confirmations we will approve your posting for <em>{{ listing_title }}</em>.</p>
                 <p>PS. You can send this page to anyone you want them to pay for the job posting.</p>
                 <div class="boardpayment-powered">
                     Powered by Etherscan.io APIs
@@ -40,9 +40,11 @@
 
     <script src="{% static '/main/scripts/axios.min.js' %}"></script>
     <script>
-        window.onbeforeunload = function confirmExit() {
-            return 'If you have send ETH on the address of this page we will not be able to verify it unless you keep this page open.';
-        };
+        function setSafeUnload() {
+            window.onbeforeunload = function confirmExit() {
+                return 'If you have send ETH on the address of this page we will not be able to verify it unless you keep this page open.';
+            };
+        }
 
         function getCsrf() {
             var inputElems = document.querySelectorAll('input');
@@ -71,7 +73,8 @@
                 })
                 .then(function (res) {
                     if (res.status === 200) {
-                        window.location.reload();
+                        window.onbeforeunload = null;
+                        window.location.replace('/board?posting=success')
                     }
                 })
                 .catch(function (err) {
@@ -88,6 +91,10 @@
             setInterval(verifyCheck, 30 * 1000);
         }
 
-        poll();
+        var address = '{{ address }}';
+        if (address) {
+            setSafeUnload();
+            poll();
+        }
     </script>
 {% endblock %}
