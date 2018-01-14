@@ -1557,6 +1557,63 @@ textarea:focus {
   background: #ec7e07;
 }
 
+/* board:payment */
+.boardpayment {
+  max-width: 700px;
+  box-sizing: border-box;
+  background: #fafafa;
+  margin-top: -275px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 120px;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  box-shadow: 2px 2px 14px 1px rgba(200, 200, 200, 0.75);
+}
+
+.boardpayment-content {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-top: 30px;
+  padding-bottom: 35px;
+}
+
+.boardpayment-alert {
+  text-align: center;
+  color: #f2982c;
+  margin-bottom: 30px;
+}
+
+.boardpayment-address {
+  margin-bottom: 40px;
+}
+
+.boardpayment-address code {
+  background: #f2982c;
+  color: #fff;
+  padding: 8px 10px;
+}
+
+.boardpayment-error {
+  background: #ea2323;
+  color: #fff;
+  padding: 16px 22px;
+  margin-bottom: 30px;
+}
+
+.boardpayment-error > a {
+  color: #fff;
+}
+
+.boardpayment-powered {
+  font-size: 14px;
+  text-align: right;
+  color: #aaa;
+  margin-top: 50px;
+}
+
 /* modal */
 .modal {
   position: fixed;
