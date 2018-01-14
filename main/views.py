@@ -268,7 +268,10 @@ def about(request):
 
 def board(request):
     log_analytic(request)
-    listings = Listing.objects.order_by('-created_at')
+    listings = Listing.objects.filter(transaction_hash__isnull=False).order_by('-created_at')
+    if request.GET.get('posting') == 'success':
+        messages.success(request, 'Your posting is live! 🎊')
+        return redirect('main:board')
     return render(request, 'main/board.html', {
         'listings': listings,
     })
@@ -284,8 +287,9 @@ def board_add(request):
         if form.is_valid():
             new_listing = form.save(commit=False)
             new_listing.user = request.user
+            if '@' not in new_listing.application_link and 'http' not in new_listing.application_link:
+                new_listing.application_link = 'http://' + new_listing.application_link
             new_listing.save()
-            messages.success(request, 'Listing submitted. Thank you!')
         else:
             messages.error(request, 'There was an error with the form. Please try again.')
         return redirect('main:board_payment', listing_id=new_listing.id)
@@ -294,20 +298,25 @@ def board_add(request):
 def board_payment(request, listing_id):
     if request.method == 'GET':
         listing = Listing.objects.get(id=listing_id)
+
+        # if listing is paid redirect to board
+        if listing.transaction_hash:
+            return redirect('main:board')
+
         error, address = get_address()
         return render(request, 'main/board_payment.html', {
+            'listing_id': listing.id,
+            'listing_title': listing.role_title + ' at ' + listing.company_name,
             'error': error,
             'address': address,
-            'listing_id': listing.id,
-            'listing_title': listing.role_title + ' at ' + listing.company_name
         })
     elif request.method == 'POST':
         body = request.body.decode('utf-8')
         data = json.loads(body)
-        is_verified = get_payment(data['address'])
-        if is_verified:
+        tx_hash = get_payment(data['address'])
+        if tx_hash:
             listing = Listing.objects.get(id=listing_id)
-            listing.enabled = True
+            listing.transaction_hash = tx_hash
             listing.save()
             return HttpResponse({
                 'verified': 'true',
