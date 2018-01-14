@@ -11,7 +11,14 @@
 
     <div class="board">
         <div class="board-header">
-            Tip: Click on the avocado on the left of each job to track it on your applications
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                    <br>
+                {% endfor %}
+            {% else %}
+                Tip: Click on the avocado on the left of each job to track it on your applications
+            {% endif %}
         </div>
         {% for item in listings %}
             <div class="board-item">
