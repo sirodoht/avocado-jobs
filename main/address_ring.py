@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.utils import timezone
 
 from avocado import settings
-from .models import Address
+from .models import Address, Listing
 
 
 def get_address():
@@ -23,7 +23,7 @@ def get_address():
             break
 
     if not result:
-        error = "It seems we're more popular than we anticipated.\nPlease try again in a few minutes."
+        error = "It seems we're more popular than we anticipated.\nPlease refresh this page in a few minutes."
         if not settings.DEBUG:
             send_mail(
                 'Addresses scaling alert!',
@@ -40,12 +40,23 @@ def get_payment(address):
     api_req = urllib.request.urlopen(etherscanApiUrl).read()
     account_transactions = json.loads(api_req)['result']
 
-    verified = False
+    transaction_hash = ''
     for tx in account_transactions:
         tx_date = datetime.datetime.fromtimestamp(int(tx['timeStamp']))
         if tx_date + datetime.timedelta(minutes=30) > datetime.datetime.now():
-            if int(tx['value']) >= 50000000000000000:
-                verified = True
-                break
+            if int(tx['value']) >= 50000000000000000 and int(tx['confirmations']) >= 5:
+                if not Listing.objects.filter(transaction_hash=tx['hash']).count():
+                    transaction_hash = tx['hash']
+                    makeAddressAvailable(address)
+                    break
 
-    return verified
+    return transaction_hash
+
+
+def makeAddressAvailable(address):
+    addr = Address.objects.get(value=address)
+
+    # set last_used attr to the beginning of the millenia
+    addr.last_used = timezone.make_aware(datetime.datetime(2000, 1, 1, 0, 0, 0, 0))
+
+    addr.save()
