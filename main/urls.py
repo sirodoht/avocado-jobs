@@ -39,6 +39,6 @@ urlpatterns = [
     # /board/add/
     url(r'^board/add/$', views.board_add, name='board_add'),
 
-    # /board/payment/
-    url(r'^board/payment/$', views.board_payment, name='board_payment'),
+    # /board/payment/<listing_id>
+    url(r'^board/payment/(?P<listing_id>[^/]*)/$', views.board_payment, name='board_payment'),
 ]
