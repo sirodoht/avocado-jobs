@@ -82,3 +82,12 @@ class Listing(models.Model):
 
     def __str__(self):
         return self.role_title + ' at ' + company_name
+
+
+class Address(models.Model):
+    value = models.CharField(max_length=100)
+    description = models.CharField(max_length=400, blank=True, null=True)
+    last_used = models.DateTimeField()
+
+    def __str__(self):
+        return self.value
