@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
-from .models import Application, Reminder, Analytic, Listing
+from .models import Application, Reminder, Analytic, Listing, Address
 
 
 # Users
@@ -26,13 +26,20 @@ admin.site.register(Analytic, AnalyticAdmin)
 
 # Reminders
 class ReminderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'date_created', 'date_activation', 'subject', 'in_progress',)
+    list_display = ('user', 'date_created', 'date_activation', 'subject', 'in_progress',)
 
 admin.site.register(Reminder, ReminderAdmin)
 
 
 # Listings
 class ListingAdmin(admin.ModelAdmin):
-    list_display = ('role_title', 'company_name', 'user', 'created_at',)
+    list_display = ('id', 'role_title', 'company_name', 'user', 'created_at',)
 
 admin.site.register(Listing, ListingAdmin)
+
+
+# Addresss
+class AddressAdmin(admin.ModelAdmin):
+    list_display = ('value', 'description', 'last_used',)
+
+admin.site.register(Address, AddressAdmin)
