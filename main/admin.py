@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
-from .models import Application, Reminder, Analytic, Listing, Address
+from .models import Application, Reminder, Analytic, Listing, Address, Tag
 
 
 # Users
@@ -43,3 +43,7 @@ class AddressAdmin(admin.ModelAdmin):
     list_display = ('value', 'description', 'last_used',)
 
 admin.site.register(Address, AddressAdmin)
+
+
+# Tags
+admin.site.register(Tag)
