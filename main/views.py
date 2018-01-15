@@ -332,6 +332,22 @@ def board_payment(request, listing_id):
             }, status=202)
 
 
+def board_track(request, listing_id):
+    if request.method == 'POST':
+        listing = Listing.objects.get(id=listing_id)
+        Application.objects.create(
+            user=request.user,
+            role=listing.role_title,
+            company=listing.company_name,
+            link=listing.application_link,
+            salary=listing.salary,
+            stage='todo',
+        )
+        return JsonResponse({
+            'message': listing.role_title + ' at ' + listing.company_name,
+        })
+
+
 # Reminder schedule worker thread
 class ScheduleWorker(threading.Thread):
     def __init__(self, threadID, name):
