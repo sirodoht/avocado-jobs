@@ -20,9 +20,10 @@ from django.core.signing import Signer
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
-from .models import Application, Reminder
-from .forms import EmailForm
+from .models import Application, Reminder, Listing, Tag
+from .forms import EmailForm, ListingForm
 from .helpers import get_client_ip, log_analytic
+from .address_ring import get_address, get_payment
 from avocado import settings
 
 
@@ -263,6 +264,88 @@ def get_logout(request):
 def about(request):
     log_analytic(request)
     return render(request, 'main/about.html')
+
+
+def board(request):
+    log_analytic(request)
+    listings = Listing.objects.filter(transaction_hash__isnull=False).order_by('-created_at')
+    if request.GET.get('posting') == 'success':
+        messages.success(request, 'Your posting is live! 🎊')
+        return redirect('main:board')
+    return render(request, 'main/board.html', {
+        'listings': listings,
+    })
+
+
+def board_add(request):
+    if request.method == 'GET':
+        log_analytic(request)
+        form = ListingForm()
+        return render(request, 'main/board_add.html')
+    elif request.method == 'POST':
+        form = ListingForm(request.POST)
+        if form.is_valid():
+            new_listing = form.save(commit=False)
+            new_listing.user = request.user
+            if '@' not in new_listing.application_link and 'http' not in new_listing.application_link:
+                new_listing.application_link = 'http://' + new_listing.application_link
+            new_listing.save()
+            if form.cleaned_data['tags'].strip():
+                tags = form.cleaned_data['tags'].split(',')
+                for single_tag in tags[:3]:
+                    stripped_tag = single_tag.strip()
+                    Tag.objects.create(value=stripped_tag, listing=new_listing)
+        else:
+            messages.error(request, 'There was an error with the form. Please try again.')
+        return redirect('main:board_payment', listing_id=new_listing.id)
+
+
+def board_payment(request, listing_id):
+    if request.method == 'GET':
+        listing = Listing.objects.get(id=listing_id)
+
+        # if listing is paid redirect to board
+        if listing.transaction_hash:
+            return redirect('main:board')
+
+        error, address = get_address()
+        return render(request, 'main/board_payment.html', {
+            'listing_id': listing.id,
+            'listing_title': listing.role_title + ' at ' + listing.company_name,
+            'error': error,
+            'address': address,
+        })
+    elif request.method == 'POST':
+        body = request.body.decode('utf-8')
+        data = json.loads(body)
+        tx_hash = get_payment(data['address'])
+        if tx_hash:
+            listing = Listing.objects.get(id=listing_id)
+            listing.transaction_hash = tx_hash
+            listing.save()
+            return HttpResponse({
+                'verified': 'true',
+            })
+        else:
+            return HttpResponse({
+                'verified': 'false',
+            }, status=202)
+
+
+def board_track(request, listing_id):
+    if request.method == 'POST':
+        listing = Listing.objects.get(id=listing_id)
+        Application.objects.create(
+            user=request.user,
+            role=listing.role_title,
+            company=listing.company_name,
+            link=listing.application_link,
+            salary=listing.salary,
+            stage='todo',
+        )
+        return JsonResponse({
+            'message': listing.role_title + ' at ' + listing.company_name,
+        })
 
 
 # Reminder schedule worker thread

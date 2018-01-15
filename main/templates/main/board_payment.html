@@ -1,0 +1,108 @@
+{% extends 'main/layout.html' %}
+
+{% load static %}
+
+{% block title %}Avocado Job Board | Job postings for the cryptoliterate companies{% endblock %}
+
+{% block content %}
+    <div class="header extended">
+        <div class="header-copy small">
+            <h1>Job Posting Payment</h1>
+        </div>
+    </div>
+
+    <div class="boardpayment">
+        <div class="boardpayment-content">
+            {% if error %}
+                <div class="boardpayment-alert">
+                    {{ error|linebreaks }}
+                </div>
+            {% else %}
+                {% csrf_token %}
+                <div class="boardpayment-error hide" id="error-{{ listing_id }}">
+                    There was an error with this payment.
+                    Please contact us at
+                    <a href="mailto:hi@avocadojobs.com">hi@avocadojobs.com</a>
+                    or at
+                    <a href="https://twitter.com/AvocadoJobs">@AvocadoJobs</a> on Twitter.
+                </div>
+                <p>
+                    Send 0.05 ETH at the following address to pay for your posting.
+                </p>
+                <div class="boardpayment-address">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 69.999999 70" width="50">
+                        <g>
+                            <path d="M35 3.25C17.484 3.25 3.25 17.484 3.25 35S17.484 66.75 35 66.75 66.75 52.516 66.75 35 52.516 3.25 35 3.25zm0 3.175C50.8 6.425 63.575 19.2 63.575 35 63.575 50.8 50.8 63.575 35 63.575 19.2 63.575 6.425 50.8 6.425 35 6.425 19.2 19.2 6.425 35 6.425z" overflow="visible"/>
+                            <path d="M34.995 13.096c-.421.006-.801.254-.976.637L21.738 34.01c-.191.208-.294.483-.287.765-.006.495.32.932.796 1.066l12.071 7.055c.4.327.974.33 1.377.006l12.151-7.11c.21-.082.39-.226.516-.414l.003-.004a1.092 1.092 0 0 0 .082-.149l.008-.018c.054-.121.085-.252.092-.385l.001-.024v-.066a.975.975 0 0 0-.004-.074v-.012a1.093 1.093 0 0 0-.249-.592L36.002 13.73a1.093 1.093 0 0 0-1.007-.634zm-11.653 25.49a1.093 1.093 0 0 0-1.002 1.408l.002.007a1.096 1.096 0 0 0 .064.16l.005.012c.037.076.083.147.137.212l11.505 15.953a1.093 1.093 0 0 0 1.912.006l11.53-16.006a1.124 1.124 0 0 0 .049-.074c.626-1.006-.573-2.15-1.549-1.477l-10.984 6.427-10.983-6.42a1.093 1.093 0 0 0-.686-.209z" overflow="visible" fill-rule="evenodd" paint-order="fill markers stroke"/>
+                        </g>
+                    </svg>
+                    <code>{{ address }}</code>
+                </div>
+                <p>Keep this page open. Once the transaction gets verified we will approve your posting for <em>{{ listing_title }}</em>.</p>
+                <p>PS. You can send this page to anyone you want them to pay for the job posting.</p>
+                <div class="boardpayment-powered">
+                    Powered by <a href="https://ethplorer.io/" target="_blank">Ethplorer.io</a>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <script src="{% static '/main/scripts/axios.min.js' %}"></script>
+    <script>
+        function setSafeUnload() {
+            window.onbeforeunload = function confirmExit() {
+                return 'If you have send ETH on the address of this page we will not be able to verify it unless you keep this page open.';
+            };
+        }
+
+        function getCsrf() {
+            var inputElems = document.querySelectorAll('input');
+            var csrfToken = '';
+            var i = 0;
+            for (i = 0; i < inputElems.length; i++) {
+                if (inputElems[i].name === 'csrfmiddlewaretoken') {
+                    csrfToken = inputElems[i].value;
+                    break;
+                }
+            }
+            return csrfToken;
+        }
+
+        function verifyCheck() {
+            var address = '{{ address }}';
+            var listingId = '{{ listing_id }}';
+            var url = '/board/payment/' + listingId + '/';
+            axios
+                .post(url, {
+                    address: address,
+                }, {
+                    headers: {
+                      'X-CSRFToken': getCsrf(),
+                    }
+                })
+                .then(function (res) {
+                    if (res.status === 200) {
+                        window.onbeforeunload = null;
+                        window.location.replace('/board?posting=success')
+                    }
+                })
+                .catch(function (err) {
+                    document.getElementById('error-' + listingId).classList.remove('hide');
+                    console.log('Error verifying payment id ' + listingId + '. Error: ' + err);
+                    console.log('Please contact us at hi@avocadojobs.com or at @AvocadoJobs on Twitter.');
+                    throw err;
+                });
+        }
+
+        function poll() {
+            setInterval(verifyCheck, 30 * 1000);
+        }
+
+        var address = '{{ address }}';
+        if (address) {
+            setSafeUnload();
+            poll();
+        }
+    </script>
+{% endblock %}

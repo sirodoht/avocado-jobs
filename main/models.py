@@ -6,8 +6,7 @@ from django.contrib.auth.models import User
 
 
 def generate_uuid():
-    """Generate a UUID for an object."""
-    return shortuuid.ShortUUID("abdcefghjkmnpqrstuvwxyz").random()[:8]
+    return shortuuid.ShortUUID('abdcefghkmnpqrstuvwxyzABDCEFGHKMNPQRSTUVWXYZ23456789').random(length=12)
 
 
 class Application(models.Model):
@@ -67,3 +66,44 @@ class Analytic(models.Model):
 
     def __str__(self):
         return self.ip
+
+
+class Listing(models.Model):
+    id = models.CharField(
+        max_length=50,
+        primary_key=True,
+        default=generate_uuid,
+        editable=False,
+    )
+    created_at = models.DateTimeField(default=timezone.now)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    role_title = models.CharField(max_length=50)
+    company_name = models.CharField(max_length=50)
+    company_url = models.URLField()
+    location = models.CharField(max_length=40)
+    salary = models.CharField(max_length=40)
+    application_link = models.CharField(max_length=200)
+    transaction_hash = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return self.role_title + ' at ' + self.company_name
+
+
+class Tag(models.Model):
+    value = models.CharField(max_length=50)
+    listing = models.ForeignKey(
+        Listing,
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self):
+        return self.value
+
+
+class Address(models.Model):
+    value = models.CharField(max_length=100)
+    description = models.CharField(max_length=400, blank=True, null=True)
+    last_used = models.DateTimeField()
+
+    def __str__(self):
+        return self.value

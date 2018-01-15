@@ -85,7 +85,6 @@ LOGIN_REDIRECT_URL = '/?login=true'
 LOGOUT_REDIRECT_URL = '/?logout=true'
 
 AUTH_TOKEN_DURATION = 30 * 60  # in sec
-DEFAULT_FROM_EMAIL = 'hi@avocadojobs.com'
 
 
 # Database
@@ -176,6 +175,9 @@ EMAIL_HOST_USER = os.getenv('AVOCADO_EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('AVOCADO_EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 
+DEFAULT_FROM_EMAIL = 'hi@avocadojobs.com'
+EMAIL_ALERT = 'theodorekeloglou@gmail.com'
+
 
 # Authentication backends
 # https://docs.djangoproject.com/en/1.11/topics/auth/customizing/
@@ -204,3 +206,9 @@ if not DEBUG:
 RAVEN_CONFIG = {
     'dsn': os.getenv('AVOCADO_SENTRY_DSN'),
 }
+
+
+# Etherscan.io
+# https://etherscan.io/apis
+
+ETHERSCAN_API_KEY = 'WYEAJ2JZIVDGR5YUPSFYGCD1WYUPAQQ1VQ'

@@ -32,4 +32,16 @@ urlpatterns = [
 
     # /reminders/<reminder_id>/
     url(r'^reminders/(?P<reminder_id>[^/]*)/$', views.reminders_delete, name='reminders_delete'),
+
+    # /board/
+    url(r'^board/$', views.board, name='board'),
+
+    # /board/add/
+    url(r'^board/add/$', views.board_add, name='board_add'),
+
+    # /board/payment/<listing_id>
+    url(r'^board/payment/(?P<listing_id>[^/]*)/$', views.board_payment, name='board_payment'),
+
+    # /board/track/<listing_id>
+    url(r'^board/track/(?P<listing_id>[^/]*)/$', views.board_track, name='board_track'),
 ]

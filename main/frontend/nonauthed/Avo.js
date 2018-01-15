@@ -264,6 +264,11 @@ class Avo extends Component {
               <div class="nav-header-link-brand">Avocado Jobs</div>
             </a>
           </div>
+          <div class="nav-center">
+            <a href="/" class="nav-center-item active">My applications</a>
+            <div class="nav-center-separator"></div>
+            <a href="/board" class="nav-center-item">Job Board</a>
+          </div>
           <div class="nav-links">
             <button onClick={this.toggleAddForm} class="nav-links-btn">Add application</button>
             <a href="/login/">Log in / Sign up</a>
