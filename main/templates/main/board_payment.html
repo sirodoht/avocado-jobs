@@ -71,8 +71,8 @@
 
         function verifyCheck() {
             var address = '{{ address }}';
-            var listing_id = '{{ listing_id }}';
-            var url = '/board/payment/' + listing_id + '/';
+            var listingId = '{{ listing_id }}';
+            var url = '/board/payment/' + listingId + '/';
             axios
                 .post(url, {
                     address: address,
@@ -88,10 +88,8 @@
                     }
                 })
                 .catch(function (err) {
-                    if (err) {
-                        document.getElementById('error-' + listing_id).classList.remove('hide');
-                    }
-                    console.log('Error verifying payment ' + listing_id, err);
+                    document.getElementById('error-' + listingId).classList.remove('hide');
+                    console.log('Error verifying payment id ' + listingId + '. Error: ' + err);
                     console.log('Please contact us at hi@avocadojobs.com or at @AvocadoJobs on Twitter.');
                     throw err;
                 });
