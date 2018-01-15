@@ -1432,6 +1432,10 @@ textarea:focus {
   margin-right: 5px;
 }
 
+.board-item-icon > img {
+  cursor: pointer;
+}
+
 .board-item-content {
   flex: 1;
 }
@@ -1440,6 +1444,16 @@ textarea:focus {
   font-family: "Roboto Slab", sans-serif;
   font-size: 22px;
   margin-bottom: 10px;
+}
+
+.board-item-content-title > a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.board-item-content-title > a:hover {
+  text-decoration: underline;
+  background: inherit;
 }
 
 .board-item-content-description {
