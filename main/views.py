@@ -277,6 +277,7 @@ def board(request):
     })
 
 
+@login_required
 def board_add(request):
     if request.method == 'GET':
         log_analytic(request)
