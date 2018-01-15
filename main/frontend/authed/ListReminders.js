@@ -17,7 +17,14 @@ export default class ListReminders extends Component {
 
   componentDidMount() {
     document.getElementById('loading').style.display = 'block';
-    axios.get('/reminders/')
+    axios.get('/reminders/', {
+        transformResponse: axios.defaults.transformResponse.concat((data) => {
+          data.forEach((item) => {
+            item.dateDisplay = `Scheduled for ${item.date}`;
+          });
+          return data;
+        }),
+      })
       .then((res) => {
         window.onbeforeunload = null;
         document.getElementById('loading').style.display = 'none';
@@ -33,14 +40,32 @@ export default class ListReminders extends Component {
   }
 
   onHoverOn(event) {
-    event.target.innerHTML = 'DELETE';
+    this.setState((prevState) => {
+      const id = parseInt(event.target.dataset.id);
+      const newList = prevState.list.slice();
+      newList.forEach((item) => {
+        if (item.id === id) {
+          item.dateDisplay = 'DELETE';
+        }
+      });
+      return {
+        list: newList,
+      };
+    });
   }
 
   onHoverOff(event) {
-    this.state.list.forEach((item) => {
-      if (item.id === parseInt(event.target.dataset.id)) {
-        event.target.innerHTML = `<span>Scheduled for</span> <strong>${item.date}</strong>`;
-      }
+    this.setState((prevState) => {
+      const id = parseInt(event.target.dataset.id);
+      const newList = prevState.list.slice();
+      newList.forEach((item) => {
+        if (item.id === id) {
+          item.dateDisplay = `Scheduled for ${item.date}`;
+        }
+      });
+      return {
+        list: newList,
+      };
     });
   }
 
@@ -107,8 +132,8 @@ export default class ListReminders extends Component {
                 {item.body}
               </div>
               <div class="reminders-content-item-date" data-id={item.id} onClick={this.onDelete}
-                onMouseEnter={this.onHoverOn} onMouseLeave={this.onHoverOff}>
-                <span>Scheduled for</span> <strong>{item.date}</strong>
+                onMouseEnter={this.onHoverOn} onMouseLeave={this.onHoverOff} title="Scheduled date and time. Click to delete.">
+                <strong>{item.dateDisplay}</strong>
               </div>
             </div>
           ))}
