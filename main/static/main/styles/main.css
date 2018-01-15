@@ -984,7 +984,7 @@ a.nav-links-lite-nonjs:hover {
 }
 
 .list-body {
-  display: block;
+  overflow: scroll;
 }
 
 .list-body-empty {
@@ -1010,7 +1010,6 @@ a.nav-links-lite-nonjs:hover {
 
 .list-body-entry-line {
   display: flex;
-  overflow: scroll;
 }
 
 .list-body-entry-line:hover {
