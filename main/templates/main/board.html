@@ -22,10 +22,13 @@
                 Tip: Click on the avocado on the left of each job to track it on your applications
             {% endif %}
         </div>
+
+        {% csrf_token %}
+
         {% for item in listings %}
             <div class="board-item">
                 <div class="board-item-icon">
-                    <img src="{% static '/main/images/avocado-icon.svg' %}" alt="avocado icon" width="30">
+                    <img src="{% static '/main/images/avocado-icon.svg' %}" alt="avocado icon" width="30" id="track-{{ item.id }}">
                 </div>
                 <div class="board-item-content">
                     <div class="board-item-content-title">
@@ -52,4 +55,50 @@
             </div>
         {% endfor %}
     </div>
+
+    <script src="{% static '/main/scripts/axios.min.js' %}"></script>
+    <script>
+        function getCsrf() {
+            var inputElems = document.querySelectorAll('input');
+            var csrfToken = '';
+            var i = 0;
+            for (i = 0; i < inputElems.length; i++) {
+                if (inputElems[i].name === 'csrfmiddlewaretoken') {
+                    csrfToken = inputElems[i].value;
+                    break;
+                }
+            }
+            return csrfToken;
+        }
+
+        function init() {
+            var iconElems = document.getElementsByClassName('board-item-icon');
+            var i = 0;
+            for (i = 0; i < iconElems.length; i++) {
+                iconElems[i].children[0].addEventListener('click', function (event) {
+                    var listingId = event.target.id.substring(6);
+                    var url = '/board/track/' + listingId + '/';
+                    axios
+                        .post(url, null, {
+                            headers: {
+                                'X-CSRFToken': getCsrf(),
+                            }
+                        })
+                        .then(function (res) {
+                            if (res.status === 200) {
+                                var message = '<em>' + res.data.message + '</em> now tracked on <a href="/">your applications</a>.';
+                                document.getElementById('board-header-track').innerHTML = message;
+                            }
+                        })
+                        .catch(function (err) {
+                            console.log('Error tracking for listing id ' + listingId + '. Error: ' + err);
+                            throw err;
+                        });
+
+                });
+            }
+        }
+
+        init();
+    </script>
 {% endblock %}
