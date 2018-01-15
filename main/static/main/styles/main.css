@@ -834,7 +834,13 @@ a.nav-links-lite-nonjs:hover {
 
 .header-add-title {
   font-size: 42px;
+  padding-top: 20px;
   margin-bottom: 20px;
+}
+@media(max-width: 462px) {
+  .header-add-title {
+    font-size: 32px;
+  }
 }
 
 .header-add-body-row > span {
@@ -858,13 +864,28 @@ a.nav-links-lite-nonjs:hover {
 #add-role {
   width: 45%;
 }
+@media(max-width: 462px) {
+  #add-role {
+    width: 90%;
+  }
+}
 
 #add-company {
   width: 40%;
 }
+@media(max-width: 462px) {
+  #add-company {
+    width: 60%;
+  }
+}
 
 #add-salary {
   width: 15%;
+}
+@media(max-width: 768px) {
+  #add-salary {
+    width: 35%;
+  }
 }
 
 #add-stage {
@@ -877,17 +898,55 @@ a.nav-links-lite-nonjs:hover {
   width: 22%;
   margin-left: 10px;
 }
+@media(max-width: 768px) {
+  #add-date {
+    width: 28%;
+    margin-left: 0;
+  }
+}
+@media(max-width: 462px) {
+  #add-date {
+    width: 50%;
+  }
+}
 
 #add-link {
   width: 70%;
+}
+@media(max-width: 462px) {
+  #add-link {
+    width: 80%;
+  }
+}
+
+@media(max-width: 768px) {
+  #add-subject {
+    width: 98%;
+  }
 }
 
 #add-day {
   width: 20%;
 }
+@media(max-width: 768px) {
+  #add-day {
+    width: 50%;
+  }
+}
 
 #add-hour {
   width: 10%;
+}
+@media(max-width: 768px) {
+  #add-hour {
+    width: 20%;
+  }
+}
+
+@media(max-width: 768px) {
+  #add-body {
+    width: 70%;
+  }
 }
 
 .list {
@@ -1753,27 +1812,6 @@ textarea:focus {
   width: 110px;
   color: #fc5a5c;
   font-family: "Patrick Hand", cursive;
-}
-
-.arrow-3 {
-  user-select: none;
-  float: right;
-}
-@media (max-width: 768px) {
-  .arrow-3 {
-    display: none;
-  }
-}
-
-.arrow-3-arrow {
-  margin-left: 100px;
-}
-
-.arrow-3-text {
-  color: #fff;
-  font-family: "Patrick Hand", cursive;
-  text-align: center;
-  margin-right: 40px;
 }
 
 .demo-seal {
