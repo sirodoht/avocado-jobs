@@ -37,15 +37,16 @@ def get_address():
 
 def get_payment(address):
     # etherscanApiUrl = 'http://rinkeby.etherscan.io/api?module=account&action=txlist&address=' + address + '&sort=desc&apikey=' + settings.ETHERSCAN_API_KEY;
-    etherscanApiUrl = 'https://api.etherscan.io/api?module=account&action=txlist&address=' + address + '&sort=desc&apikey=' + settings.ETHERSCAN_API_KEY;
-    api_req = urllib.request.urlopen(etherscanApiUrl).read()
-    account_transactions = json.loads(api_req)['result']
+    # etherscanApiUrl = 'https://api.etherscan.io/api?module=account&action=txlist&address=' + address + '&sort=desc&apikey=' + settings.ETHERSCAN_API_KEY;
+    ethplorerApiUrl = 'https://api.ethplorer.io/getAddressTransactions/' + address + '?apiKey=freekey'
+    api_req = urllib.request.urlopen(ethplorerApiUrl).read()
+    account_transactions = json.loads(api_req)
 
     transaction_hash = ''
     for tx in account_transactions:
-        tx_date = datetime.datetime.fromtimestamp(int(tx['timeStamp']))
+        tx_date = datetime.datetime.fromtimestamp(tx['timestamp'])
         if tx_date + datetime.timedelta(minutes=30) > datetime.datetime.now():
-            if int(tx['value']) >= 50000000000000000 and int(tx['confirmations']) >= 5:
+            if tx['success'] and tx['value'] >= 0.05:
                 if not Listing.objects.filter(transaction_hash=tx['hash']).count():
                     transaction_hash = tx['hash']
                     makeAddressAvailable(address)
