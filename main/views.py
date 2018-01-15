@@ -20,7 +20,7 @@ from django.core.signing import Signer
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
-from .models import Application, Reminder, Listing
+from .models import Application, Reminder, Listing, Tag
 from .forms import EmailForm, ListingForm
 from .helpers import get_client_ip, log_analytic
 from .address_ring import get_address, get_payment
@@ -290,6 +290,11 @@ def board_add(request):
             if '@' not in new_listing.application_link and 'http' not in new_listing.application_link:
                 new_listing.application_link = 'http://' + new_listing.application_link
             new_listing.save()
+            if form.cleaned_data['tags'].strip():
+                tags = form.cleaned_data['tags'].split(',')
+                for single_tag in tags[:3]:
+                    stripped_tag = single_tag.strip()
+                    Tag.objects.create(value=stripped_tag, listing=new_listing)
         else:
             messages.error(request, 'There was an error with the form. Please try again.')
         return redirect('main:board_payment', listing_id=new_listing.id)
