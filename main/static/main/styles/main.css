@@ -542,6 +542,10 @@ button {
   height: 32px;
 }
 
+.app .nav-header-link-icon {
+  margin-right: 5px;
+}
+
 .nav-header-link-brand {
   display: inline-block;
   vertical-align: super;
