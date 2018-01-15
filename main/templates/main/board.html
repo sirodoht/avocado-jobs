@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="board-item-cta">
-                    <a href="{% if '@' in item.application_link %} mailto:{{ item.application_link }} {% else %} {{ item.application_link }} {% endif %}" class="board-item-cta-btn">
+                    <a href="{% if '@' in item.application_link %} mailto:{{ item.application_link }} {% else %} {{ item.application_link }} {% endif %}" class="board-item-cta-btn" target="_blank">
                         Apply&nbsp;
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="15">
                             <path d="M16 11v6a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6M13 1h6v6M8 12L19 1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
