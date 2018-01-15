@@ -333,6 +333,7 @@ def board_payment(request, listing_id):
             }, status=202)
 
 
+@login_required
 def board_track(request, listing_id):
     if request.method == 'POST':
         listing = Listing.objects.get(id=listing_id)
