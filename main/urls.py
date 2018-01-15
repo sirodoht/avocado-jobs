@@ -41,4 +41,7 @@ urlpatterns = [
 
     # /board/payment/<listing_id>
     url(r'^board/payment/(?P<listing_id>[^/]*)/$', views.board_payment, name='board_payment'),
+
+    # /board/track/<listing_id>
+    url(r'^board/track/(?P<listing_id>[^/]*)/$', views.board_track, name='board_track'),
 ]
