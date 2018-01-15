@@ -267,7 +267,7 @@ class Avo extends Component {
           <div class="nav-center">
             <a href="/" class="nav-center-item active">My applications</a>
             <div class="nav-center-separator"></div>
-            <a href="/board/" class="nav-center-item">Job Board</a>
+            <a href="/board/" class="nav-center-item">Job Board</a><sup>beta</sup>
           </div>
           <div class="nav-links">
             <button onClick={this.toggleAddForm} class="nav-links-btn">Add application</button>
