@@ -595,6 +595,13 @@ button {
   color: #fff;
 }
 
+sup {
+  top: 0.7em;
+  margin-left: 3px;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+}
+
 .nav-links {
   font-size: 16px;
   padding-top: 5px;
