@@ -36,7 +36,8 @@ def get_address():
 
 
 def get_payment(address):
-    etherscanApiUrl = 'http://rinkeby.etherscan.io/api?module=account&action=txlist&address=' + address + '&sort=desc&apikey=' + settings.ETHERSCAN_API_KEY;
+    # etherscanApiUrl = 'http://rinkeby.etherscan.io/api?module=account&action=txlist&address=' + address + '&sort=desc&apikey=' + settings.ETHERSCAN_API_KEY;
+    etherscanApiUrl = 'https://api.etherscan.io/api?module=account&action=txlist&address=' + address + '&sort=desc&apikey=' + settings.ETHERSCAN_API_KEY;
     api_req = urllib.request.urlopen(etherscanApiUrl).read()
     account_transactions = json.loads(api_req)['result']
 
