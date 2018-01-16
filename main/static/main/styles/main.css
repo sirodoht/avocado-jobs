@@ -766,6 +766,11 @@ a.nav-links-lite-nonjs:hover {
 .header h1 {
   margin-top: 0;
 }
+@media (max-width: 812px) {
+  .header h1 {
+    font-size: 40px;
+  }
+}
 
 .header-add {
   max-width: 1100px;
@@ -1491,6 +1496,7 @@ textarea:focus {
 .board-item {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   background: #f1f1f1;
   padding-left: 10px;
   padding-top: 15px;
@@ -1498,64 +1504,83 @@ textarea:focus {
   margin-bottom: 30px;
 }
 
-.board-item-icon {
-  margin-right: 5px;
-}
-
-.board-item-icon > img {
-  cursor: pointer;
-}
-
 .board-item-content {
   flex: 1;
 }
 
 .board-item-content-title {
-  font-family: "Roboto Slab", sans-serif;
-  font-size: 22px;
+  display: flex;
+  flex-direction: row;
   margin-bottom: 10px;
 }
 
-.board-item-content-title > a {
+.board-item-content-title-icon {
+  margin-right: 5px;
+}
+
+.board-item-content-title-icon > img {
+  cursor: pointer;
+}
+
+.board-item-content-title-body {
+  font-family: "Roboto Slab", sans-serif;
+  font-size: 22px;
+}
+
+.board-item-content-title-body > a {
   color: inherit;
   text-decoration: inherit;
 }
 
-.board-item-content-title > a:hover {
+.board-item-content-title-body > a:hover {
   text-decoration: underline;
   background: inherit;
 }
 
-.board-item-content-description {
+.board-item-content-text {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.board-item-content-text-meta {
   display: flex;
   flex-direction: row;
 }
 
-.board-item-content-description-location {
-  margin-right: 20px;
+.board-item-content-text-meta-location {
   color: #666;
+  white-space: nowrap;
+  margin-left: 35px;
 }
 
-.board-item-content-description-salary {
-  margin-right: 20px;
+.board-item-content-text-meta-salary {
   color: #666;
+  white-space: nowrap;
+  margin-left: 35px;
 }
 
-.board-item-content-description-tags {
+.board-item-content-text-meta-tags {
   display: flex;
   flex-direction: row;
+  margin-left: 35px;
 }
 
-.board-item-content-description-tags-single {
-  margin-right: 20px;
+.board-item-content-text-meta-tags-single {
   color: #666;
+}
+
+.board-item-content-text-meta-tags-single:not(:first-child) {
+  margin-left: 20px;
 }
 
 .board-item-cta {
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  padding-left: 35px;
   padding-right: 40px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .board-item-cta-btn {
