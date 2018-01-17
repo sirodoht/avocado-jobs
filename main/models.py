@@ -14,7 +14,7 @@ class Application(models.Model):
     date_applied = models.DateField(default=timezone.now, null=True, blank=True)
     role = models.CharField(max_length=200)
     company = models.CharField(max_length=200)
-    link = models.CharField(max_length=400, null=True, blank=True)
+    link = models.CharField(max_length=500, null=True, blank=True)
     salary = models.CharField(max_length=100, null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
 
