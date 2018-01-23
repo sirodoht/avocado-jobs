@@ -10,3 +10,4 @@ Faker
 analytics-python
 awscli
 uwsgi
+isort
