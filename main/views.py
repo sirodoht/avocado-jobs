@@ -261,6 +261,21 @@ def get_logout(request):
     return redirect(settings.LOGOUT_REDIRECT_URL)
 
 
+@login_required
+def feedback(request):
+    if request.method == 'POST':
+        body = request.body.decode('utf-8')
+        data = json.loads(body)
+        subject = 'Avocado Feedback from ' + request.user.email
+        send_mail(
+            subject,
+            data['message'],
+            settings.DEFAULT_FROM_EMAIL,
+            [settings.EMAIL_ALERT],
+        )
+        return JsonResponse({})
+
+
 def about(request):
     log_analytic(request)
     return render(request, 'main/about.html')
