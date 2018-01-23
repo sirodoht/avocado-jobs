@@ -13,8 +13,6 @@ cffi==1.11.2              # via argon2-cffi
 chardet==3.0.4            # via requests
 colorama==0.3.7           # via awscli
 dj-database-url==0.4.2
-django-ckeditor==5.4.0
-django-js-asset==0.1.1    # via django-ckeditor
 django==2.0
 docutils==0.14            # via awscli, botocore
 faker==0.8.8

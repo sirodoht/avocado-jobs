@@ -8,6 +8,5 @@ raven
 flake8
 Faker
 analytics-python
-django-ckeditor
 awscli
 uwsgi
