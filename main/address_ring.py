@@ -1,11 +1,12 @@
-import urllib.request
-import json
 import datetime
+import json
+import urllib.request
 
 from django.core.mail import send_mail
 from django.utils import timezone
 
 from avocado import settings
+
 from .models import Address, Listing
 
 

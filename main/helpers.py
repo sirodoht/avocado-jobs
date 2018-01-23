@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 
-from .models import Application, Reminder, Analytic
+from .models import Analytic, Application, Reminder
 
 
 def get_client_ip(request):

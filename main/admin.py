@@ -1,8 +1,8 @@
 from django.contrib import admin
-from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 
-from .models import Application, Reminder, Analytic, Listing, Address, Tag
+from .models import Address, Analytic, Application, Listing, Reminder, Tag
 
 
 # Users

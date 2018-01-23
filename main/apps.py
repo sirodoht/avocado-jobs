@@ -1,7 +1,6 @@
 import os
 
 import analytics
-
 from django.apps import AppConfig
 
 

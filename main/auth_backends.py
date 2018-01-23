@@ -3,7 +3,7 @@ import json
 import time
 
 from django.contrib.auth import get_user_model
-from django.core.signing import Signer, BadSignature
+from django.core.signing import BadSignature, Signer
 
 from avocado import settings
 
