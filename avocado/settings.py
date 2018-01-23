@@ -206,9 +206,3 @@ if not DEBUG:
 RAVEN_CONFIG = {
     'dsn': os.getenv('AVOCADO_SENTRY_DSN'),
 }
-
-
-# Etherscan.io
-# https://etherscan.io/apis
-
-ETHERSCAN_API_KEY = 'WYEAJ2JZIVDGR5YUPSFYGCD1WYUPAQQ1VQ'
