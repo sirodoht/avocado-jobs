@@ -21,6 +21,9 @@ urlpatterns = [
     # /about/
     url(r'^about/$', views.about, name='about'),
 
+    # /feedback/
+    url(r'^feedback/$', views.feedback, name='feedback'),
+
     # /applications/
     url(r'^applications/$', views.applications, name='applications'),
 
