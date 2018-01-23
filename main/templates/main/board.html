@@ -39,7 +39,9 @@
                     <div class="board-item-content-text">
                         <div class="board-item-content-text-meta">
                             <div class="board-item-content-text-meta-location">{{ item.location }}</div>
-                            <div class="board-item-content-text-meta-salary">Salary: {{ item.salary }}</div>
+                            {% if item.salary %}
+                                <div class="board-item-content-text-meta-salary">Salary: {{ item.salary }}</div>
+                            {% endif %}
                         </div>
                         <div class="board-item-content-text-meta">
                             <div class="board-item-content-text-meta-tags">
