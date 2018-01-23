@@ -115,7 +115,7 @@ def applications(request):
             item['date'] = item.pop('date_applied')
         return JsonResponse(applications_list, safe=False)
     else:
-        redirect('main:index')
+        return redirect('main:index')
 
 
 @login_required
@@ -178,7 +178,7 @@ def reminders(request):
             rem['date'] = rem.pop('date_activation').strftime('%Y-%m-%d %H:%M')
         return JsonResponse(reminders_list, safe=False)
     else:
-        redirect('main:index')
+        return redirect('main:index')
 
 
 @login_required
@@ -274,7 +274,8 @@ def feedback(request):
             [settings.EMAIL_ALERT],
         )
         return JsonResponse({})
-
+    else:
+        return redirect('main:index')
 
 def about(request):
     log_analytic(request)
