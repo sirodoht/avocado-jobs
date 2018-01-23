@@ -81,7 +81,7 @@ class Listing(models.Model):
     company_name = models.CharField(max_length=50)
     company_url = models.URLField()
     location = models.CharField(max_length=40)
-    salary = models.CharField(max_length=40)
+    salary = models.CharField(max_length=40, null=True, blank=True)
     application_link = models.CharField(max_length=200)
     transaction_hash = models.CharField(max_length=100, blank=True, null=True)
 
