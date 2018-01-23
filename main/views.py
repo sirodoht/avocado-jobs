@@ -277,9 +277,15 @@ def feedback(request):
     else:
         return redirect('main:index')
 
+
 def about(request):
     log_analytic(request)
     return render(request, 'main/about.html')
+
+
+def blog(request):
+    log_analytic(request)
+    return redirect('https://medium.com/avocado-jobs')
 
 
 def board(request):
