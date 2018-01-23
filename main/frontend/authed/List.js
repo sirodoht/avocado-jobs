@@ -8,6 +8,7 @@ export default class List extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loadOngoing: true,
       applications: [],
       filters: [],
       sortOptions: this.getSortOptions(),
@@ -26,6 +27,7 @@ export default class List extends Component {
         document.getElementById('loading').style.display = 'none';
         this.setState({
           applications: res.data,
+          loadOngoing: false,
         }, () => {
           const sortOptions = this.state.sortOptions;
           this.sortBy(null, sortOptions);
@@ -189,9 +191,14 @@ export default class List extends Component {
           </div>
         }
         <div class="list-body">
-          {this.state.applications.length === 0 &&
+          {!this.state.loadOngoing && this.state.applications.length === 0 &&
             <div class="list-body-empty">
-              You have no applications yet! Click the <code>#f2982c</code> button above to add one.
+              You have no applications yet! Click the <code>#f2982c</code> colored button above to add one.
+            </div>
+          }
+          {this.state.loadOngoing &&
+            <div class="list-body-empty">
+              Fetching your applications...
             </div>
           }
           {this.state.applications.map((item) => (
