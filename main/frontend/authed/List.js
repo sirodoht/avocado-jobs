@@ -43,7 +43,7 @@ export default class List extends Component {
   onDelete(listingId) {
     document.getElementById('loading').style.display = 'block';
     axios.delete(`/applications/${listingId}/`, {
-        headers   : {
+        headers: {
           'X-CSRFToken': getCsrf(),
         }
       })
