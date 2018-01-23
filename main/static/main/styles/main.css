@@ -1050,7 +1050,7 @@ a.nav-links-lite-nonjs:hover {
 }
 
 .list-body {
-  overflow: scroll;
+  overflow-x: scroll;
 }
 
 .list-body-empty {
