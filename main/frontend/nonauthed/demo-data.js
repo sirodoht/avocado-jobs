@@ -1,15 +1,5 @@
 export default [
   {
-    id: 1,
-    role: 'Frontend Developer',
-    company: 'Avocado Jobs',
-    stage: 'scheduled',
-    salary: '$100k',
-    link: 'https://stackoverflow.com/jobs?demo-job-link',
-    notes: 'React.js',
-    date: '2017-11-10',
-  },
-  {
     id: 2,
     role: 'Backend Engineeer',
     company: 'Acme Corporation',
@@ -40,16 +30,6 @@ export default [
     date: '2017-12-19',
   },
   {
-    id: 5,
-    role: 'Backend Engineer',
-    company: 'Zorg Industries',
-    stage: 'initial',
-    salary: '$130k',
-    link: 'https://jobs.github.com/?zorg-industries-job-link',
-    notes: '',
-    date: '2017-12-5',
-  },
-  {
     id: 6,
     role: 'Mobile Engineer',
     company: 'Tyrell Corporation',
@@ -61,7 +41,7 @@ export default [
   },
   {
     id: 7,
-    role: 'Game Engine Software Engineer',
+    role: 'Game Engine Engineer',
     company: 'Gregarious Simulation Systems',
     stage: 'rejected',
     salary: '$120k',
@@ -71,7 +51,7 @@ export default [
   },
   {
     id: 8,
-    role: 'Frontend Engineer',
+    role: 'Frontend Developer',
     company: 'Monsters, Inc.',
     stage: 'await',
     salary: '$112k',
