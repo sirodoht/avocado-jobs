@@ -369,6 +369,54 @@ footer {
   margin-bottom: 5px;
 }
 
+.footer-body-content-feedback {
+  position: relative;
+}
+
+.footer-body-content-feedback-content {
+  position: absolute;
+  width: 400px;
+  bottom: 7px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: left;
+  line-height: 1.3;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 7px;
+}
+
+.footer-body-content-feedback-content svg {
+  float: left;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.footer-body-content-feedback-content > p {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+.footer-body-content-feedback-content > textarea {
+  box-sizing: border-box;
+  width: 100%;
+  margin-right: 5px;
+  font-size: 14px;
+}
+
+.footer-body-content-feedback-content > button {
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+}
+
+.footer-body-content-feedback-content > button:hover {
+  border-color: #aaa;
+}
+
 footer a {
   color: #83bf33;
 }

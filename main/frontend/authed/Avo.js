@@ -1,10 +1,12 @@
 import { h, render, Component } from 'preact';
+import axios from 'axios';
 
 import New from './New';
 import List from './List';
 import NewReminder from './NewReminder';
 import ListReminders from './ListReminders';
 import Loading from './Loading';
+import { getCsrf } from './util';
 
 class Avo extends Component {
   constructor(props) {
@@ -13,11 +15,14 @@ class Avo extends Component {
       addFormSection: false,
       helpVisible: false,
       reminderVisible: false,
+      feedbackVisible: false,
     };
 
     this.toggleAddForm = this.toggleAddForm.bind(this);
     this.toggleReminder = this.toggleReminder.bind(this);
     this.toggleHelp = this.toggleHelp.bind(this);
+    this.toggleFeedback = this.toggleFeedback.bind(this);
+    this.sendFeedback = this.sendFeedback.bind(this);
   }
 
   componentDidMount() {
@@ -30,10 +35,50 @@ class Avo extends Component {
 
   toggleHelp() {
     this.setState((prevState) => {
-      return {
+      const newState = {
         helpVisible: !prevState.helpVisible,
       };
+      if (newState.helpVisible) {
+        newState.feedbackVisible = false;
+      }
+      return newState;
     });
+  }
+
+  toggleFeedback() {
+    this.setState((prevState) => {
+      const newState = {
+        feedbackVisible: !prevState.feedbackVisible,
+      };
+      if (newState.feedbackVisible) {
+        newState.helpVisible = false;
+      }
+      return newState;
+    });
+  }
+
+  sendFeedback() {
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('feedback-button').innerText = 'Sending...';
+    const message = document.getElementById('feedback-message').value;
+    axios.post('/feedback/', {
+      message,
+    }, {
+      headers: {
+        'X-CSRFToken': getCsrf(),
+      }
+    })
+    .then(() => {
+      document.getElementById('feedback-message').value = '';
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('feedback-button').innerText = 'Message sent';
+    })
+    .catch((err) => {
+      document.getElementById('loading').style.display = 'none';
+      console.log('Failed to send feedback :(. Error:', err);
+      throw err;
+    });
+
   }
 
   toggleAddForm() {
@@ -103,6 +148,21 @@ class Avo extends Component {
         <footer>
           <div class="footer-body large">
             <div class="footer-body-content">
+              {this.state.feedbackVisible &&
+                <div class="footer-body-content-feedback" id="feedback">
+                  <div class="footer-body-content-feedback-content">
+                    <p>
+                      Need help? Have feedback?
+                      <svg xmlns="http://www.w3.org/2000/svg" onClick={this.toggleFeedback} width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </p>
+                    <textarea placeholder="Write your message" rows="3" id="feedback-message"></textarea>
+                    <button onClick={this.sendFeedback} id="feedback-button">Send</button>
+                  </div>
+                </div>
+              }
               {this.state.helpVisible &&
                 <div class="footer-body-content-help" id="help">
                   <div class="footer-body-content-help-content">
@@ -126,7 +186,8 @@ class Avo extends Component {
                   </div>
                 </div>
               }
-              <a href="#help" title="Help" onClick={this.toggleHelp}>Help</a>
+              <a href="#feedback" title="Give feedback" onClick={this.toggleFeedback}>Feedback</a>
+              &nbsp;| <a href="#help" title="Help" onClick={this.toggleHelp}>Help</a>
               &nbsp;| <a href="/about/" title="About">About</a>
               &nbsp;| <a href="https://medium.com/avocado-jobs" title="Blog" target="_blank" rel="noopener noreferrer">Blog</a>
               &nbsp;| <a href="mailto:hi@avocadojobs.com" title="Say hi!" target="_blank" rel="noopener noreferrer">Email</a>
