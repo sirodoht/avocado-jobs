@@ -14,7 +14,10 @@ admin.site.register(User, AvoAdmin)
 
 
 # Job applications
-admin.site.register(Application)
+class ApplicationAdmin(admin.ModelAdmin):
+    list_display = ('role', 'company', 'user', 'date_applied', 'link', 'salary', 'notes',)
+
+admin.site.register(Application, ApplicationAdmin)
 
 
 # Analytics
