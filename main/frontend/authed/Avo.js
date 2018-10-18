@@ -115,7 +115,7 @@ class Avo extends Component {
         <div class="nav">
           <div class="nav-header">
             <a href="/" class="nav-header-link">
-              <img class="nav-header-link-icon" src="https://assets.avocadojobs.com/main/android-chrome-192x192.png" alt="logo" />
+              <img class="nav-header-link-icon" src="https://avocadojobs.com/staticfiles/main/android-chrome-192x192.png" alt="logo" />
               <div class="nav-header-link-brand">Avocado Jobs</div>
             </a>
           </div>

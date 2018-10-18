@@ -40,7 +40,7 @@ export default class List extends Component {
         }
 
         <div class="demo-seal">
-          <img src="https://assets.avocadojobs.com/main/images/demo-data.png" alt="demo data" />
+          <img src="https://avocadojobs.com/staticfiles/main/images/demo-data.png" alt="demo data" />
         </div>
 
         <div class="list-body">
