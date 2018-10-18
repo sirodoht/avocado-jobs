@@ -33,6 +33,7 @@ ALLOWED_HOSTS = [
     'avocadojobs.com',
     'aws.avocadojobs.com',
     'avocadojobs.aws.avocadojobs.com',
+    'vultr.avocadojobs.com',
 ]
 
 
