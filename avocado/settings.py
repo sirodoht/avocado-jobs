@@ -31,9 +31,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'avocadojobs.com',
-    'aws.avocadojobs.com',
-    'avocadojobs.aws.avocadojobs.com',
-    'vultr.avocadojobs.com',
+    'avocadojobs.projects.sirodoht.com',
 ]
 
 
